@@ -32,16 +32,16 @@ public class PlayerController : MonoBehaviour
                 _animator.SetBool("isStepBack", true);
             }
             
-            _animator.SetBool("isWalking", true);
-            
             if (Input.GetKey(KeyCode.Space))
             {
                 _animator.SetBool("isRunning", true);
+                _animator.SetBool("isWalking", false);
                 _playerSpeed = 5;
             }
             else
             {
                 _animator.SetBool("isRunning", false);
+                _animator.SetBool("isWalking", true);
                 _playerSpeed = 3;
             }
             
