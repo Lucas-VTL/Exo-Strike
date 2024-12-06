@@ -3,16 +3,26 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public GameObject moveScope;
+    
     private Animator _animator;
     private Rigidbody2D _rigidbody;
     
     private int _playerSpeed;
-    private bool _isColliding = false;
+    private BoxCollider2D _moveScopeCollider;
+    private float _xBoundary;
+    private float _yBoundary;
+    private float _xBoundaryOffset = 0.75f; 
+    private float _yTopBoundaryOffset = 0.75f;
+    private float _yBottomBoundaryOffset = 1.5f;
     
     private void Start()
     {
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody2D>();
+        _moveScopeCollider = moveScope.GetComponent<BoxCollider2D>();
+        _xBoundary = _moveScopeCollider.size.x / 2;
+        _yBoundary = _moveScopeCollider.size.y / 2;
     }
     
     private void FixedUpdate()
@@ -48,25 +58,17 @@ public class PlayerController : MonoBehaviour
                 _animator.SetBool("isWalking", true);
                 _playerSpeed = 4;
             }
-
-            if (!_isColliding)
-            {
-                var move = new Vector2(horizontalMove, verticalMove).normalized;
-                _rigidbody.linearVelocity = move * _playerSpeed;     
-            } 
+            
+            var move = new Vector3(horizontalMove, verticalMove, 0).normalized;
+            _rigidbody.linearVelocity = move * _playerSpeed;
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void Update()
     {
-        if (collision.gameObject.CompareTag("Obstacle"))
-        {
-            _isColliding = true;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        _isColliding = false;
+        var playerPos = transform.position;
+        playerPos.x = Mathf.Clamp(playerPos.x, -_xBoundary + _xBoundaryOffset, _xBoundary - _xBoundaryOffset);
+        playerPos.y = Mathf.Clamp(playerPos.y, -_yBoundary + _yBottomBoundaryOffset, _yBoundary + _yTopBoundaryOffset);
+        transform.position = playerPos;
     }
 }
