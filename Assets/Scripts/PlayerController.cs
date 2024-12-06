@@ -1,20 +1,24 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     private Animator _animator;
-    private int _playerSpeed;
+    private Rigidbody2D _rigidbody;
     
-    void Start()
+    private int _playerSpeed;
+    private bool _isColliding = false;
+    
+    private void Start()
     {
         _animator = GetComponent<Animator>();
+        _rigidbody = GetComponent<Rigidbody2D>();
     }
     
-    void Update()
+    private void FixedUpdate()
     {
         var horizontalMove = Input.GetAxisRaw("Horizontal");
         var verticalMove = Input.GetAxisRaw("Vertical");
-        var move = new Vector3(horizontalMove, verticalMove, 0);
 
         if (horizontalMove == 0 && verticalMove == 0)
         {
@@ -36,16 +40,33 @@ public class PlayerController : MonoBehaviour
             {
                 _animator.SetBool("isRunning", true);
                 _animator.SetBool("isWalking", false);
-                _playerSpeed = 5;
+                _playerSpeed = 7;
             }
             else
             {
                 _animator.SetBool("isRunning", false);
                 _animator.SetBool("isWalking", true);
-                _playerSpeed = 3;
+                _playerSpeed = 4;
             }
-            
-            transform.position += move * (_playerSpeed * Time.deltaTime);
+
+            if (!_isColliding)
+            {
+                var move = new Vector2(horizontalMove, verticalMove).normalized;
+                _rigidbody.linearVelocity = move * _playerSpeed;     
+            } 
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Obstacle"))
+        {
+            _isColliding = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        _isColliding = false;
     }
 }
