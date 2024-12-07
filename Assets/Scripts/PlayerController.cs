@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     
     private int _playerSpeed;
     private BoxCollider2D _moveScopeCollider;
+    
     private float _xBoundary;
     private float _yBoundary;
     private float _xBoundaryOffset = 0.75f; 
@@ -25,6 +26,14 @@ public class PlayerController : MonoBehaviour
         _yBoundary = _moveScopeCollider.size.y / 2;
     }
     
+    private void Update()
+    {
+        var playerPos = transform.position;
+        playerPos.x = Mathf.Clamp(playerPos.x, -_xBoundary + _xBoundaryOffset, _xBoundary - _xBoundaryOffset);
+        playerPos.y = Mathf.Clamp(playerPos.y, -_yBoundary + _yBottomBoundaryOffset, _yBoundary + _yTopBoundaryOffset);
+        transform.position = playerPos;
+    }
+    
     private void FixedUpdate()
     {
         var horizontalMove = Input.GetAxisRaw("Horizontal");
@@ -34,6 +43,7 @@ public class PlayerController : MonoBehaviour
         {
             _animator.SetBool("isWalking", false);
             _animator.SetBool("isRunning", false);
+            _rigidbody.linearVelocity = Vector2.zero;
         }
         else
         {
@@ -58,17 +68,9 @@ public class PlayerController : MonoBehaviour
                 _animator.SetBool("isWalking", true);
                 _playerSpeed = 4;
             }
-            
+                
             var move = new Vector3(horizontalMove, verticalMove, 0).normalized;
             _rigidbody.linearVelocity = move * _playerSpeed;
         }
-    }
-
-    private void Update()
-    {
-        var playerPos = transform.position;
-        playerPos.x = Mathf.Clamp(playerPos.x, -_xBoundary + _xBoundaryOffset, _xBoundary - _xBoundaryOffset);
-        playerPos.y = Mathf.Clamp(playerPos.y, -_yBoundary + _yBottomBoundaryOffset, _yBoundary + _yTopBoundaryOffset);
-        transform.position = playerPos;
     }
 }
