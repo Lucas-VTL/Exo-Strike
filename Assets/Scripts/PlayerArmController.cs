@@ -8,12 +8,12 @@ public class PlayerArmController : MonoBehaviour
     private Camera _mainCamera;
     private float _yOffset = 0.6f;
     
-    void Start()
+    private void Start()
     {
         _mainCamera = Camera.main;
     }
     
-    void Update()
+    private void Update()
     {
         var mousePos = Input.mousePosition;
         mousePos = _mainCamera.ScreenToWorldPoint(mousePos);
