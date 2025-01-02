@@ -15,12 +15,12 @@ public class DynamicCollider : MonoBehaviour
     
     void Update()
     {
-        if (_polygonCollider2D&& _spriteRenderer)
+        if (_polygonCollider2D && _spriteRenderer)
         {
             _polygonCollider2D.pathCount = _spriteRenderer.sprite.GetPhysicsShapeCount();
             for (int i = 0; i < _polygonCollider2D.pathCount; i++)
             {
-                List<Vector2> shape = new List<Vector2>(_spriteRenderer.sprite.GetPhysicsShape(i, new List<Vector2>()));
+                List<Vector2> shape = new List<Vector2>();
                 _spriteRenderer.sprite.GetPhysicsShape(i, shape);
                 _polygonCollider2D.SetPath(i, shape);
             }
