@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour
             _animator.SetBool("isWalking", false);
             _animator.SetBool("isRunning", false);
             _rigidbody.linearVelocity = Vector2.zero;
+            _playerSpeed = 0;
         }
         else
         {
@@ -72,5 +73,10 @@ public class PlayerController : MonoBehaviour
             var move = new Vector3(horizontalMove, verticalMove, 0).normalized;
             _rigidbody.linearVelocity = move * _playerSpeed;
         }
+    }
+
+    public int GetPlayerSpeed()
+    {
+        return _playerSpeed;
     }
 }
