@@ -16,11 +16,17 @@ public class PlayerController : MonoBehaviour
     private float _xBoundaryOffset = 0.75f; 
     private float _yTopBoundaryOffset = 0.75f;
     private float _yBottomBoundaryOffset = 1.5f;
+
+    public GameObject projectile;
+    private Camera _mainCamera;
+    private float _xBulletOffset = 0.4f;
+    private float _yBulletOffset = 1.14f;
     
     private void Start()
     {
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody2D>();
+        _mainCamera = Camera.main;
         _moveScopeCollider = moveScope.GetComponent<BoxCollider2D>();
         _xBoundary = _moveScopeCollider.size.x / 2;
         _yBoundary = _moveScopeCollider.size.y / 2;
@@ -32,6 +38,27 @@ public class PlayerController : MonoBehaviour
         playerPos.x = Mathf.Clamp(playerPos.x, -_xBoundary + _xBoundaryOffset, _xBoundary - _xBoundaryOffset);
         playerPos.y = Mathf.Clamp(playerPos.y, -_yBoundary + _yBottomBoundaryOffset, _yBoundary + _yTopBoundaryOffset);
         transform.position = playerPos;
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            var mousePos = Input.mousePosition;
+            mousePos = _mainCamera.ScreenToWorldPoint(mousePos);
+            mousePos.z = 0;
+        
+            Vector3 direction = (mousePos - transform.position).normalized;
+            var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            angle = Mathf.Repeat(angle, 360f);
+            
+            if (angle <= 60 || angle >= 300)
+            {
+                Vector3 bulletPos = transform.position + new Vector3(_xBulletOffset, _yBulletOffset, 0);
+                Instantiate(projectile, bulletPos, Quaternion.Euler(0, 0, angle));
+            }
+            else if (angle >= 120 && angle <= 240)
+            {
+                Instantiate(projectile, transform.position, Quaternion.Euler(0, 0, angle));
+            }
+        }
     }
     
     private void FixedUpdate()
