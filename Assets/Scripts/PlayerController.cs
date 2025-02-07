@@ -17,10 +17,17 @@ public class PlayerController : MonoBehaviour
     private float _yTopBoundaryOffset = 0.75f;
     private float _yBottomBoundaryOffset = 1.5f;
 
-    public GameObject projectile;
     private Camera _mainCamera;
-    private float _xBulletOffset = 0.4f;
-    private float _yBulletOffset = 1.14f;
+    
+    public GameObject playerArm;
+    private float _xArmOffset = 0.1f;
+    private float _yArmOffset = 0.75f;
+    
+    public GameObject gun;
+    private float _xGunOffset = 0.7f;
+    private float _yGunOffset = 0.05f;
+    
+    public GameObject projectile;
     
     private void Start()
     {
@@ -34,35 +41,13 @@ public class PlayerController : MonoBehaviour
     
     private void Update()
     {
+        //Handle player not go out map boundaries
         var playerPos = transform.position;
         playerPos.x = Mathf.Clamp(playerPos.x, -_xBoundary + _xBoundaryOffset, _xBoundary - _xBoundaryOffset);
         playerPos.y = Mathf.Clamp(playerPos.y, -_yBoundary + _yBottomBoundaryOffset, _yBoundary + _yTopBoundaryOffset);
         transform.position = playerPos;
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            var mousePos = Input.mousePosition;
-            mousePos = _mainCamera.ScreenToWorldPoint(mousePos);
-            mousePos.z = 0;
         
-            Vector3 direction = (mousePos - transform.position).normalized;
-            var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            angle = Mathf.Repeat(angle, 360f);
-            
-            if (angle <= 60 || angle >= 300)
-            {
-                Vector3 bulletPos = transform.position + new Vector3(_xBulletOffset, _yBulletOffset, 0);
-                Instantiate(projectile, bulletPos, Quaternion.Euler(0, 0, angle));
-            }
-            else if (angle >= 120 && angle <= 240)
-            {
-                Instantiate(projectile, transform.position, Quaternion.Euler(0, 0, angle));
-            }
-        }
-    }
-    
-    private void FixedUpdate()
-    {
+        //Handle player movement and animation
         var horizontalMove = Input.GetAxisRaw("Horizontal");
         var verticalMove = Input.GetAxisRaw("Vertical");
 
@@ -100,10 +85,81 @@ public class PlayerController : MonoBehaviour
             var move = new Vector3(horizontalMove, verticalMove, 0).normalized;
             _rigidbody.linearVelocity = move * _playerSpeed;
         }
-    }
+        
+        //Get mouse position and angleByDeg between mouse and main axis
+        var mousePos = Input.mousePosition;
+        mousePos = _mainCamera.ScreenToWorldPoint(mousePos);
+        mousePos.z = 0;
+        
+        Vector3 direction = (mousePos - playerArm.transform.position).normalized;
+        var angleByRad = Mathf.Atan2(direction.y, direction.x);
+        var angleByDeg = angleByRad * Mathf.Rad2Deg;
+        angleByDeg = Mathf.Repeat(angleByDeg, 360f);
+        
+        var gunRadius = Mathf.Sqrt(_xGunOffset * _xGunOffset + _yGunOffset * _yGunOffset);
+        
+        //Handle player rotation from mouse position
+        if (angleByDeg <= 60 || angleByDeg >= 300)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+            playerArm.transform.localScale = new Vector3(1, 1, 1);
+            gun.transform.localScale = new Vector3(1, 1, 1);
 
-    public int GetPlayerSpeed()
-    {
-        return _playerSpeed;
+            playerArm.transform.rotation = Quaternion.Euler(0, 0, angleByDeg);
+            gun.transform.rotation = Quaternion.Euler(0, 0, angleByDeg);
+        }
+        else if (angleByDeg >= 120 && angleByDeg <= 240)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+            playerArm.transform.localScale = new Vector3(-1, 1, 1);
+            gun.transform.localScale = new Vector3(-1, 1, 1);
+            
+            playerArm.transform.rotation = Quaternion.Euler(0, 0, angleByDeg + 180);
+            gun.transform.rotation = Quaternion.Euler(0, 0, angleByDeg + 180);
+        }
+        
+        playerArm.transform.position = transform.position + new Vector3(_xArmOffset, _yArmOffset, 0);
+        if ((angleByDeg <= 60 || angleByDeg >= 300) || (angleByDeg >= 120 && angleByDeg <= 240))
+        {
+            gun.transform.position = playerArm.transform.position + new Vector3(gunRadius * Mathf.Cos(angleByRad), gunRadius * Mathf.Sin(angleByRad), 0);
+        }
+        else
+        {
+            if (angleByDeg >= 60 && angleByDeg <= 120)
+            {
+                if (transform.localScale.x == 1)
+                {
+                    gun.transform.position = playerArm.transform.position + new Vector3(gunRadius * Mathf.Cos(60 * Mathf.Deg2Rad), gunRadius * Mathf.Sin(60 * Mathf.Deg2Rad), 0);
+                }
+                else
+                {
+                    gun.transform.position = playerArm.transform.position + new Vector3(gunRadius * Mathf.Cos(120 * Mathf.Deg2Rad), gunRadius * Mathf.Sin(120 * Mathf.Deg2Rad), 0);
+                }
+            }
+            else if (angleByDeg >= 240 && angleByDeg <= 300)
+            {
+                if (transform.localScale.x == 1)
+                {
+                    gun.transform.position = playerArm.transform.position + new Vector3(gunRadius * Mathf.Cos(300 * Mathf.Deg2Rad), gunRadius * Mathf.Sin(300 * Mathf.Deg2Rad), 0);
+                }
+                else
+                {
+                    gun.transform.position = playerArm.transform.position + new Vector3(gunRadius * Mathf.Cos(240 * Mathf.Deg2Rad), gunRadius * Mathf.Sin(240 * Mathf.Deg2Rad), 0);
+                }
+            }
+        }
+        
+        //Handle player shooting
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (angleByDeg <= 60 || angleByDeg >= 300)
+            {
+                Instantiate(projectile, gun.transform.position, Quaternion.Euler(0, 0, angleByDeg));
+            }
+            else if (angleByDeg >= 120 && angleByDeg <= 240)
+            {
+                Instantiate(projectile, gun.transform.position, Quaternion.Euler(0, 0, angleByDeg));
+            }
+        }
     }
 }

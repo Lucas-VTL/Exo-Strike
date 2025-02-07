@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e804ae9cc1e5ec1439418c97c97feff8
+guid: 95f1266b67146b940ab381ee46eafecc
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8395513825051252296
-    second: Player_Arm_0
+      213: 6879118450950661895
+    second: Gun_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -50,8 +50,8 @@ TextureImporter:
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 9
-  spritePivot: {x: 0.18228129, y: 0.828861}
-  spritePixelsToUnits: 65
+  spritePivot: {x: 0.1562591, y: 0.6926423}
+  spritePixelsToUnits: 900
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -152,13 +152,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player_Arm_0
+      name: Gun_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 2
-        width: 353
-        height: 123
+        x: 9
+        y: 13
+        width: 1242
+        height: 646
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -167,8 +167,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8469f01b75bd28470800000000000000
-      internalID: 8395513825051252296
+      spriteID: 707efb4b8c9877f50800000000000000
+      internalID: 6879118450950661895
       vertices: []
       indices: 
       edges: []
@@ -187,7 +187,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Player_Arm_0: 8395513825051252296
+      Gun_0: 6879118450950661895
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
