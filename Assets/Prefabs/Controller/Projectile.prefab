@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2782645543808958104}
   - component: {fileID: 7883914836627432454}
   - component: {fileID: 3002857210981758788}
+  - component: {fileID: 3347312156222465302}
   m_Layer: 0
   m_Name: Projectile
   m_TagString: Untagged
@@ -28,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 2974607331451938962}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.9, y: 0.26, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.3, y: 1.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -77,7 +78,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 570029541
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: ef0b0c17b3074c14bb0e7f2f2a162120, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -126,7 +127,7 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.8506317, y: 0.4609426}
+    pivot: {x: 0, y: 0.5}
     oldSize: {x: 2.703125, y: 0.28125}
     newSize: {x: 2.703125, y: 0.28125}
     adaptiveTilingThreshold: 0.5
@@ -135,22 +136,50 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.33117363, y: -0.10996081}
-      - {x: 0.38045138, y: -0.08358229}
-      - {x: 0.41501448, y: -0.032534048}
-      - {x: 0.4142687, y: 0.005351229}
-      - {x: 0.40227768, y: 0.06035707}
-      - {x: 0.365401, y: 0.096774265}
-      - {x: 0.31715083, y: 0.12517487}
-      - {x: 0.18731213, y: 0.15282932}
-      - {x: -0.0987201, y: 0.15289104}
-      - {x: -0.30973643, y: 0.13065706}
-      - {x: -0.65102327, y: 0.08259296}
-      - {x: -0.6436292, y: -0.070625894}
-      - {x: -0.6197313, y: -0.07636079}
-      - {x: -0.26735538, y: -0.123661466}
-      - {x: -0.14703244, y: -0.1305535}
-      - {x: 0.22125605, y: -0.12993722}
+    - - {x: 1.6631265, y: -0.078129865}
+      - {x: 1.6795111, y: -0.08593621}
+      - {x: 1.7811332, y: -0.09375798}
+      - {x: 1.8514539, y: -0.10159855}
+      - {x: 1.8822743, y: -0.10937111}
+      - {x: 1.9294302, y: -0.11723231}
+      - {x: 1.9764131, y: -0.12503201}
+      - {x: 2.0308654, y: -0.1327993}
+      - {x: 2.1561706, y: -0.14063543}
+      - {x: 2.5157835, y: -0.14065944}
+      - {x: 2.5782313, y: -0.13280432}
+      - {x: 2.601808, y: -0.12502126}
+      - {x: 2.6251483, y: -0.11719291}
+      - {x: 2.6407626, y: -0.109353766}
+      - {x: 2.6564448, y: -0.10153032}
+      - {x: 2.664195, y: -0.093716875}
+      - {x: 2.6798558, y: -0.08592124}
+      - {x: 2.687677, y: -0.07809799}
+      - {x: 2.695532, y: -0.07028136}
+      - {x: 2.7032, y: -0.054722127}
+      - {x: 2.7038598, y: -0.0055849003}
+      - {x: 2.7035165, y: 0.039098896}
+      - {x: 2.6957042, y: 0.0470367}
+      - {x: 2.6876855, y: 0.062541656}
+      - {x: 2.671971, y: 0.07032662}
+      - {x: 2.664225, y: 0.078137524}
+      - {x: 2.6564488, y: 0.08600871}
+      - {x: 2.6485689, y: 0.09383229}
+      - {x: 2.6330178, y: 0.10165844}
+      - {x: 2.6175458, y: 0.10944479}
+      - {x: 2.5941238, y: 0.11725273}
+      - {x: 2.5469627, y: 0.1250772}
+      - {x: 2.5235798, y: 0.13295096}
+      - {x: 2.484729, y: 0.14074226}
+      - {x: 2.2023723, y: 0.14070247}
+      - {x: 2.124677, y: 0.1328979}
+      - {x: 2.0775733, y: 0.1251558}
+      - {x: 1.9916034, y: 0.11731256}
+      - {x: 1.9364469, y: 0.10946508}
+      - {x: 1.8821287, y: 0.10180177}
+      - {x: 1.8506757, y: 0.09380086}
+      - {x: 1.7883207, y: 0.08603964}
+      - {x: 1.7419022, y: 0.07817389}
+      - {x: 1.6559255, y: 0.07036906}
   m_UseDelaunayMesh: 0
 --- !u!114 &3002857210981758788
 MonoBehaviour:
@@ -164,3 +193,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c8d06e908968144abc499492bc95fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!50 &3347312156222465302
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2974607331451938962}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
