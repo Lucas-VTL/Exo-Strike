@@ -29,9 +29,7 @@ public class PlayerController : MonoBehaviour
     private float _yGunOffset = 0.05f;
 
     public GameObject projectile;
-
     public GameObject projectileHeadLight;
-    public ParticleSystem projectileParticle;
     private float _xHeadGunOffset = 1.2f;
     private float _yHeadGunOffset = 0.015f;
 
