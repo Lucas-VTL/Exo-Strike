@@ -7,7 +7,6 @@ public class PlayerController : MonoBehaviour
     public GameObject moveScope;
 
     private Animator _animator;
-    private Rigidbody2D _rigidbody;
 
     private int _playerSpeed;
     private BoxCollider2D _moveScopeCollider;
@@ -36,7 +35,6 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         _animator = GetComponent<Animator>();
-        _rigidbody = GetComponent<Rigidbody2D>();
         _mainCamera = Camera.main;
         _moveScopeCollider = moveScope.GetComponent<BoxCollider2D>();
         _xBoundary = _moveScopeCollider.size.x / 2;
@@ -59,7 +57,6 @@ public class PlayerController : MonoBehaviour
         {
             _animator.SetBool("isWalking", false);
             _animator.SetBool("isRunning", false);
-            _rigidbody.linearVelocity = Vector2.zero;
             _playerSpeed = 0;
         }
         else
@@ -87,7 +84,7 @@ public class PlayerController : MonoBehaviour
             }
 
             var move = new Vector3(horizontalMove, verticalMove, 0).normalized;
-            _rigidbody.linearVelocity = move * _playerSpeed;
+            transform.Translate(move * (_playerSpeed * Time.deltaTime));
         }
 
         //Get mouse position and angleByDeg between mouse and main axis
