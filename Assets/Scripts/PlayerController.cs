@@ -29,8 +29,8 @@ public class PlayerController : MonoBehaviour
 
     public GameObject projectile;
     public GameObject projectileHeadLight;
-    private float _xHeadGunOffset = 1.2f;
-    private float _yHeadGunOffset = 0.015f;
+    private float _xHeadGunOffset = 1.24f;
+    private float _yHeadGunOffset = 0.05f;
 
     private void Start()
     {
@@ -170,9 +170,19 @@ public class PlayerController : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 Instantiate(projectile, gun.transform.position, Quaternion.Euler(0, 0, angleByDeg));
-                GameObject headLight = Instantiate(projectileHeadLight,
-                    playerArm.transform.position + new Vector3(headGunRadius * Mathf.Cos(angleByRad),
-                        headGunRadius * Mathf.Sin(angleByRad), 0), Quaternion.Euler(0, 0, 0));
+                GameObject headLight = null;
+                if (angleByDeg <= 60 || angleByDeg >= 300)
+                {
+                    headLight = Instantiate(projectileHeadLight,
+                        playerArm.transform.position + new Vector3(headGunRadius * Mathf.Cos(angleByRad),
+                            headGunRadius * Mathf.Sin(angleByRad), 0), Quaternion.Euler(0, 0, 0));
+                }
+                else if (angleByDeg >= 120 && angleByDeg <= 240)
+                {
+                    headLight = Instantiate(projectileHeadLight,
+                        playerArm.transform.position + new Vector3(headGunRadius * Mathf.Cos(angleByRad),
+                            headGunRadius * Mathf.Sin(angleByRad), 0), Quaternion.Euler(0, 0, 180));
+                }
                 StartCoroutine(FollowHeadGun(headLight, headGunRadius));
             }
         }
