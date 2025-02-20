@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4847962481849324629}
   - component: {fileID: 6191244528395206989}
   - component: {fileID: 7515682637580258986}
-  - component: {fileID: 696261318889352234}
   - component: {fileID: 4518707020700117767}
   - component: {fileID: 576227682956037581}
   m_Layer: 0
@@ -144,18 +143,6 @@ MonoBehaviour:
     - rid: 5997358081627914335
       type: {class: ShadowShape2DProvider_Collider2D, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
       data: 
---- !u!114 &696261318889352234
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3115981304043994662}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b519e582c5c4e4343b1497fec673219f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4518707020700117767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -535,6 +522,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4305131117107566137}
+  - component: {fileID: 2223663744520789828}
   m_Layer: 0
   m_Name: Portal
   m_TagString: Untagged
@@ -559,3 +547,15 @@ Transform:
   - {fileID: 4847962481849324629}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2223663744520789828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8192933395210401746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b519e582c5c4e4343b1497fec673219f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

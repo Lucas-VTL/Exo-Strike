@@ -2,27 +2,32 @@ using UnityEngine;
 
 public class PortalController : MonoBehaviour
 {
-    private float _maxSpeed = 300f;
-    private float _totalTime = 3.5f;
-    private float _acceleration;
-    private float _elapseTime = 0f;
+    private float _maxSpeed = 360f;
+    private float _totalSpinningTime = 3.5f;
+    private float _elapseSpinningTime = 0f;
+    
+    private float _destroyTime = 6;
+    
+    private float _totalDownScaleTime;
+    private float _elapseDownScaleTime = 0f;
     
     void Start()
     {
-        _acceleration = _maxSpeed / _totalTime;
+        _totalDownScaleTime = _destroyTime - _totalSpinningTime;
+        Destroy(gameObject, _destroyTime);
     }
     
     void Update()
     {
-        _elapseTime += Time.deltaTime;
-
-        if (_elapseTime <= _totalTime)
+        _elapseSpinningTime += Time.deltaTime;
+        var spinSpeed = Mathf.Lerp(0f, _maxSpeed, _elapseSpinningTime / _totalSpinningTime);
+        transform.Rotate(Vector3.forward, spinSpeed * Time.deltaTime);
+        
+        if (_elapseSpinningTime >= _totalSpinningTime)
         {
-            transform.Rotate(Vector3.forward, _acceleration * _elapseTime * Time.deltaTime);   
-        }
-        else
-        {
-            transform.Rotate(Vector3.forward,  _maxSpeed * Time.deltaTime);
+            _elapseDownScaleTime += Time.deltaTime;
+            var downScaleValue = Mathf.Lerp(1f, 0f, _elapseDownScaleTime / _totalDownScaleTime);
+            transform.localScale =  new Vector3(downScaleValue, downScaleValue, downScaleValue);
         }
     }
 }
