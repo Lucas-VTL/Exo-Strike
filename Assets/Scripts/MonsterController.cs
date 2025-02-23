@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class MonsterController : MonoBehaviour
@@ -12,6 +14,7 @@ public class MonsterController : MonoBehaviour
     
     private GameObject _player;
     private Animator _animator;
+    private Slider _healthSlider;
     
     private Vector3 _oldPosition;
     
@@ -27,11 +30,19 @@ public class MonsterController : MonoBehaviour
     private float _totalReturnTime;
     private bool _isDead = false;
     
+    private Color _startHealthSliderColor = new Color(0f / 255f, 255f / 255f, 72f / 255f);
+    private Color _endHealthSliderColor = new Color(255f / 255f, 20f / 255f, 0f / 255f);
+    
     void Start()
-    {
+    {   
         _player = GameObject.Find("Body");
         _animator = GetComponent<Animator>();
+        _healthSlider = GetComponentInChildren<Slider>();
+        _healthSlider.onValueChanged.AddListener(OnHealthSliderChanged);
+        
         _oldPosition = transform.position;
+        _healthSlider.maxValue = health;
+        _healthSlider.value = health;
     }
     
     void Update()
@@ -146,13 +157,28 @@ public class MonsterController : MonoBehaviour
         if (other.gameObject.CompareTag("Projectile"))
         {
             health -= 1;
+            _healthSlider.value = health;
 
-            if (health == 0)
+            if (health <= 0)
             {
                 _isDead = true;
                 _animator.SetBool("isDead", true);
                 Destroy(gameObject, 0.5f);
             }
         }
+    }
+
+    void OnHealthSliderChanged(float value)
+    {
+        var t = value / _healthSlider.maxValue;
+        var newRed =  Mathf.Lerp(_endHealthSliderColor.r, _startHealthSliderColor.r, t);
+        var newGreen =  Mathf.Lerp(_endHealthSliderColor.g,_startHealthSliderColor.g, t);
+        var newBlue =  Mathf.Lerp(_endHealthSliderColor.b, _startHealthSliderColor.b, t);
+        _healthSlider.fillRect.GetComponent<Image>().color = new Color(newRed, newGreen, newBlue, 1);
+    }
+
+    void OnDestroy()
+    {
+        _healthSlider.onValueChanged.RemoveAllListeners();
     }
 }

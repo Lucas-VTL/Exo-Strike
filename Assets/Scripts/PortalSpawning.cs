@@ -23,7 +23,7 @@ public class PortalSpawning : MonoBehaviour
         
         _waterScopeCollider = waterScope.GetComponents<PolygonCollider2D>();
         
-        InvokeRepeating("SpawnPortal", 0f, 2f);
+        InvokeRepeating("SpawnPortal", 0f, 5f);
     }
     
     void Update()
