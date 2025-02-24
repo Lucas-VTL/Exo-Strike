@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
     public GameObject moveScope;
+    public Slider healthSlider;
+    public Slider staminaSlider;
 
     private Animator _animator;
 
@@ -32,6 +35,11 @@ public class PlayerController : MonoBehaviour
     private float _xHeadGunOffset = 1.24f;
     private float _yHeadGunOffset = 0.05f;
 
+    private int _health = 10;
+    private float _staminaMax = 3f;
+    private float _currentStamina;
+    private float _staminaCooldown = 1f;
+    
     private void Start()
     {
         _animator = GetComponent<Animator>();
@@ -39,6 +47,13 @@ public class PlayerController : MonoBehaviour
         _moveScopeCollider = moveScope.GetComponent<BoxCollider2D>();
         _xBoundary = _moveScopeCollider.size.x / 2;
         _yBoundary = _moveScopeCollider.size.y / 2;
+        
+        healthSlider.maxValue = _health;
+        healthSlider.value = _health;
+        
+        staminaSlider.maxValue = _staminaMax;
+        staminaSlider.value = _staminaMax;
+        _currentStamina = _staminaMax;
     }
 
     private void Update()
@@ -58,6 +73,14 @@ public class PlayerController : MonoBehaviour
             _animator.SetBool("isWalking", false);
             _animator.SetBool("isRunning", false);
             _playerSpeed = 0;
+            
+            _staminaCooldown -= Time.deltaTime;
+            
+            if (_staminaCooldown <= 0)
+            {
+                _currentStamina = Mathf.Clamp(_currentStamina + Time.deltaTime, 0, _staminaMax);
+                staminaSlider.value = _currentStamina;
+            }
         }
         else
         {
@@ -70,17 +93,29 @@ public class PlayerController : MonoBehaviour
                 _animator.SetBool("isStepBack", true);
             }
 
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKey(KeyCode.Space) && _currentStamina > 0)
             {
                 _animator.SetBool("isRunning", true);
                 _animator.SetBool("isWalking", false);
                 _playerSpeed = 7;
+
+                _currentStamina -= Time.deltaTime;
+                _staminaCooldown = 1f;
+                staminaSlider.value = _currentStamina;
             }
             else
             {
                 _animator.SetBool("isRunning", false);
                 _animator.SetBool("isWalking", true);
                 _playerSpeed = 4;
+
+                _staminaCooldown -= Time.deltaTime;
+                
+                if (_staminaCooldown <= 0)
+                {
+                    _currentStamina = Mathf.Clamp(_currentStamina + Time.deltaTime, 0, _staminaMax);
+                    staminaSlider.value = _currentStamina;
+                }
             }
 
             var move = new Vector3(horizontalMove, verticalMove, 0).normalized;
@@ -247,5 +282,21 @@ public class PlayerController : MonoBehaviour
         
         Destroy(origin);
         yield break;
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Monster"))
+        {
+            var damage = other.gameObject.GetComponent<MonsterController>().damage;
+            
+            _health -= damage;
+            healthSlider.value = _health;
+
+            if (_health <= 0)
+            {
+                Debug.Log("Game Over");
+            }
+        }
     }
 }

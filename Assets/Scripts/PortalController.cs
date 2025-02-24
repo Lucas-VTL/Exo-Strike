@@ -17,7 +17,7 @@ public class PortalController : MonoBehaviour
     void Start()
     {
         _totalDownScaleTime = _destroyTime - _totalInitialTime;
-        InvokeRepeating("SpawnMonsters", _totalInitialTime, 1f);
+        InvokeRepeating("SpawnMonsters", _totalInitialTime, 1.5f);
         Destroy(gameObject, _destroyTime);
     }
     
