@@ -25,11 +25,6 @@ public class PortalSpawning : MonoBehaviour
         
         InvokeRepeating("SpawnPortal", 0f, 7f);
     }
-    
-    void Update()
-    {
-
-    }
 
     void SpawnPortal()
     {

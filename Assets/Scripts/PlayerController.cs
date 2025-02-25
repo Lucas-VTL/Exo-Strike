@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public GameObject moveScope;
     public Slider healthSlider;
     public Slider staminaSlider;
+    public GameObject gameOverPanel;
 
     private Animator _animator;
 
@@ -288,14 +289,21 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Monster"))
         {
-            var damage = other.gameObject.GetComponent<MonsterController>().damage;
-            
-            _health -= damage;
-            healthSlider.value = _health;
-
-            if (_health <= 0)
+            if (other.gameObject.GetComponent<MonsterController>().health > 0)
             {
-                Debug.Log("Game Over");
+                var damage = other.gameObject.GetComponent<MonsterController>().damage;
+            
+                _health -= damage;
+                healthSlider.value = _health;
+
+                if (_health <= 0)
+                {
+                    gameObject.SetActive(false);
+                    playerArm.SetActive(false);
+                    gun.SetActive(false);
+                    GameObject.Find("Portal Spawning").GetComponent<PortalSpawning>().CancelInvoke();
+                    gameOverPanel.SetActive(true);
+                }   
             }
         }
     }
