@@ -194,6 +194,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collisionParticle: {fileID: 2059263494901803843, guid: 64fdb76b8cefcb74aa15af38ae3f758b, type: 3}
+  speed: 20
+  maxDistance: 15
 --- !u!50 &3347312156222465302
 Rigidbody2D:
   serializedVersion: 5

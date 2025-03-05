@@ -9,13 +9,16 @@ using Random = UnityEngine.Random;
 public class MonsterController : MonoBehaviour
 {
     public int speed;
-    public int attackRange;
+    public float attackRange;
     public int health;
     public int damage;
+    public bool isMelee;
+    public GameObject monsterProjectile;
     
     private GameObject _player;
     private Animator _animator;
     private Slider _healthSlider;
+    private GameObject _currentMonsterProjectile;
     
     private Vector3 _oldPosition;
     
@@ -31,6 +34,11 @@ public class MonsterController : MonoBehaviour
     private float _totalReturnTime;
     private bool _isDead = false;
     
+    private bool _isAttacking = false;
+    public float attackingTime;
+    private float _attackingTimer = 0;
+    private bool _isLaunchProjectile = false;
+    
     private Color _startHealthSliderColor = new Color(0f / 255f, 255f / 255f, 72f / 255f);
     private Color _endHealthSliderColor = new Color(255f / 255f, 20f / 255f, 0f / 255f);
     
@@ -38,7 +46,7 @@ public class MonsterController : MonoBehaviour
     {   
         _player = GameObject.Find("Body");
 
-        if (_player == null)
+        if (_player == null)    
         {
             Destroy(gameObject);
         }
@@ -61,22 +69,40 @@ public class MonsterController : MonoBehaviour
         else
         {
             if (!_isDead)
-            { 
+            {
+                //Get direction between monster and player
                 var angle = 0f;
+                Vector3 direction = (_player.transform.position - transform.position).normalized;
+                angle =  Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                
+                if (_attackingTimer > 0)
+                {
+                    _attackingTimer -= Time.deltaTime;
+                    return;
+                }
+                else
+                {
+                    _isAttacking = false;
+                    if (!isMelee && !_isLaunchProjectile)
+                    {
+                        _currentMonsterProjectile = Instantiate(monsterProjectile, transform.position, Quaternion.Euler(0, 0, angle));
+                        _currentMonsterProjectile.GetComponent<ProjectileController>().SetDamage(damage);
+                    }
+                    _isLaunchProjectile = true;
+                }
             
                 //Handle object rotation base on movement angle
                 if (!_isReturn)
                 {
-                    Vector3 direction = (_player.transform.position - transform.position).normalized;
-                    angle =  Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                    angle = Mathf.Repeat(angle, 360f);
-                    transform.Translate(direction * (speed * Time.deltaTime));
+                    transform.Translate(direction * (speed * Time.deltaTime));   
                 }
                 else
                 {
-                    angle =  Mathf.Atan2(_returnDirection.y, _returnDirection.x) * Mathf.Rad2Deg;
-                    angle = Mathf.Repeat(angle, 360f);
+                    angle = Mathf.Atan2(_returnDirection.y, _returnDirection.x) * Mathf.Rad2Deg;
                 }
+                
+                angle = Mathf.Repeat(angle, 360f);
+                
                 if (angle <= 90 || angle > 270)
                 {
                     transform.localScale = new Vector3(1, 1, 1);
@@ -95,8 +121,11 @@ public class MonsterController : MonoBehaviour
                     {
                         _animator.SetBool("isAttackable", true);
                         _stuckingTimer = 2;
-                    }
-                    else
+                        _isAttacking = true;
+                        _attackingTimer = attackingTime;
+                        _isLaunchProjectile = false;
+                    } 
+                    else if (!_isAttacking)
                     {
                         _animator.SetBool("isAttackable", false);
                     }
@@ -170,7 +199,9 @@ public class MonsterController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Projectile"))
         {
-            health -= 1;
+            var damage = other.gameObject.GetComponent<ProjectileController>().GetDamage();
+            
+            health -= damage;
             _healthSlider.value = health;
 
             if (health <= 0)

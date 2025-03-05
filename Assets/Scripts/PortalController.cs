@@ -37,7 +37,7 @@ public class PortalController : MonoBehaviour
 
     void SpawnMonsters()
     {
-        var monsterIndex = Random.Range(0, monsters.Count - 1);
+        var monsterIndex = Random.Range(0, monsters.Count);
         Instantiate(monsters[monsterIndex], transform.position, Quaternion.Euler(0f, 0f, 0f));
     }
 }

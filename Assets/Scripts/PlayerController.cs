@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,7 @@ public class PlayerController : MonoBehaviour
     private Animator _animator;
 
     private int _playerSpeed;
+    private int _playerDamage = 1;
     private BoxCollider2D _moveScopeCollider;
 
     private float _xBoundary;
@@ -35,6 +37,7 @@ public class PlayerController : MonoBehaviour
     public GameObject projectileHeadLight;
     private float _xHeadGunOffset = 1.24f;
     private float _yHeadGunOffset = 0.05f;
+    private GameObject _currentProjectile;
 
     private int _health = 10;
     private float _staminaMax = 3f;
@@ -205,7 +208,9 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                Instantiate(projectile, gun.transform.position, Quaternion.Euler(0, 0, angleByDeg));
+                _currentProjectile = Instantiate(projectile, gun.transform.position, Quaternion.Euler(0, 0, angleByDeg));
+                _currentProjectile.GetComponent<ProjectileController>().SetDamage(_playerDamage);
+                
                 GameObject headLight = null;
                 if (angleByDeg <= 60 || angleByDeg >= 300)
                 {
@@ -221,6 +226,15 @@ public class PlayerController : MonoBehaviour
                 }
                 StartCoroutine(FollowHeadGun(headLight, headGunRadius));
             }
+        }
+
+        if (_health >= 0)
+        {
+            healthSlider.value = _health;   
+        }
+        else
+        {
+            EndGameEvent();
         }
     }
     
@@ -285,8 +299,21 @@ public class PlayerController : MonoBehaviour
         yield break;
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    //Handle when player being hit by monster's projectile or monster
+    private void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.gameObject.CompareTag("Monster Projectile"))
+        {
+            var damage = other.gameObject.GetComponent<ProjectileController>().GetDamage();
+            
+            _health -= damage;
+
+            if (_health <= 0)
+            {
+                EndGameEvent();
+            }
+        }
+        
         if (other.gameObject.CompareTag("Monster"))
         {
             if (other.gameObject.GetComponent<MonsterController>().health > 0)
@@ -294,17 +321,33 @@ public class PlayerController : MonoBehaviour
                 var damage = other.gameObject.GetComponent<MonsterController>().damage;
             
                 _health -= damage;
-                healthSlider.value = _health;
 
                 if (_health <= 0)
                 {
-                    gameObject.SetActive(false);
-                    playerArm.SetActive(false);
-                    gun.SetActive(false);
-                    GameObject.Find("Portal Spawning").GetComponent<PortalSpawning>().CancelInvoke();
-                    gameOverPanel.SetActive(true);
+                    EndGameEvent();
                 }   
             }
         }
+    }
+
+    public void SetHealth(int health)
+    {
+        _health = health;
+    }
+
+    public int GetHealth()
+    {
+        return _health;
+    }
+
+    public void EndGameEvent()
+    {
+        staminaSlider.value = 0;
+        healthSlider.value = 0;
+        gameObject.SetActive(false);
+        playerArm.SetActive(false);
+        gun.SetActive(false);
+        GameObject.Find("Portal Spawning").GetComponent<PortalSpawning>().CancelInvoke();
+        gameOverPanel.SetActive(true);
     }
 }

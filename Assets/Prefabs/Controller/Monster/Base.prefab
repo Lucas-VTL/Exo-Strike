@@ -346,9 +346,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  attackRange: 3
+  attackRange: 2.3
   health: 5
   damage: 1
+  isMelee: 1
+  monsterProjectile: {fileID: 0}
+  attackingTime: 0.9
 --- !u!1001 &6831817024398076171
 PrefabInstance:
   m_ObjectHideFlags: 0

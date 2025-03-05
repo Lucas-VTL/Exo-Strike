@@ -7,6 +7,7 @@ TagManager:
   - Obstacle
   - Monster
   - Projectile
+  - Monster Projectile
   layers:
   - Default
   - TransparentFX

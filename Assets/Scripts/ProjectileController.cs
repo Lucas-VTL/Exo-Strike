@@ -5,10 +5,11 @@ using UnityEngine;
 public class ProjectileController : MonoBehaviour
 {
     public GameObject collisionParticle;
+    private int _damage;
     
-    private int _speed = 20;
+    public int speed;
     private Vector3 _initialPosition;
-    private int _maxDistance = 15;
+    public int maxDistance;
     private float _xParticelOffset = 0.75f;
     private float _yParticelOffset = 0f;
     private float _radius;
@@ -23,9 +24,9 @@ public class ProjectileController : MonoBehaviour
 
     void Update()
     {
-        transform.Translate(Vector3.right * (_speed *  Time.deltaTime));
+        transform.Translate(Vector3.right * (speed *  Time.deltaTime));
         var distance = Vector3.Distance(_initialPosition, transform.position);
-        if (distance >= _maxDistance)
+        if (distance >= maxDistance)
         {
             Destroy(gameObject);
         }
@@ -33,11 +34,23 @@ public class ProjectileController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Obstacle") || other.CompareTag("Monster"))
+        if (other.CompareTag("Obstacle") ||
+            (gameObject.CompareTag("Projectile") && other.CompareTag("Monster")) ||
+            (gameObject.CompareTag("Monster Projectile") && other.CompareTag("Player")))
         {
             Destroy(gameObject);
             GameObject particle = Instantiate(collisionParticle, transform.position + new Vector3(_radius * Mathf.Cos(_angle), _radius * Mathf.Sin(_angle), 0), Quaternion.Euler(0,0,0));
             Destroy(particle, 0.8f);
         }
+    }
+
+    public void SetDamage(int damage)
+    {
+        _damage = damage;
+    }
+
+    public int GetDamage()
+    {
+        return _damage;
     }
 }
