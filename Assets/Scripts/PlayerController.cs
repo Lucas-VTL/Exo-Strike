@@ -44,6 +44,9 @@ public class PlayerController : MonoBehaviour
     private float _currentStamina;
     private float _staminaCooldown = 1f;
     
+    private float _invulnerableTime = 1f;
+    private float _invulnerableTimer = 0f;
+    
     private void Start()
     {
         _animator = GetComponent<Animator>();
@@ -62,6 +65,16 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (_invulnerableTimer > 0)
+        {
+            healthSlider.fillRect.GetComponent<Image>().color = Color.gray;
+            _invulnerableTimer -= Time.deltaTime;    
+        }
+        else
+        {
+            healthSlider.fillRect.GetComponent<Image>().color = new Color(197f / 255f, 17f / 255f, 0f, 1f);
+        }
+        
         //Handle player not go out map boundaries
         var playerPos = transform.position;
         playerPos.x = Mathf.Clamp(playerPos.x, -_xBoundary + _xBoundaryOffset, _xBoundary - _xBoundaryOffset);
@@ -299,33 +312,39 @@ public class PlayerController : MonoBehaviour
         yield break;
     }
 
-    //Handle when player being hit by monster's projectile or monster
-    private void OnTriggerEnter2D(Collider2D other)
+    //Handle when player being hit by monster
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Monster Projectile"))
-        {
-            var damage = other.gameObject.GetComponent<ProjectileController>().GetDamage();
-            
-            _health -= damage;
-
-            if (_health <= 0)
-            {
-                EndGameEvent();
-            }
-        }
-        
-        if (other.gameObject.CompareTag("Monster"))
+        if (other.gameObject.CompareTag("Monster") && _invulnerableTimer <= 0)
         {
             if (other.gameObject.GetComponent<MonsterController>().health > 0)
             {
                 var damage = other.gameObject.GetComponent<MonsterController>().damage;
             
                 _health -= damage;
+                _invulnerableTimer = _invulnerableTime;
 
                 if (_health <= 0)
                 {
                     EndGameEvent();
-                }   
+                } 
+            }
+        }
+    }
+
+    //Handle when player being hit by monster's projectile
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Monster Projectile") && _invulnerableTimer <= 0)
+        {
+            var damage = other.gameObject.GetComponent<ProjectileController>().GetDamage();
+            
+            _health -= damage;
+            _invulnerableTimer = _invulnerableTime;
+
+            if (_health <= 0)
+            {
+                EndGameEvent();
             }
         }
     }
@@ -349,5 +368,20 @@ public class PlayerController : MonoBehaviour
         gun.SetActive(false);
         GameObject.Find("Portal Spawning").GetComponent<PortalSpawning>().CancelInvoke();
         gameOverPanel.SetActive(true);
+    }
+
+    public void SetInvulnerableTimer(float invulnerableTime)
+    {
+        _invulnerableTimer = invulnerableTime;
+    }
+
+    public float GetInvulnerableTimer()
+    {
+        return _invulnerableTimer;
+    }
+    
+    public float GetInvulnerableTime()
+    {
+        return _invulnerableTime;
     }
 }

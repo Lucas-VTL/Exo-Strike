@@ -283,6 +283,8 @@ MonoBehaviour:
   health: 4
   damage: 2
   isMelee: 0
+  attackCooldown: 1
+  attackWaitingAngleRange: 80
   monsterProjectile: {fileID: 228984666634666116, guid: 3e7ac2a2ec0da89468d9f35bf8251317, type: 3}
   attackingTime: 1.1
 --- !u!1001 &7750600192722218584
