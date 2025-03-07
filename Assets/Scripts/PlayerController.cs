@@ -319,7 +319,7 @@ public class PlayerController : MonoBehaviour
         {
             if (other.gameObject.GetComponent<MonsterController>().health > 0)
             {
-                var damage = other.gameObject.GetComponent<MonsterController>().damage;
+                var damage = other.gameObject.GetComponent<MonsterController>().hitDamage;
             
                 _health -= damage;
                 _invulnerableTimer = _invulnerableTime;

@@ -11,7 +11,8 @@ public class MonsterController : MonoBehaviour
     public int speed;
     public float attackRange;
     public int health;
-    public int damage;
+    public int hitDamage;
+    public int projectileDamage;
     public bool isMelee;
     public float attackCooldown;
     public float attackWaitingAngleRange;
@@ -221,7 +222,7 @@ public class MonsterController : MonoBehaviour
             if (!isMelee && !_isFinishAttacking)
             {
                 _currentMonsterProjectile = Instantiate(monsterProjectile, transform.position, Quaternion.Euler(0, 0, angle));
-                _currentMonsterProjectile.GetComponent<ProjectileController>().SetDamage(damage);
+                _currentMonsterProjectile.GetComponent<ProjectileController>().SetDamage(projectileDamage);
                 _attackCooldownTimer = attackCooldown;
             }
             _isFinishAttacking = true;

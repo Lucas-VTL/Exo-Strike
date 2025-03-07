@@ -37,7 +37,7 @@ public class ArmAndGunController : MonoBehaviour
         {
             if (other.gameObject.GetComponent<MonsterController>().health > 0)
             {
-                var damage = other.gameObject.GetComponent<MonsterController>().damage;
+                var damage = other.gameObject.GetComponent<MonsterController>().hitDamage;
             
                 var health = _player.gameObject.GetComponent<PlayerController>().GetHealth();
                 health -= damage;

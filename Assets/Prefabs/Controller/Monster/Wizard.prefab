@@ -281,7 +281,8 @@ MonoBehaviour:
   speed: 4
   attackRange: 10
   health: 4
-  damage: 2
+  hitDamage: 1
+  projectileDamage: 2
   isMelee: 0
   attackCooldown: 1
   attackWaitingAngleRange: 80
