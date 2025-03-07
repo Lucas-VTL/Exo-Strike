@@ -221,8 +221,16 @@ public class MonsterController : MonoBehaviour
         {
             if (!isMelee && !_isFinishAttacking)
             {
-                _currentMonsterProjectile = Instantiate(monsterProjectile, transform.position, Quaternion.Euler(0, 0, angle));
-                _currentMonsterProjectile.GetComponent<ProjectileController>().SetDamage(projectileDamage);
+                if (monsterProjectile.tag == "Monster Projectile")
+                {
+                    _currentMonsterProjectile = Instantiate(monsterProjectile, transform.position, Quaternion.Euler(0, 0, angle));
+                    _currentMonsterProjectile.GetComponent<ProjectileController>().SetDamage(projectileDamage);   
+                }
+                else
+                {
+                    Instantiate(monsterProjectile, transform.position, Quaternion.Euler(0, 0, angle));    
+                }
+                
                 _attackCooldownTimer = attackCooldown;
             }
             _isFinishAttacking = true;
