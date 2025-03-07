@@ -8,6 +8,7 @@ using Random = UnityEngine.Random;
 
 public class MonsterController : MonoBehaviour
 {
+    public int monsterID;
     public int speed;
     public float attackRange;
     public int health;
@@ -17,6 +18,15 @@ public class MonsterController : MonoBehaviour
     public float attackCooldown;
     public float attackWaitingAngleRange;
     public GameObject monsterProjectile;
+    public GameObject grave;
+    
+    private bool _isSurviveable = false;
+    private BoxCollider2D _moveScopeCollider;
+    private float _xBoundary;
+    private float _yBoundary;
+    public float xBoundaryOffset;
+    public float yTopBoundaryOffset;
+    public float yBottomBoundaryOffset;
     
     private GameObject _player;
     private Animator _animator;
@@ -63,6 +73,11 @@ public class MonsterController : MonoBehaviour
         _oldPosition = transform.position;
         _healthSlider.maxValue = health;
         _healthSlider.value = health;
+        
+        var moveScope = GameObject.Find("Move Boundary");
+        _moveScopeCollider = moveScope.GetComponent<BoxCollider2D>();
+        _xBoundary = _moveScopeCollider.size.x / 2;
+        _yBoundary = _moveScopeCollider.size.y / 2;
     }
     
     void Update()
@@ -111,9 +126,22 @@ public class MonsterController : MonoBehaviour
 
             if (health <= 0)
             {
-                _isDead = true;
-                _animator.SetBool("isDead", true);
-                Destroy(gameObject, 1f);
+                if (_isSurviveable)
+                {
+                    Invoke("CreateGrave", 1f);
+                }
+
+                if (_animator != null)
+                {
+                    _isDead = true;
+                    _animator.SetBool("isDead", true);
+                    Destroy(gameObject, 1f);    
+                }
+                else
+                {
+                    _isDead = true;
+                    Destroy(gameObject, 0f);
+                }
             }
         }
     }
@@ -228,17 +256,17 @@ public class MonsterController : MonoBehaviour
                 }
                 else
                 {
-                    Instantiate(monsterProjectile, transform.position, Quaternion.Euler(0, 0, angle));    
+                    Instantiate(monsterProjectile, transform.position, Quaternion.Euler(0, 0, angle));
                 }
-                
+
                 _attackCooldownTimer = attackCooldown;
             }
 
             if (isMelee && !_isFinishAttacking)
             {
-                _attackCooldownTimer = attackCooldown;
+                _attackCooldownTimer = attackCooldown;                
             }
-            
+
             _isFinishAttacking = true;
         }
 
@@ -261,6 +289,11 @@ public class MonsterController : MonoBehaviour
                 targetDirection.x * Mathf.Sin(_attackWaitingAngle) + targetDirection.y * Mathf.Cos(_attackWaitingAngle), 
                 0).normalized;
                     
+            var monsterPos = transform.position;
+            monsterPos.x = Mathf.Clamp(monsterPos.x, -_xBoundary + xBoundaryOffset, _xBoundary - xBoundaryOffset);
+            monsterPos.y = Mathf.Clamp(monsterPos.y, -_yBoundary + yBottomBoundaryOffset, _yBoundary + yTopBoundaryOffset);
+            transform.position = monsterPos;
+            
             _animator.SetBool("isAttackable", false);
             transform.Translate(moveDirection * (speed * Time.deltaTime));
             
@@ -292,17 +325,20 @@ public class MonsterController : MonoBehaviour
     //Handle object animation base on attack range
     void AnimationHandling()
     {
-        var distance = Vector3.Distance(_player.transform.position, transform.position);
-        if ((distance <= attackRange) && (_attackCooldownTimer <= 0) && (_attackingTimer <= 0))
+        if (_animator != null)
         {
-            _animator.SetBool("isAttackable", true);
-            _stuckingTimer = 2;
-            _attackingTimer = attackingTime;
-            _isFinishAttacking = false;
-        } 
-        else
-        {
-            _animator.SetBool("isAttackable", false);
+            var distance = Vector3.Distance(_player.transform.position, transform.position);
+            if ((distance <= attackRange) && (_attackCooldownTimer <= 0) && (_attackingTimer <= 0))
+            {
+                _animator.SetBool("isAttackable", true);
+                _stuckingTimer = 2;
+                _attackingTimer = attackingTime;
+                _isFinishAttacking = false;
+            } 
+            else
+            {
+                _animator.SetBool("isAttackable", false);
+            }   
         }
     }
 
@@ -318,5 +354,21 @@ public class MonsterController : MonoBehaviour
     void OnDestroy()
     {
         _healthSlider.onValueChanged.RemoveAllListeners();
+    }
+
+    void CreateGrave()
+    {
+        var newGrave = Instantiate(grave, transform.position, Quaternion.Euler(0, 0, 0));
+        newGrave.gameObject.GetComponent<MonsterController>().monsterID = monsterID;
+    }
+
+    public void SetIsSurviveable(bool isSurviveable)
+    {
+        _isSurviveable = isSurviveable;
+    }
+
+    public GameObject GetGrave()
+    {
+        return grave;
     }
 }

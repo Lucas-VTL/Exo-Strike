@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    public GameObject moveScope;
     public Slider healthSlider;
     public Slider staminaSlider;
     public GameObject gameOverPanel;
@@ -51,6 +50,8 @@ public class PlayerController : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _mainCamera = Camera.main;
+
+        var moveScope = GameObject.Find("Move Boundary");
         _moveScopeCollider = moveScope.GetComponent<BoxCollider2D>();
         _xBoundary = _moveScopeCollider.size.x / 2;
         _yBoundary = _moveScopeCollider.size.y / 2;
@@ -317,7 +318,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Monster") && _invulnerableTimer <= 0)
         {
-            if (other.gameObject.GetComponent<MonsterController>().health > 0)
+            if (other.gameObject.GetComponent<MonsterController>().health > 0 && other.gameObject.GetComponent<MonsterController>().hitDamage > 0)
             {
                 var damage = other.gameObject.GetComponent<MonsterController>().hitDamage;
             
@@ -337,14 +338,17 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Monster Projectile") && _invulnerableTimer <= 0)
         {
-            var damage = other.gameObject.GetComponent<ProjectileController>().GetDamage();
-            
-            _health -= damage;
-            _invulnerableTimer = _invulnerableTime;
-
-            if (_health <= 0)
+            if (other.gameObject.GetComponent<ProjectileController>().GetDamage() > 0)
             {
-                EndGameEvent();
+                var damage = other.gameObject.GetComponent<ProjectileController>().GetDamage();
+                
+                _health -= damage;
+                _invulnerableTimer = _invulnerableTime;
+
+                if (_health <= 0)
+                {
+                    EndGameEvent();
+                }   
             }
         }
     }
