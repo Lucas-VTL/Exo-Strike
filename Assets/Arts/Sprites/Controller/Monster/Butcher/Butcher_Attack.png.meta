@@ -1,0 +1,487 @@
+fileFormatVersion: 2
+guid: 697e8c09c4ff961438e1c72c2f687694
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8707940930749566213
+    second: Butcher_Attack_0
+  - first:
+      213: 4275355811237783597
+    second: Butcher_Attack_1
+  - first:
+      213: -1995396294050019824
+    second: Butcher_Attack_2
+  - first:
+      213: -5000761113602718753
+    second: Butcher_Attack_3
+  - first:
+      213: -4848195071545991820
+    second: Butcher_Attack_4
+  - first:
+      213: 5034510180681703867
+    second: Butcher_Attack_5
+  - first:
+      213: 4318156601667370222
+    second: Butcher_Attack_6
+  - first:
+      213: 5498123095456565906
+    second: Butcher_Attack_7
+  - first:
+      213: 6293506864737549879
+    second: Butcher_Attack_8
+  - first:
+      213: -5019653431013088217
+    second: Butcher_Attack_9
+  - first:
+      213: -2648059300802696070
+    second: Butcher_Attack_10
+  - first:
+      213: 2103285684980239683
+    second: Butcher_Attack_11
+  - first:
+      213: 6381206352994671479
+    second: Butcher_Attack_12
+  - first:
+      213: 6182840355055106500
+    second: Butcher_Attack_13
+  - first:
+      213: 3903670639035499773
+    second: Butcher_Attack_14
+  - first:
+      213: -295462748984014596
+    second: Butcher_Attack_15
+  - first:
+      213: 4592695229249175389
+    second: Butcher_Attack_16
+  - first:
+      213: -1363291463998479676
+    second: Butcher_Attack_17
+  - first:
+      213: -2851778897080403721
+    second: Butcher_Attack_18
+  - first:
+      213: 4401014535440204866
+    second: Butcher_Attack_19
+  - first:
+      213: 7893126515658108898
+    second: Butcher_Attack_20
+  - first:
+      213: -3718658521961845364
+    second: Butcher_Attack_21
+  - first:
+      213: -2864401704963733374
+    second: Butcher_Attack_22
+  - first:
+      213: -81720137254196997
+    second: Butcher_Attack_23
+  - first:
+      213: 4158755739157325404
+    second: Butcher_Attack_24
+  - first:
+      213: 813119317106094100
+    second: Butcher_Attack_25
+  - first:
+      213: -5934781657322244807
+    second: Butcher_Attack_26
+  - first:
+      213: 3246271305562447508
+    second: Butcher_Attack_27
+  - first:
+      213: -5140263860607950875
+    second: Butcher_Attack_28
+  - first:
+      213: -3526398455747381930
+    second: Butcher_Attack_29
+  - first:
+      213: 3820144488076900015
+    second: Butcher_Attack_30
+  - first:
+      213: 5235764144418182493
+    second: Butcher_Attack_31
+  - first:
+      213: -4892218108355384799
+    second: Butcher_Attack_32
+  - first:
+      213: -8601936216262539883
+    second: Butcher_Attack_33
+  - first:
+      213: 6567700803655005440
+    second: Butcher_Attack_34
+  - first:
+      213: -2685700447319949303
+    second: Butcher_Attack_35
+  - first:
+      213: 4034117133822681905
+    second: Butcher_Attack_36
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 15
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Butcher_Attack_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 140
+        height: 93
+      alignment: 9
+      pivot: {x: 0.25, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf276913cdd272780800000000000000
+      internalID: -8707940930749566213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Butcher_Attack_1
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 0
+        width: 140
+        height: 93
+      alignment: 9
+      pivot: {x: 0.25, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d28ea31657d155b30800000000000000
+      internalID: 4275355811237783597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Butcher_Attack_2
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 0
+        width: 140
+        height: 93
+      alignment: 9
+      pivot: {x: 0.25, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 016840384adee44e0800000000000000
+      internalID: -1995396294050019824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Butcher_Attack_3
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 0
+        width: 140
+        height: 93
+      alignment: 9
+      pivot: {x: 0.25, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd38f19234ab99ab0800000000000000
+      internalID: -5000761113602718753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Butcher_Attack_4
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 0
+        width: 140
+        height: 93
+      alignment: 9
+      pivot: {x: 0.25, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47d93bee440c7bcb0800000000000000
+      internalID: -4848195071545991820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Butcher_Attack_5
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 0
+        width: 140
+        height: 93
+      alignment: 9
+      pivot: {x: 0.25, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb1ee99d55c2ed540800000000000000
+      internalID: 5034510180681703867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Butcher_Attack_6
+      rect:
+        serializedVersion: 2
+        x: 839
+        y: 0
+        width: 140
+        height: 93
+      alignment: 9
+      pivot: {x: 0.25, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eec34e6fc8c2deb30800000000000000
+      internalID: 4318156601667370222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Butcher_Attack_7
+      rect:
+        serializedVersion: 2
+        x: 980
+        y: 0
+        width: 140
+        height: 93
+      alignment: 9
+      pivot: {x: 0.25, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29a4f0433d14d4c40800000000000000
+      internalID: 5498123095456565906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Butcher_Attack_8
+      rect:
+        serializedVersion: 2
+        x: 1120
+        y: 0
+        width: 140
+        height: 93
+      alignment: 9
+      pivot: {x: 0.25, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73ef9282627075750800000000000000
+      internalID: 6293506864737549879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 9f7a623cfd19c684eb7422a75a4446d5
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Butcher_Attack_0: -8707940930749566213
+      Butcher_Attack_1: 4275355811237783597
+      Butcher_Attack_2: -1995396294050019824
+      Butcher_Attack_3: -5000761113602718753
+      Butcher_Attack_4: -4848195071545991820
+      Butcher_Attack_5: 5034510180681703867
+      Butcher_Attack_6: 4318156601667370222
+      Butcher_Attack_7: 5498123095456565906
+      Butcher_Attack_8: 6293506864737549879
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

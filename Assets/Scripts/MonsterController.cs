@@ -233,6 +233,12 @@ public class MonsterController : MonoBehaviour
                 
                 _attackCooldownTimer = attackCooldown;
             }
+
+            if (isMelee && !_isFinishAttacking)
+            {
+                _attackCooldownTimer = attackCooldown;
+            }
+            
             _isFinishAttacking = true;
         }
 
