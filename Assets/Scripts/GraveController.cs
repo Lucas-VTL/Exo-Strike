@@ -32,7 +32,11 @@ public class GraveController : MonoBehaviour
             var id = gameObject.GetComponent<MonsterController>().monsterID;
             var monster = Instantiate(portal.gameObject.GetComponent<PortalController>().monsters[id], transform.position, Quaternion.Euler(0f, 0f, 0f));
             monster.gameObject.GetComponent<MonsterController>().SetIsReviveMonster(true);
-            Destroy(gameObject);
+
+            if (gameObject)
+            {
+                Destroy(gameObject);   
+            }
         }
     }
     
@@ -43,5 +47,10 @@ public class GraveController : MonoBehaviour
         var newGreen =  Mathf.Lerp(_endSliderColor.g,_startSliderColor.g, t);
         var newBlue =  Mathf.Lerp(_endSliderColor.b, _startSliderColor.b, t);
         _progressSlider.fillRect.GetComponent<Image>().color = new Color(newRed, newGreen, newBlue, 1);
+    }
+    
+    void OnDestroy()
+    {
+        _progressSlider.onValueChanged.RemoveAllListeners();
     }
 }

@@ -36,8 +36,9 @@ public class MonsterController : MonoBehaviour
     private GameObject _currentMonsterProjectile;
     
     private Vector3 _oldPosition;
-    
-    private float _stuckingTimer = 2;
+
+    private float _stuckingTime = 1.5f;
+    private float _stuckingTimer;
     private bool _alreadyStuck = false;
     
     private bool _isReturn = false;
@@ -81,6 +82,8 @@ public class MonsterController : MonoBehaviour
         _moveScopeCollider = moveScope.GetComponent<BoxCollider2D>();
         _xBoundary = _moveScopeCollider.size.x / 2;
         _yBoundary = _moveScopeCollider.size.y / 2;
+        
+        _stuckingTimer = _stuckingTime;
     }
     
     void Update()
@@ -144,38 +147,44 @@ public class MonsterController : MonoBehaviour
                 else
                 {
                     ReturnHandling();
-                }   
+                }
             }
         }
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Projectile"))
+        if (other.gameObject != null)
         {
-            var damage = other.gameObject.GetComponent<ProjectileController>().GetDamage();
-            
-            health -= damage;
-            _healthSlider.value = health;
-
-            if (health <= 0)
+            if (other.gameObject.CompareTag("Projectile"))
             {
-                if (_animator)
+                var damage = other.gameObject.GetComponent<ProjectileController>().GetDamage();
+        
+                health -= damage;
+                _healthSlider.value = health;
+        
+                if (health <= 0)
                 {
-                    _isDead = true;
-                    _animator.SetBool("isDead", true);
-                    
-                    if (_isReviveable)
+                    if (_animator)
                     {
-                        Invoke("CreateGrave", 1f);
+                        _isDead = true;
+                        _animator.SetBool("isDead", true);
+                
+                        if (_isReviveable)
+                        {
+                            Invoke("CreateGrave", 1f);
+                        }
+                
+                        Destroy(gameObject, 1f);
                     }
-                    
-                    Destroy(gameObject, 1f);    
-                }
-                else
-                {
-                    _isDead = true;
-                    Destroy(gameObject, 0f);
+                    else
+                    {
+                        _isDead = true;
+                        if (gameObject)
+                        {
+                            Destroy(gameObject);   
+                        }
+                    }
                 }
             }
         }
@@ -246,7 +255,7 @@ public class MonsterController : MonoBehaviour
             {
                 //Non stucking case
                 _oldPosition = currentPosition;
-                _stuckingTimer = 2;
+                _stuckingTimer = _stuckingTime;
                 _alreadyStuck = false;
                 _increaseReturnTime = 0f;
             }
@@ -265,7 +274,7 @@ public class MonsterController : MonoBehaviour
             //Stop returning period and reset data for new loop
             _isReturn = false;
                         
-            _stuckingTimer = 2;
+            _stuckingTimer = _stuckingTime;
             Vector3 currentPosition = transform.position;
             _oldPosition = currentPosition;
         }
@@ -274,6 +283,8 @@ public class MonsterController : MonoBehaviour
             //Returning direction to escape stucking for _returnTimer seconds
             transform.Translate(_returnDirection * (speed * Time.deltaTime));
             _totalReturnTime -= Time.deltaTime;
+            
+            KeepMonsterOnMap();
         }
     }
 
@@ -323,36 +334,31 @@ public class MonsterController : MonoBehaviour
             
             _attackCooldownTimer -= Time.deltaTime;
             
-            Vector3 targetDirection = _player.transform.position - transform.position;
+            if (!_isReturn)
+            {
+                StuckingHandling();
+                Vector3 targetDirection = _player.transform.position - transform.position;
             
-            var moveDirection = new Vector3(
-                targetDirection.x * Mathf.Cos(_attackWaitingAngle) - targetDirection.y * Mathf.Sin(_attackWaitingAngle), 
-                targetDirection.x * Mathf.Sin(_attackWaitingAngle) + targetDirection.y * Mathf.Cos(_attackWaitingAngle), 
-                0).normalized;
+                var moveDirection = new Vector3(
+                    targetDirection.x * Mathf.Cos(_attackWaitingAngle) - targetDirection.y * Mathf.Sin(_attackWaitingAngle), 
+                    targetDirection.x * Mathf.Sin(_attackWaitingAngle) + targetDirection.y * Mathf.Cos(_attackWaitingAngle), 
+                    0).normalized;
                     
-            var monsterPos = transform.position;
-            monsterPos.x = Mathf.Clamp(monsterPos.x, -_xBoundary + xBoundaryOffset, _xBoundary - xBoundaryOffset);
-            monsterPos.y = Mathf.Clamp(monsterPos.y, -_yBoundary + yBottomBoundaryOffset, _yBoundary + yTopBoundaryOffset);
-            transform.position = monsterPos;
+                KeepMonsterOnMap();
             
-            _animator.SetBool("isAttackable", false);
-            transform.Translate(moveDirection * (speed * Time.deltaTime));
+                _animator.SetBool("isAttackable", false);
+                transform.Translate(moveDirection * (speed * Time.deltaTime));
+            }
+            else
+            {
+                ReturnHandling();
+                _attackWaitingAngle = -_attackWaitingAngle;
+            }   
             
             var newAngle = 0f;
             Vector3 direction = (_player.transform.position - transform.position).normalized;
             newAngle =  Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                    
-            newAngle = Mathf.Repeat(newAngle, 360f);
-                
-            if (newAngle <= 90 || newAngle > 270)
-            {
-                transform.localScale = new Vector3(1, 1, 1);
-            }
-            else if (newAngle > 90 && newAngle <= 270)
-            {
-                transform.localScale = new Vector3(-1, 1, 1);
-            }
-            
+            DirectionHandling(newAngle);
             return false;
         }
         else
@@ -372,7 +378,7 @@ public class MonsterController : MonoBehaviour
             if ((distance <= attackRange) && (_attackCooldownTimer <= 0) && (_attackingTimer <= 0))
             {
                 _animator.SetBool("isAttackable", true);
-                _stuckingTimer = 2;
+                _stuckingTimer = _stuckingTime;
                 _attackingTimer = attackingTime;
                 _isFinishAttacking = false;
             } 
@@ -390,6 +396,14 @@ public class MonsterController : MonoBehaviour
         var newGreen =  Mathf.Lerp(_endHealthSliderColor.g,_startHealthSliderColor.g, t);
         var newBlue =  Mathf.Lerp(_endHealthSliderColor.b, _startHealthSliderColor.b, t);
         _healthSlider.fillRect.GetComponent<Image>().color = new Color(newRed, newGreen, newBlue, 1);
+    }
+
+    void KeepMonsterOnMap()
+    {
+        var monsterPos = transform.position;
+        monsterPos.x = Mathf.Clamp(monsterPos.x, -_xBoundary + xBoundaryOffset, _xBoundary - xBoundaryOffset);
+        monsterPos.y = Mathf.Clamp(monsterPos.y, -_yBoundary + yBottomBoundaryOffset, _yBoundary + yTopBoundaryOffset);
+        transform.position = monsterPos;
     }
 
     void OnDestroy()

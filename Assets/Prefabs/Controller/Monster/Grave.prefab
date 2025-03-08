@@ -213,8 +213,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -1.56}
-  m_SizeDelta: {x: 100, y: 20}
+  m_AnchoredPosition: {x: 0.03, y: -1.37}
+  m_SizeDelta: {x: 120, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &604364492298680176
 MonoBehaviour:
@@ -465,7 +465,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 10}
+  m_SizeDelta: {x: 0, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5166660891022311424
 GameObject:
@@ -480,10 +480,8 @@ GameObject:
   - component: {fileID: 6065846569178437036}
   - component: {fileID: 8344315335143430742}
   - component: {fileID: 2192584371199957304}
-  - component: {fileID: 1478508204823098423}
-  - component: {fileID: 1825904774465607816}
-  - component: {fileID: 5924709788188545237}
   - component: {fileID: 554741995789140146}
+  - component: {fileID: 6459607487066126924}
   m_Layer: 0
   m_Name: Grave
   m_TagString: Monster
@@ -590,15 +588,15 @@ MonoBehaviour:
   - {x: 1.9499998, y: -1.4, z: 0}
   m_ShapePathHash: 0
   m_InstanceId: 0
-  m_ShadowShape2DComponent: {fileID: 0}
+  m_ShadowShape2DComponent: {fileID: 6459607487066126924}
   m_ShadowShape2DProvider:
-    rid: 4960414983484080298
+    rid: 4960415018023911887
   m_ShadowCastingSource: 2
   m_ShadowMesh:
     m_Mesh: {fileID: 0}
     m_LocalBounds:
-      m_Center: {x: 0.040000916, y: -0.04499817, z: 0}
-      m_Extent: {x: 1.159996, y: 0.8950043, z: 0}
+      m_Center: {x: -0.05731964, y: 0.010566711, z: 0}
+      m_Extent: {x: 1.3351212, y: 1.217247, z: 0}
     m_EdgeProcessing: 1
     m_TrimEdge: 0.03
     m_FlipX: 0
@@ -608,11 +606,11 @@ MonoBehaviour:
   m_PreviousTrimEdge: 0.03
   m_PreviousEdgeProcessing: 1
   m_PreviousShadowCastingSource: 2
-  m_PreviousShadowShape2DSource: {fileID: 0}
+  m_PreviousShadowShape2DSource: {fileID: 6459607487066126924}
   references:
     version: 2
     RefIds:
-    - rid: 4960414983484080298
+    - rid: 4960415018023911887
       type: {class: ShadowShape2DProvider_Collider2D, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
       data: 
 --- !u!50 &8344315335143430742
@@ -654,7 +652,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6daaca6630d08f142b0ffa79cf7384ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterID: 0
+  monsterID: -1
   speed: 0
   attackRange: 0
   health: 2
@@ -662,138 +660,14 @@ MonoBehaviour:
   projectileDamage: 0
   isMelee: 1
   attackCooldown: 0
+  reviveTime: 0
   attackWaitingAngleRange: 0
   monsterProjectile: {fileID: 0}
   grave: {fileID: 0}
+  xBoundaryOffset: 0
+  yTopBoundaryOffset: 0
+  yBottomBoundaryOffset: 0
   attackingTime: 0
---- !u!61 &1478508204823098423
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5166660891022311424}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: -0.025253057, y: -0.051541567}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.571429, y: 4}
-    newSize: {x: 3.9, y: 2.8}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 1.6916509, y: 1.596798}
-  m_EdgeRadius: 0
---- !u!61 &1825904774465607816
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5166660891022311424}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: -0.05747032, y: -1.1109775}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.571429, y: 4}
-    newSize: {x: 3.9, y: 2.8}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 2.751995, y: 0.5219948}
-  m_EdgeRadius: 0
---- !u!58 &5924709788188545237
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5166660891022311424}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: -0.01, y: 0.45}
-  m_Radius: 0.85
 --- !u!114 &554741995789140146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -808,6 +682,64 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   portal: {fileID: 8192933395210401746, guid: 81b9a54d8f0e2e3419fbff2c14001300, type: 3}
   maxProgressTime: 2
+--- !u!60 &6459607487066126924
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5166660891022311424}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 5, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5.571429, y: 4}
+    newSize: {x: 3.9, y: 2.8}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -4.624121, y: 1.2579007}
+      - {x: -4.232929, y: 0.94799626}
+      - {x: -4.1812563, y: 0.7503664}
+      - {x: -4.1892447, y: -0.82633543}
+      - {x: -3.6919503, y: -0.82101434}
+      - {x: -3.695192, y: -1.2348931}
+      - {x: -6.4204087, y: -1.2366883}
+      - {x: -6.422572, y: -0.8038358}
+      - {x: -5.9075413, y: -0.78165483}
+      - {x: -5.8764687, y: 0.7519248}
+      - {x: -5.42933, y: 1.2513198}
+  m_UseDelaunayMesh: 0
 --- !u!1 &6820299181984949328
 GameObject:
   m_ObjectHideFlags: 0

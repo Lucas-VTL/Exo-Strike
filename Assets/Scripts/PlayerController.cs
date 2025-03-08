@@ -43,8 +43,9 @@ public class PlayerController : MonoBehaviour
     private float _currentStamina;
     private float _staminaCooldown = 1f;
     
-    private float _invulnerableTime = 1f;
+    private float _invulnerableTime = 2f;
     private float _invulnerableTimer = 0f;
+    private Transform _invulnerableShield;
     
     private void Start()
     {
@@ -62,6 +63,8 @@ public class PlayerController : MonoBehaviour
         staminaSlider.maxValue = _staminaMax;
         staminaSlider.value = _staminaMax;
         _currentStamina = _staminaMax;
+        
+        _invulnerableShield = transform.GetChild(0);
     }
 
     private void Update()
@@ -69,11 +72,14 @@ public class PlayerController : MonoBehaviour
         if (_invulnerableTimer > 0)
         {
             healthSlider.fillRect.GetComponent<Image>().color = Color.gray;
-            _invulnerableTimer -= Time.deltaTime;    
+            _invulnerableTimer -= Time.deltaTime;
+            
+            _invulnerableShield.gameObject.SetActive(true);
         }
         else
         {
             healthSlider.fillRect.GetComponent<Image>().color = new Color(197f / 255f, 17f / 255f, 0f, 1f);
+            _invulnerableShield.gameObject.SetActive(false);
         }
         
         //Handle player not go out map boundaries
@@ -240,15 +246,8 @@ public class PlayerController : MonoBehaviour
                 }
                 StartCoroutine(FollowHeadGun(headLight, headGunRadius));
             }
-        }
-
-        if (_health >= 0)
-        {
-            healthSlider.value = _health;   
-        }
-        else
-        {
-            EndGameEvent();
+            
+            healthSlider.value = _health;
         }
     }
     
@@ -316,19 +315,22 @@ public class PlayerController : MonoBehaviour
     //Handle when player being hit by monster
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Monster") && _invulnerableTimer <= 0)
+        if (other.gameObject != null && other.gameObject.GetComponent<PolygonCollider2D>() != null)
         {
-            if (other.gameObject.GetComponent<MonsterController>().health > 0 && other.gameObject.GetComponent<MonsterController>().hitDamage > 0)
+            if (other.gameObject.CompareTag("Monster") && _invulnerableTimer <= 0)
             {
-                var damage = other.gameObject.GetComponent<MonsterController>().hitDamage;
-            
-                _health -= damage;
-                _invulnerableTimer = _invulnerableTime;
-
-                if (_health <= 0)
+                if (other.gameObject.GetComponent<MonsterController>().health > 0 && other.gameObject.GetComponent<MonsterController>().hitDamage > 0)
                 {
-                    EndGameEvent();
-                } 
+                    var damage = other.gameObject.GetComponent<MonsterController>().hitDamage;
+        
+                    _health -= damage;
+                    _invulnerableTimer = _invulnerableTime;
+
+                    if (_health <= 0)
+                    {
+                        EndGameEvent();
+                    } 
+                }
             }
         }
     }

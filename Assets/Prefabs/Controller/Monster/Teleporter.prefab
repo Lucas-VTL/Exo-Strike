@@ -305,12 +305,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterID: 2
   speed: 3
-  attackRange: 15
+  attackRange: 10
   health: 3
   hitDamage: 1
   projectileDamage: 0
   isMelee: 0
-  attackCooldown: 10
+  attackCooldown: 15
   reviveTime: 1.4
   attackWaitingAngleRange: 110
   monsterProjectile: {fileID: 8192933395210401746, guid: 81b9a54d8f0e2e3419fbff2c14001300, type: 3}
