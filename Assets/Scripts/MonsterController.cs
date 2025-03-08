@@ -99,6 +99,15 @@ public class MonsterController : MonoBehaviour
                 angle =  Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                 DirectionHandling(angle);
                 
+                if (_isReviveable)
+                {
+                    var starAura = transform.GetChild(1);
+                    if (starAura)
+                    {
+                        starAura.gameObject.SetActive(true);
+                    } 
+                }
+                
                 if (_animator)
                 {
                     if (_isReviveMonster)
