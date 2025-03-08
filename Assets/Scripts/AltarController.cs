@@ -19,7 +19,7 @@ public class AltarController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Monster") && other.gameObject.GetComponent<MonsterController>().GetGrave() != null)
         {
-            other.gameObject.GetComponent<MonsterController>().SetIsSurviveable(true);
+            other.gameObject.GetComponent<MonsterController>().SetIsReviveable(true);
             other.gameObject.GetComponent<SpriteRenderer>().color = gameObject.GetComponent<SpriteRenderer>().color;
         }
     }

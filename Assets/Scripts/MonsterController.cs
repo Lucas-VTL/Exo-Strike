@@ -16,11 +16,13 @@ public class MonsterController : MonoBehaviour
     public int projectileDamage;
     public bool isMelee;
     public float attackCooldown;
+    public float reviveTime;
     public float attackWaitingAngleRange;
     public GameObject monsterProjectile;
     public GameObject grave;
     
-    private bool _isSurviveable = false;
+    private bool _isReviveable = false;
+    private bool _isReviveMonster = false;
     private BoxCollider2D _moveScopeCollider;
     private float _xBoundary;
     private float _yBoundary;
@@ -53,6 +55,7 @@ public class MonsterController : MonoBehaviour
     private float _attackCooldownTimer = 0f;
     private float _attackWaitingAngle;
     private bool _isAttackWaitingAngleExist = false;
+    private float _reviveTimer = 0f;
     
     private Color _startHealthSliderColor = new Color(0f / 255f, 255f / 255f, 72f / 255f);
     private Color _endHealthSliderColor = new Color(255f / 255f, 20f / 255f, 0f / 255f);
@@ -94,11 +97,33 @@ public class MonsterController : MonoBehaviour
                 var angle = 0f;
                 Vector3 direction = (_player.transform.position - transform.position).normalized;
                 angle =  Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                DirectionHandling(angle);
+                
+                if (_animator)
+                {
+                    if (_isReviveMonster)
+                    {
+                        _animator.SetBool("isRevive", true);
+                        _isReviveMonster = false;
+                        _reviveTimer = reviveTime;
+                    }
+                    else
+                    {
+                        _animator.SetBool("isRevive", false);
+                    }   
+                }
+                
+                if (_reviveTimer > 0)
+                {
+                    _reviveTimer -= Time.deltaTime;
+                    return;
+                }
                 
                 if (!AttackHandling(angle))
                 {
                     return;
                 }
+                
                 MovementHandling(direction, angle);
                 
                 //Handle object behavior
@@ -126,15 +151,16 @@ public class MonsterController : MonoBehaviour
 
             if (health <= 0)
             {
-                if (_isSurviveable)
-                {
-                    Invoke("CreateGrave", 1f);
-                }
-
-                if (_animator != null)
+                if (_animator)
                 {
                     _isDead = true;
                     _animator.SetBool("isDead", true);
+                    
+                    if (_isReviveable)
+                    {
+                        Invoke("CreateGrave", 1f);
+                    }
+                    
                     Destroy(gameObject, 1f);    
                 }
                 else
@@ -158,6 +184,12 @@ public class MonsterController : MonoBehaviour
             angle = Mathf.Atan2(_returnDirection.y, _returnDirection.x) * Mathf.Rad2Deg;
         }
                 
+        DirectionHandling(angle);
+    }
+    
+    //Handle object local scale base on player position
+    void DirectionHandling(float angle)
+    {
         angle = Mathf.Repeat(angle, 360f);
                 
         if (angle <= 90 || angle > 270)
@@ -325,7 +357,7 @@ public class MonsterController : MonoBehaviour
     //Handle object animation base on attack range
     void AnimationHandling()
     {
-        if (_animator != null)
+        if (_animator)
         {
             var distance = Vector3.Distance(_player.transform.position, transform.position);
             if ((distance <= attackRange) && (_attackCooldownTimer <= 0) && (_attackingTimer <= 0))
@@ -362,9 +394,14 @@ public class MonsterController : MonoBehaviour
         newGrave.gameObject.GetComponent<MonsterController>().monsterID = monsterID;
     }
 
-    public void SetIsSurviveable(bool isSurviveable)
+    public void SetIsReviveable(bool isSurviveable)
     {
-        _isSurviveable = isSurviveable;
+        _isReviveable = isSurviveable;
+    }
+
+    public void SetIsReviveMonster(bool isSurviveMonster)
+    {
+        _isReviveMonster = isSurviveMonster;
     }
 
     public GameObject GetGrave()

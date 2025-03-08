@@ -27,10 +27,11 @@ public class GraveController : MonoBehaviour
     {
         _progressSlider.value += Time.deltaTime;
 
-        if (_progressSlider.value >= maxProgressTime)
+        if (_progressSlider.value >= maxProgressTime)   
         {
             var id = gameObject.GetComponent<MonsterController>().monsterID;
-            Instantiate(portal.gameObject.GetComponent<PortalController>().monsters[id], transform.position, Quaternion.Euler(0f, 0f, 0f));
+            var monster = Instantiate(portal.gameObject.GetComponent<PortalController>().monsters[id], transform.position, Quaternion.Euler(0f, 0f, 0f));
+            monster.gameObject.GetComponent<MonsterController>().SetIsReviveMonster(true);
             Destroy(gameObject);
         }
     }

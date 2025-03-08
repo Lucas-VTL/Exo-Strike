@@ -82,7 +82,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 570029541
   m_SortingLayer: 1
-  m_SortingOrder: 3
+  m_SortingOrder: 2
   m_Sprite: {fileID: -7688414943969568305, guid: 0ddafc9f602abed478b06a43aaa67e7a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -286,13 +286,14 @@ MonoBehaviour:
   projectileDamage: 2
   isMelee: 0
   attackCooldown: 1
+  reviveTime: 1.6
   attackWaitingAngleRange: 80
   monsterProjectile: {fileID: 228984666634666116, guid: 3e7ac2a2ec0da89468d9f35bf8251317, type: 3}
   grave: {fileID: 5166660891022311424, guid: b99a2f2cfa73f7f419a85f9020bba889, type: 3}
   xBoundaryOffset: 1.25
   yTopBoundaryOffset: 1.5
   yBottomBoundaryOffset: 1.5
-  attackingTime: 1.1
+  attackingTime: 0.9
 --- !u!1001 &7750600192722218584
 PrefabInstance:
   m_ObjectHideFlags: 0

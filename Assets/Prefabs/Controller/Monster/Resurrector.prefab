@@ -287,6 +287,7 @@ MonoBehaviour:
   projectileDamage: 0
   isMelee: 0
   attackCooldown: 10
+  reviveTime: 1.8
   attackWaitingAngleRange: 130
   monsterProjectile: {fileID: 7029542248271462956, guid: 41506ca7d41040b4ea4f22566f601104, type: 3}
   grave: {fileID: 5166660891022311424, guid: b99a2f2cfa73f7f419a85f9020bba889, type: 3}
