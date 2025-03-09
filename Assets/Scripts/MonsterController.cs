@@ -100,7 +100,6 @@ public class MonsterController : MonoBehaviour
                 var angle = 0f;
                 Vector3 direction = (_player.transform.position - transform.position).normalized;
                 angle =  Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                DirectionHandling(angle);
                 
                 if (_isReviveable)
                 {
@@ -348,17 +347,19 @@ public class MonsterController : MonoBehaviour
             
                 _animator.SetBool("isAttackable", false);
                 transform.Translate(moveDirection * (speed * Time.deltaTime));
+                
+                var moveAngle =  Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;;
+                DirectionHandling(moveAngle);
             }
             else
             {
                 ReturnHandling();
                 _attackWaitingAngle = -_attackWaitingAngle;
+                
+                var moveAngle = Mathf.Atan2(_returnDirection.y, _returnDirection.x) * Mathf.Rad2Deg;
+                DirectionHandling(moveAngle);
             }   
             
-            var newAngle = 0f;
-            Vector3 direction = (_player.transform.position - transform.position).normalized;
-            newAngle =  Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            DirectionHandling(newAngle);
             return false;
         }
         else
