@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -18,11 +19,30 @@ public class SystemController : MonoBehaviour
         StartCoroutine(LoadingScence("Menu"));
     }
 
+    public void QuitGame()
+    {
+        StartCoroutine(LoadingScence(""));
+    }
+
     IEnumerator LoadingScence(string sceneName)
     {
         transition.SetTrigger("isStartLoading");
         yield return new WaitForSeconds(_transitionTime);
-        SceneManager.LoadScene(sceneName);
+        if (sceneName.Length > 0)
+        {
+            SceneManager.LoadScene(sceneName);   
+        }
+        else
+        {
+            if (Application.isEditor)
+            {
+                EditorApplication.isPlaying = false;  
+            }
+            else
+            {
+                Application.Quit();     
+            }   
+        }
         transition.SetTrigger("isEndLoading");
         yield return new WaitForSeconds(_transitionTime);
     }   
