@@ -8,9 +8,14 @@ public class SystemController : MonoBehaviour
     public Animator transition;
     private float _transitionTime = 1f;
     
-    public void RestartGame()
+    public void PlayGame()
     {
         StartCoroutine(LoadingScence("Main Scene"));
+    }
+
+    public void BackToMenu()
+    {
+        StartCoroutine(LoadingScence("Menu"));
     }
 
     IEnumerator LoadingScence(string sceneName)
@@ -20,5 +25,5 @@ public class SystemController : MonoBehaviour
         SceneManager.LoadScene(sceneName);
         transition.SetTrigger("isEndLoading");
         yield return new WaitForSeconds(_transitionTime);
-    }
+    }   
 }
