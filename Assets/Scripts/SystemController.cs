@@ -17,15 +17,8 @@ public class SystemController : MonoBehaviour
     {
         transition.SetTrigger("isStartLoading");
         yield return new WaitForSeconds(_transitionTime);
-        SceneManager.LoadSceneAsync(sceneName);
+        SceneManager.LoadScene(sceneName);
         transition.SetTrigger("isEndLoading");
-    }
-
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            StartCoroutine(LoadingScence("Main Scene"));
-        }
+        yield return new WaitForSeconds(_transitionTime);
     }
 }
