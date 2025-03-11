@@ -50,9 +50,15 @@ public class PlayerController : MonoBehaviour
     private bool _canFire;
     private int _bulletStorage = 30;
     private int _bullet;
+    
+    public float reloadTime = 2f;
+    private float _reloadTimer;
+    private bool _isReload;
+    
     public event Action<int> OnBulletChange;
     public event Action<bool> OnShootAngleChange;
     public event Action<Sprite> OnProjectileChange;
+    public event Action<bool> OnReload; 
     
     private void Start()
     {
@@ -73,6 +79,8 @@ public class PlayerController : MonoBehaviour
         
         _invulnerableShield = transform.GetChild(0);
         _bullet = _bulletStorage;
+        _isReload = false;
+        
         OnBulletChange?.Invoke(_bullet);
     }
 
@@ -233,38 +241,65 @@ public class PlayerController : MonoBehaviour
         }
 
         //Handle player shooting
-        if ((angleByDeg <= 60 || angleByDeg >= 300) || (angleByDeg >= 120 && angleByDeg <= 240))
+        if (_reloadTimer > 0)
         {
-            OnShootAngleChange(true);
-            _canFire = true;
-            
-            if (Input.GetMouseButtonDown(0))
-            {
-                _currentProjectile = Instantiate(projectile, gun.transform.position, Quaternion.Euler(0, 0, angleByDeg));
-                _currentProjectile.GetComponent<ProjectileController>().SetDamage(_playerDamage);
-                
-                GameObject headLight = null;
-                if (angleByDeg <= 60 || angleByDeg >= 300)
-                {
-                    headLight = Instantiate(projectileHeadLight,
-                        playerArm.transform.position + new Vector3(headGunRadius * Mathf.Cos(angleByRad),
-                            headGunRadius * Mathf.Sin(angleByRad), 0), Quaternion.Euler(0, 0, 0));
-                    BulletChange();
-                }
-                else if (angleByDeg >= 120 && angleByDeg <= 240)
-                {
-                    headLight = Instantiate(projectileHeadLight,
-                        playerArm.transform.position + new Vector3(headGunRadius * Mathf.Cos(angleByRad),
-                            headGunRadius * Mathf.Sin(angleByRad), 0), Quaternion.Euler(0, 0, 180));
-                    BulletChange();
-                }
-                StartCoroutine(FollowHeadGun(headLight, headGunRadius));
-            }
-        } 
+            _reloadTimer -= Time.deltaTime;
+            return;
+        }
         else
         {
-            OnShootAngleChange(false);
-            _canFire = false;
+            if (_isReload)
+            {
+                Reload(false);
+                OnBulletChange?.Invoke(_bulletStorage);
+                _isReload = false;
+            }
+            
+            if ((angleByDeg <= 60 || angleByDeg >= 300) || (angleByDeg >= 120 && angleByDeg <= 240))
+            {
+                OnShootAngleChange(true);
+                _canFire = true;
+            
+                if (Input.GetMouseButtonDown(0))
+                {
+                    _currentProjectile = Instantiate(projectile, gun.transform.position, Quaternion.Euler(0, 0, angleByDeg));
+                    _currentProjectile.GetComponent<ProjectileController>().SetDamage(_playerDamage);
+                
+                    GameObject headLight = null;
+                    if (angleByDeg <= 60 || angleByDeg >= 300)
+                    {
+                        headLight = Instantiate(projectileHeadLight,
+                            playerArm.transform.position + new Vector3(headGunRadius * Mathf.Cos(angleByRad),
+                                headGunRadius * Mathf.Sin(angleByRad), 0), Quaternion.Euler(0, 0, 0));
+                        BulletChange();
+                    }
+                    else if (angleByDeg >= 120 && angleByDeg <= 240)
+                    {
+                        headLight = Instantiate(projectileHeadLight,
+                            playerArm.transform.position + new Vector3(headGunRadius * Mathf.Cos(angleByRad),
+                                headGunRadius * Mathf.Sin(angleByRad), 0), Quaternion.Euler(0, 0, 180));
+                        BulletChange();
+                    }
+                    StartCoroutine(FollowHeadGun(headLight, headGunRadius));
+                }
+            } 
+            else
+            {
+                OnShootAngleChange(false);
+                _canFire = false;
+            }   
+        }
+        
+        //Handle player manual reloading
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            if (_bullet < _bulletStorage)
+            {
+                _bullet = _bulletStorage;
+                Reload(true);
+                _reloadTimer = reloadTime;
+                _isReload = true;   
+            }
         }
         
         healthSlider.value = _health;
@@ -391,6 +426,7 @@ public class PlayerController : MonoBehaviour
         gameObject.SetActive(false);
         playerArm.SetActive(false);
         gun.SetActive(false);
+        projectileHeadLight.SetActive(false);
         GameObject.Find("Portal Spawning").GetComponent<PortalSpawning>().CancelInvoke();
         gameOverPanel.SetActive(true);
     }
@@ -420,6 +456,11 @@ public class PlayerController : MonoBehaviour
         return _bullet;
     }
 
+    public float GetReloadTime()
+    {
+        return reloadTime;
+    }
+
     public void SetProjectile(GameObject newProjectile)
     {
         if (projectile.name != newProjectile.name)
@@ -434,6 +475,13 @@ public class PlayerController : MonoBehaviour
         if (_bullet > 0)
         {
             _bullet--;
+
+            if (_bullet == 0)
+            {
+                Reload(true);
+                _reloadTimer = reloadTime;
+                _isReload = true;
+            }
         }
         else
         {
@@ -449,5 +497,10 @@ public class PlayerController : MonoBehaviour
         {
             OnShootAngleChange?.Invoke(_canFire);
         }
+    }
+
+    public void Reload(bool isReload)
+    {
+        OnReload?.Invoke(isReload);
     }
 }

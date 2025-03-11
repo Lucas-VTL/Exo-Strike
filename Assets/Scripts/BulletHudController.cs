@@ -23,8 +23,11 @@ public class BulletHudController : MonoBehaviour
 
     private void OnDisable()
     {
-        _player.gameObject.GetComponent<PlayerController>().OnProjectileChange -= ProjectileUIControl;
-        _player.gameObject.GetComponent<PlayerController>().OnBulletChange -= BulletUIControl;
+        if (_player)
+        {
+            _player.gameObject.GetComponent<PlayerController>().OnProjectileChange -= ProjectileUIControl;
+            _player.gameObject.GetComponent<PlayerController>().OnBulletChange -= BulletUIControl;   
+        }
     }
 
     private void ProjectileUIControl(Sprite projectileSprite)
