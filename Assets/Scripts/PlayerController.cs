@@ -46,6 +46,8 @@ public class PlayerController : MonoBehaviour
     private float _invulnerableTime = 2f;
     private float _invulnerableTimer = 0f;
     private Transform _invulnerableShield;
+
+    private bool _canFire;
     
     private void Start()
     {
@@ -226,6 +228,7 @@ public class PlayerController : MonoBehaviour
         //Handle player shooting
         if ((angleByDeg <= 60 || angleByDeg >= 300) || (angleByDeg >= 120 && angleByDeg <= 240))
         {
+            _canFire = true;
             if (Input.GetMouseButtonDown(0))
             {
                 _currentProjectile = Instantiate(projectile, gun.transform.position, Quaternion.Euler(0, 0, angleByDeg));
@@ -248,6 +251,10 @@ public class PlayerController : MonoBehaviour
             }
             
             healthSlider.value = _health;
+        }
+        else
+        {
+            _canFire = false;
         }
     }
     
@@ -389,5 +396,10 @@ public class PlayerController : MonoBehaviour
     public float GetInvulnerableTime()
     {
         return _invulnerableTime;
+    }
+
+    public bool GetCanFire()
+    {
+        return _canFire;
     }
 }

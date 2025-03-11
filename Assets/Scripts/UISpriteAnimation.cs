@@ -18,7 +18,7 @@ public class UISpriteAnimation : MonoBehaviour
     {
         _isDone = false;
         StartCoroutine(Func_PlayAnimUI());
-    }
+    }   
     
     IEnumerator Func_PlayAnimUI()
     {
