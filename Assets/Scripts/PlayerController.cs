@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     public Slider healthSlider;
     public Slider staminaSlider;
     public GameObject gameOverPanel;
-
+    
     private Animator _animator;
 
     private int _playerSpeed;
@@ -48,6 +48,11 @@ public class PlayerController : MonoBehaviour
     private Transform _invulnerableShield;
 
     private bool _canFire;
+    private int _bulletStorage = 30;
+    private int _bullet;
+    public event Action<int> OnBulletChange;
+    public event Action<bool> OnShootAngleChange;
+    public event Action<Sprite> OnProjectileChange;
     
     private void Start()
     {
@@ -67,6 +72,8 @@ public class PlayerController : MonoBehaviour
         _currentStamina = _staminaMax;
         
         _invulnerableShield = transform.GetChild(0);
+        _bullet = _bulletStorage;
+        OnBulletChange?.Invoke(_bullet);
     }
 
     private void Update()
@@ -228,7 +235,9 @@ public class PlayerController : MonoBehaviour
         //Handle player shooting
         if ((angleByDeg <= 60 || angleByDeg >= 300) || (angleByDeg >= 120 && angleByDeg <= 240))
         {
+            OnShootAngleChange(true);
             _canFire = true;
+            
             if (Input.GetMouseButtonDown(0))
             {
                 _currentProjectile = Instantiate(projectile, gun.transform.position, Quaternion.Euler(0, 0, angleByDeg));
@@ -240,22 +249,25 @@ public class PlayerController : MonoBehaviour
                     headLight = Instantiate(projectileHeadLight,
                         playerArm.transform.position + new Vector3(headGunRadius * Mathf.Cos(angleByRad),
                             headGunRadius * Mathf.Sin(angleByRad), 0), Quaternion.Euler(0, 0, 0));
+                    BulletChange();
                 }
                 else if (angleByDeg >= 120 && angleByDeg <= 240)
                 {
                     headLight = Instantiate(projectileHeadLight,
                         playerArm.transform.position + new Vector3(headGunRadius * Mathf.Cos(angleByRad),
                             headGunRadius * Mathf.Sin(angleByRad), 0), Quaternion.Euler(0, 0, 180));
+                    BulletChange();
                 }
                 StartCoroutine(FollowHeadGun(headLight, headGunRadius));
             }
-            
-            healthSlider.value = _health;
-        }
+        } 
         else
         {
+            OnShootAngleChange(false);
             _canFire = false;
         }
+        
+        healthSlider.value = _health;
     }
     
     IEnumerator FollowHeadGun(GameObject origin, float radius)
@@ -398,8 +410,44 @@ public class PlayerController : MonoBehaviour
         return _invulnerableTime;
     }
 
-    public bool GetCanFire()
+    public void SetBulletStorage(int bulletStorage)
     {
-        return _canFire;
+        _bulletStorage = bulletStorage;
+    }
+
+    public int GetBullet()
+    {
+        return _bullet;
+    }
+
+    public void SetProjectile(GameObject newProjectile)
+    {
+        if (projectile.name != newProjectile.name)
+        {
+            projectile = newProjectile;
+            OnProjectileChange?.Invoke(projectile.gameObject.GetComponent<SpriteRenderer>().sprite);
+        }
+    }
+
+    public void BulletChange()
+    {
+        if (_bullet > 0)
+        {
+            _bullet--;
+        }
+        else
+        {
+            _bullet = _bulletStorage;
+        }
+        
+        OnBulletChange?.Invoke(_bullet);
+    }
+
+    public void ShootAngleChange(bool canFire)
+    {
+        if (_canFire != canFire)
+        {
+            OnShootAngleChange?.Invoke(_canFire);
+        }
     }
 }
