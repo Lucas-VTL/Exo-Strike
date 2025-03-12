@@ -304,17 +304,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsterID: 2
-  speed: 3
+  speed: 4
   attackRange: 10
   health: 3
   hitDamage: 1
   projectileDamage: 0
   isMelee: 0
-  attackCooldown: 15
+  attackCooldown: 12
   reviveTime: 1.4
   attackWaitingAngleRange: 110
   monsterProjectile: {fileID: 8192933395210401746, guid: 81b9a54d8f0e2e3419fbff2c14001300, type: 3}
   grave: {fileID: 5166660891022311424, guid: b99a2f2cfa73f7f419a85f9020bba889, type: 3}
+  score: 3
   xBoundaryOffset: 1.5
   yTopBoundaryOffset: 1
   yBottomBoundaryOffset: 1.5

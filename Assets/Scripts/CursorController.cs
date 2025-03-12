@@ -4,11 +4,11 @@ using UnityEngine.UI;
 
 public class CursorController : MonoBehaviour
 {
+    public GameObject player;
     public Texture2D fireCursorTexture;
     public Texture2D prohibitCussorTexture;
     public Slider reloadCursor;
     
-    private GameObject _player;
     private Vector2 _cursorHotSpot;
     private CursorMode _cursorMode = CursorMode.ForceSoftware;
     private bool _isReloading = false;
@@ -21,24 +21,28 @@ public class CursorController : MonoBehaviour
 
     private void OnEnable()
     {
-        _player = GameObject.Find("Body");
         _cursorHotSpot = new Vector2(fireCursorTexture.width / 2, fireCursorTexture.height / 2);
         _sliderRectTransform = reloadCursor.GetComponent<RectTransform>();
+
+        if (player)
+        {
+            _reloadTime = player.gameObject.GetComponent<PlayerController>().GetReloadTime();
+        
+            player.gameObject.GetComponent<PlayerController>().OnShootAngleChange += CursorUIControll;
+            player.gameObject.GetComponent<PlayerController>().OnReload += CursorReloadControl;   
+        }
+        
         reloadCursor.gameObject.SetActive(false);
-        _reloadTime = _player.gameObject.GetComponent<PlayerController>().GetReloadTime();
         reloadCursor.maxValue = _reloadTime;
         reloadCursor.onValueChanged.AddListener(OnSliderChanged);
-        
-        _player.gameObject.GetComponent<PlayerController>().OnShootAngleChange += CursorUIControll;
-        _player.gameObject.GetComponent<PlayerController>().OnReload += CursorReloadControl;
     }
 
     private void OnDisable()
     {
-        if (_player)
+        if (player)
         {
-            _player.gameObject.GetComponent<PlayerController>().OnShootAngleChange -= CursorUIControll;
-            _player.gameObject.GetComponent<PlayerController>().OnReload -= CursorReloadControl;
+            player.gameObject.GetComponent<PlayerController>().OnShootAngleChange -= CursorUIControll;
+            player.gameObject.GetComponent<PlayerController>().OnReload -= CursorReloadControl;
         }
     }
 

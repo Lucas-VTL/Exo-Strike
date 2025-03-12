@@ -20,6 +20,7 @@ public class MonsterController : MonoBehaviour
     public float attackWaitingAngleRange;
     public GameObject monsterProjectile;
     public GameObject grave;
+    public int score;
     
     private bool _isReviveable = false;
     private bool _isReviveMonster = false;
@@ -155,7 +156,7 @@ public class MonsterController : MonoBehaviour
     {
         if (other.gameObject != null)
         {
-            if (other.gameObject.CompareTag("Projectile"))
+            if (other.gameObject.CompareTag("Projectile") && !_isDead)
             {
                 var damage = other.gameObject.GetComponent<ProjectileController>().GetDamage();
         
@@ -184,6 +185,8 @@ public class MonsterController : MonoBehaviour
                             Destroy(gameObject);   
                         }
                     }
+                    
+                    _player.GetComponent<PlayerController>().AddScore(score);
                 }
             }
         }

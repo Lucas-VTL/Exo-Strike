@@ -358,6 +358,7 @@ MonoBehaviour:
   attackWaitingAngleRange: 0
   monsterProjectile: {fileID: 0}
   grave: {fileID: 5166660891022311424, guid: b99a2f2cfa73f7f419a85f9020bba889, type: 3}
+  score: 1
   xBoundaryOffset: 2.25
   yTopBoundaryOffset: 0.5
   yBottomBoundaryOffset: 1

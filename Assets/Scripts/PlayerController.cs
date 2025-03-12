@@ -58,7 +58,10 @@ public class PlayerController : MonoBehaviour
     public event Action<int> OnBulletChange;
     public event Action<bool> OnShootAngleChange;
     public event Action<Sprite> OnProjectileChange;
-    public event Action<bool> OnReload; 
+    public event Action<bool> OnReload;
+    public event Action<int> OnDead;
+
+    private int _score;
     
     private void Start()
     {
@@ -80,6 +83,7 @@ public class PlayerController : MonoBehaviour
         _invulnerableShield = transform.GetChild(0);
         _bullet = _bulletStorage;
         _isReload = false;
+        _score = 0;
         
         OnBulletChange?.Invoke(_bullet);
     }
@@ -421,12 +425,14 @@ public class PlayerController : MonoBehaviour
 
     public void EndGameEvent()
     {
+        OnDead?.Invoke(_score);
         staminaSlider.value = 0;
         healthSlider.value = 0;
         gameObject.SetActive(false);
         playerArm.SetActive(false);
         gun.SetActive(false);
         projectileHeadLight.SetActive(false);
+        Reload(false);
         GameObject.Find("Portal Spawning").GetComponent<PortalSpawning>().CancelInvoke();
         gameOverPanel.SetActive(true);
     }
@@ -502,5 +508,10 @@ public class PlayerController : MonoBehaviour
     public void Reload(bool isReload)
     {
         OnReload?.Invoke(isReload);
+    }
+
+    public void AddScore(int score)
+    {
+        _score += score;
     }
 }
