@@ -108,4 +108,9 @@ public class CursorController : MonoBehaviour
         var newBlue =  Mathf.Lerp(_endSliderColor.b, _startSliderColor.b, t);
         reloadCursor.fillRect.GetComponent<Image>().color = new Color(newRed, newGreen, newBlue, 1);
     }
+    
+    void OnDestroy()
+    {
+        reloadCursor.onValueChanged.RemoveAllListeners();
+    }
 }

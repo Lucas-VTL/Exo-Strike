@@ -1,11 +1,15 @@
 using System.Runtime.CompilerServices;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PortalSpawning : MonoBehaviour
 {
     public GameObject moveScope;
     public GameObject waterScope;
     public GameObject portal;
+    public Slider waveSlider;
+    public TextMeshProUGUI waveText;
     
     private BoxCollider2D _moveScopeCollider;
     private PolygonCollider2D[] _waterScopeCollider;
@@ -14,6 +18,14 @@ public class PortalSpawning : MonoBehaviour
     private float _xBoundaryOffset = 4f;
     private float _yTopBoundaryOffset = 1.5f;
     private float _yBottomBoundaryOffset = 4f;
+
+    private bool _isAlreadySpawned = false;
+    private int _wave;
+    private float _waveTimer;
+    private float _waveTimeMultiplier = 10f;
+    
+    private Color _startSliderColor = new Color(0f / 255f, 255f / 255f, 72f / 255f);
+    private Color _endSliderColor = new Color(255f / 255f, 20f / 255f, 0f / 255f);
     
     void Start()
     {
@@ -22,10 +34,42 @@ public class PortalSpawning : MonoBehaviour
         _yBoundary = _moveScopeCollider.size.y / 2;
         
         _waterScopeCollider = waterScope.GetComponents<PolygonCollider2D>();
+        _wave = 1;
+        _waveTimer = _wave * _waveTimeMultiplier;
+        waveSlider.maxValue = _waveTimer;
+        waveSlider.value = _waveTimer;
+        waveText.text = "Wave " + _wave.ToString();
         
-        InvokeRepeating("SpawnPortal", 0f, 7.5f);
+        waveSlider.onValueChanged.AddListener(OnSliderChanged);
     }
 
+    void Update()
+    {
+        if (_waveTimer > 0 && !_isAlreadySpawned)
+        {
+            for (int i = 0; i < _wave; i++)
+            {
+                SpawnPortal();
+            }
+            
+            _isAlreadySpawned = true;
+        } 
+        else if (_waveTimer > 0 && _isAlreadySpawned)
+        {
+            _waveTimer -= Time.deltaTime;
+            waveSlider.value = _waveTimer;
+        } 
+        else
+        {
+            _isAlreadySpawned = false;
+            _wave += 1;
+            _waveTimer = _wave * _waveTimeMultiplier;
+            waveSlider.maxValue = _waveTimer;
+            waveSlider.value = _waveTimer;
+            waveText.text = "Wave " + _wave.ToString();
+        }
+    }
+    
     void SpawnPortal()
     {
         bool isValid = false;
@@ -64,5 +108,19 @@ public class PortalSpawning : MonoBehaviour
         }
         
         return false;
+    }
+    
+    private void OnSliderChanged(float value)
+    {
+        var t = value / waveSlider.maxValue;
+        var newRed =  Mathf.Lerp(_endSliderColor.r, _startSliderColor.r, t);
+        var newGreen =  Mathf.Lerp(_endSliderColor.g,_startSliderColor.g, t);
+        var newBlue =  Mathf.Lerp(_endSliderColor.b, _startSliderColor.b, t);
+        waveSlider.fillRect.GetComponent<Image>().color = new Color(newRed, newGreen, newBlue, 1);
+    }
+    
+    void OnDestroy()
+    {
+        waveSlider.onValueChanged.RemoveAllListeners();
     }
 }
