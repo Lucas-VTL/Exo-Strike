@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,7 +14,6 @@ public class PlayerController : MonoBehaviour
     private Animator _animator;
 
     private int _playerSpeed;
-    private int _playerDamage = 1;
     private BoxCollider2D _moveScopeCollider;
 
     private float _xBoundary;
@@ -32,11 +32,12 @@ public class PlayerController : MonoBehaviour
     private float _xGunOffset = 0.7f;
     private float _yGunOffset = 0.05f;
 
-    public GameObject projectile;
+    public GameObject[] projectileList;
     public GameObject projectileHeadLight;
     private float _xHeadGunOffset = 1.24f;
     private float _yHeadGunOffset = 0.05f;
-    private GameObject _currentProjectile;
+    private int _currentProjectileIndex;
+    private int[] _projectileDamage;
 
     private int _health = 10;
     private float _staminaMax = 3f;
@@ -62,7 +63,7 @@ public class PlayerController : MonoBehaviour
     public event Action<int> OnDead;
 
     private int _score;
-    
+
     private void Start()
     {
         _animator = GetComponent<Animator>();
@@ -84,6 +85,13 @@ public class PlayerController : MonoBehaviour
         _bullet = _bulletStorage;
         _isReload = false;
         _score = 0;
+        
+        _currentProjectileIndex = 0;
+        _projectileDamage = new int[projectileList.Length];
+        for (int i = 0; i < projectileList.Length; i++)
+        {
+            _projectileDamage[i] = 1;
+        }
         
         OnBulletChange?.Invoke(_bullet);
     }
@@ -266,9 +274,9 @@ public class PlayerController : MonoBehaviour
             
                 if (Input.GetMouseButtonDown(0))
                 {
-                    _currentProjectile = Instantiate(projectile, gun.transform.position, Quaternion.Euler(0, 0, angleByDeg));
-                    _currentProjectile.GetComponent<ProjectileController>().SetDamage(_playerDamage);
-                
+                    var projectile = Instantiate(projectileList[_currentProjectileIndex], gun.transform.position, Quaternion.Euler(0, 0, angleByDeg));
+                    projectile.gameObject.GetComponent<ProjectileController>().SetDamage(_projectileDamage[_currentProjectileIndex]);
+                    
                     GameObject headLight = null;
                     if (angleByDeg <= 60 || angleByDeg >= 300)
                     {
@@ -412,6 +420,26 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+    
+    //Handle when player stand in a trap
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Monster Projectile") && _invulnerableTimer <= 0)
+        {
+            if (other.gameObject.GetComponent<ProjectileController>().GetDamage() > 0)
+            {
+                var damage = other.gameObject.GetComponent<ProjectileController>().GetDamage();
+                
+                _health -= damage;
+                _invulnerableTimer = _invulnerableTime;
+
+                if (_health <= 0)
+                {
+                    EndGameEvent();
+                }   
+            }
+        }
+    }
 
     public void SetHealth(int health)
     {
@@ -467,16 +495,16 @@ public class PlayerController : MonoBehaviour
         return reloadTime;
     }
 
-    public void SetProjectile(GameObject newProjectile)
+    void SetCurrentProjectile(int index)
     {
-        if (projectile.name != newProjectile.name)
+        if (_currentProjectileIndex != index)
         {
-            projectile = newProjectile;
-            OnProjectileChange?.Invoke(projectile.gameObject.GetComponent<SpriteRenderer>().sprite);
+            _currentProjectileIndex = index;
+            OnProjectileChange?.Invoke(projectileList[_currentProjectileIndex].gameObject.GetComponent<SpriteRenderer>().sprite);
         }
     }
 
-    public void BulletChange()
+    void BulletChange()
     {
         if (_bullet > 0)
         {
@@ -497,7 +525,7 @@ public class PlayerController : MonoBehaviour
         OnBulletChange?.Invoke(_bullet);
     }
 
-    public void ShootAngleChange(bool canFire)
+    void ShootAngleChange(bool canFire)
     {
         if (_canFire != canFire)
         {
@@ -505,7 +533,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void Reload(bool isReload)
+    void Reload(bool isReload)
     {
         OnReload?.Invoke(isReload);
     }
@@ -513,5 +541,10 @@ public class PlayerController : MonoBehaviour
     public void AddScore(int score)
     {
         _score += score;
+    }
+
+    public GameObject GetCurrentProjectile()
+    {
+        return projectileList[_currentProjectileIndex];
     }
 }

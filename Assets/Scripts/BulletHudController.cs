@@ -15,7 +15,7 @@ public class BulletHudController : MonoBehaviour
 
         if (player)
         {
-            _projectile.gameObject.GetComponent<Image>().sprite = player.gameObject.GetComponent<PlayerController>().projectile.gameObject.GetComponent<SpriteRenderer>().sprite;
+            _projectile.gameObject.GetComponent<Image>().sprite = player.gameObject.GetComponent<PlayerController>().GetCurrentProjectile().gameObject.GetComponent<SpriteRenderer>().sprite;
             _bullet.gameObject.GetComponent<TextMeshProUGUI>().text = player.gameObject.GetComponent<PlayerController>().GetBullet().ToString();
 
             player.gameObject.GetComponent<PlayerController>().OnProjectileChange += ProjectileUIControl;

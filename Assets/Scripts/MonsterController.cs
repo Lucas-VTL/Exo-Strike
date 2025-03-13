@@ -58,6 +58,7 @@ public class MonsterController : MonoBehaviour
     private float _attackWaitingAngle;
     private bool _isAttackWaitingAngleExist = false;
     private float _reviveTimer = 0f;
+    private int _waveScore;
     
     private Color _startHealthSliderColor = new Color(0f / 255f, 255f / 255f, 72f / 255f);
     private Color _endHealthSliderColor = new Color(255f / 255f, 20f / 255f, 0f / 255f);
@@ -186,7 +187,7 @@ public class MonsterController : MonoBehaviour
                         }
                     }
                     
-                    _player.GetComponent<PlayerController>().AddScore(score);
+                    _player.GetComponent<PlayerController>().AddScore(score + _waveScore);
                 }
             }
         }
@@ -434,5 +435,10 @@ public class MonsterController : MonoBehaviour
     public GameObject GetGrave()
     {
         return grave;
+    }
+
+    public void SetWaveScore(int score)
+    {
+        _waveScore = score;
     }
 }

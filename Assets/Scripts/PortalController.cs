@@ -13,6 +13,8 @@ public class PortalController : MonoBehaviour
     
     private float _totalDownScaleTime;
     private float _elapseDownScaleTime = 0f;
+
+    private int _wave;
     
     void Start()
     {
@@ -39,5 +41,11 @@ public class PortalController : MonoBehaviour
     {
         var monsterIndex = Random.Range(0, monsters.Count);
         var monster = Instantiate(monsters[monsterIndex], transform.position, Quaternion.Euler(0f, 0f, 0f));
+        monster.gameObject.GetComponent<MonsterController>().SetWaveScore(_wave - 1);
+    }
+
+    public void SetWave(int wave)
+    {
+        _wave = wave;
     }
 }

@@ -22,7 +22,7 @@ public class PortalSpawning : MonoBehaviour
     private bool _isAlreadySpawned = false;
     private int _wave;
     private float _waveTimer;
-    private float _waveTimeMultiplier = 10f;
+    private float _waveTimeMultiplier = 6f;
     
     private Color _startSliderColor = new Color(0f / 255f, 255f / 255f, 72f / 255f);
     private Color _endSliderColor = new Color(255f / 255f, 20f / 255f, 0f / 255f);
@@ -94,7 +94,8 @@ public class PortalSpawning : MonoBehaviour
             }
         }
         
-        Instantiate(portal, position, Quaternion.Euler(0, 0, 0));
+        var newPortal = Instantiate(portal, position, Quaternion.Euler(0, 0, 0));
+        newPortal.gameObject.GetComponent<PortalController>().SetWave(_wave);
     }
 
     bool IsInWaterZone(Vector3 point)
