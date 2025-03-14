@@ -26,14 +26,11 @@ public class CursorController : MonoBehaviour
 
         if (player)
         {
-            _reloadTime = player.gameObject.GetComponent<PlayerController>().GetReloadTime();
-        
             player.gameObject.GetComponent<PlayerController>().OnShootAngleChange += CursorUIControll;
             player.gameObject.GetComponent<PlayerController>().OnReload += CursorReloadControl;   
         }
         
         reloadCursor.gameObject.SetActive(false);
-        reloadCursor.maxValue = _reloadTime;
         reloadCursor.onValueChanged.AddListener(OnSliderChanged);
     }
 
@@ -65,6 +62,8 @@ public class CursorController : MonoBehaviour
     {
         if (isReload)
         {
+            _reloadTime = player.gameObject.GetComponent<PlayerController>().GetReloadTime();
+            reloadCursor.maxValue = _reloadTime;
             reloadCursor.gameObject.SetActive(true);
             Cursor.visible = false;
             _reloadTimer = _reloadTime;

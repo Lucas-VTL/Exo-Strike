@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class PortalSpawning : MonoBehaviour
 {
+    public GameObject player;
     public GameObject moveScope;
     public GameObject waterScope;
     public GameObject portal;
@@ -45,28 +46,31 @@ public class PortalSpawning : MonoBehaviour
 
     void Update()
     {
-        if (_waveTimer > 0 && !_isAlreadySpawned)
+        if (player.activeSelf)
         {
-            for (int i = 0; i < _wave; i++)
+            if (_waveTimer > 0 && !_isAlreadySpawned)
             {
-                SpawnPortal();
-            }
+                for (int i = 0; i < _wave; i++)
+                {
+                    SpawnPortal();
+                }
             
-            _isAlreadySpawned = true;
-        } 
-        else if (_waveTimer > 0 && _isAlreadySpawned)
-        {
-            _waveTimer -= Time.deltaTime;
-            waveSlider.value = _waveTimer;
-        } 
-        else
-        {
-            _isAlreadySpawned = false;
-            _wave += 1;
-            _waveTimer = _wave * _waveTimeMultiplier;
-            waveSlider.maxValue = _waveTimer;
-            waveSlider.value = _waveTimer;
-            waveText.text = "Wave " + _wave.ToString();
+                _isAlreadySpawned = true;
+            } 
+            else if (_waveTimer > 0 && _isAlreadySpawned)
+            {
+                _waveTimer -= Time.deltaTime;
+                waveSlider.value = _waveTimer;
+            } 
+            else
+            {
+                _isAlreadySpawned = false;
+                _wave += 1;
+                _waveTimer = _wave * _waveTimeMultiplier;
+                waveSlider.maxValue = _waveTimer;
+                waveSlider.value = _waveTimer;
+                waveText.text = "Wave " + _wave.ToString();
+            }   
         }
     }
     

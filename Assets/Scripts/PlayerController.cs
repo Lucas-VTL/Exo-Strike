@@ -49,10 +49,10 @@ public class PlayerController : MonoBehaviour
     private Transform _invulnerableShield;
 
     private bool _canFire;
-    private int _bulletStorage = 30;
-    private int _bullet;
+    private int[] _bulletStorage = {30, 10};
+    private int[] _bullet = {30, 10};
     
-    public float reloadTime = 2f;
+    private float[] _reloadTime = {2f, 3.5f};
     private float _reloadTimer;
     private bool _isReload;
     
@@ -63,6 +63,8 @@ public class PlayerController : MonoBehaviour
     public event Action<int> OnDead;
 
     private int _score;
+    private bool _isScrolling;
+    private float _scrollingTimer;
 
     private void Start()
     {
@@ -82,7 +84,6 @@ public class PlayerController : MonoBehaviour
         _currentStamina = _staminaMax;
         
         _invulnerableShield = transform.GetChild(0);
-        _bullet = _bulletStorage;
         _isReload = false;
         _score = 0;
         
@@ -93,7 +94,9 @@ public class PlayerController : MonoBehaviour
             _projectileDamage[i] = 1;
         }
         
-        OnBulletChange?.Invoke(_bullet);
+        _isScrolling = false;
+        
+        OnBulletChange?.Invoke(_bullet[_currentProjectileIndex]);
     }
 
     private void Update()
@@ -251,7 +254,44 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+        
+        //Handle player's projectile type
+        float mouseScroll = Input.GetAxis("Mouse ScrollWheel");
 
+        if (mouseScroll != 0 && !_isScrolling)
+        {
+            if (mouseScroll > 0)
+            {
+                _currentProjectileIndex++;
+            }
+            else if (mouseScroll < 0)
+            {
+                _currentProjectileIndex--;
+            }
+            
+            _currentProjectileIndex = (int)Mathf.Repeat(_currentProjectileIndex, projectileList.Length);
+            
+            Reload(false);
+            _isReload = false;
+            _reloadTimer = 0;
+            
+            OnBulletChange?.Invoke(_bullet[_currentProjectileIndex]);
+            
+            ProjectileChange();
+            _isScrolling = true;
+            _scrollingTimer = 0.25f;
+        }
+
+        if (mouseScroll == 0)
+        {
+            _scrollingTimer -= Time.deltaTime;
+        }
+
+        if (_scrollingTimer <= 0)
+        {
+            _isScrolling = false;
+        }
+        
         //Handle player shooting
         if (_reloadTimer > 0)
         {
@@ -263,8 +303,9 @@ public class PlayerController : MonoBehaviour
             if (_isReload)
             {
                 Reload(false);
-                OnBulletChange?.Invoke(_bulletStorage);
+                OnBulletChange?.Invoke(_bulletStorage[_currentProjectileIndex]);
                 _isReload = false;
+                _bullet[_currentProjectileIndex] = _bulletStorage[_currentProjectileIndex];
             }
             
             if ((angleByDeg <= 60 || angleByDeg >= 300) || (angleByDeg >= 120 && angleByDeg <= 240))
@@ -305,11 +346,10 @@ public class PlayerController : MonoBehaviour
         //Handle player manual reloading
         if (Input.GetKeyDown(KeyCode.R))
         {
-            if (_bullet < _bulletStorage)
+            if (_bullet[_currentProjectileIndex] < _bulletStorage[_currentProjectileIndex])
             {
-                _bullet = _bulletStorage;
                 Reload(true);
-                _reloadTimer = reloadTime;
+                _reloadTimer = _reloadTime[_currentProjectileIndex];
                 _isReload = true;   
             }
         }
@@ -480,49 +520,53 @@ public class PlayerController : MonoBehaviour
         return _invulnerableTime;
     }
 
-    public void SetBulletStorage(int bulletStorage)
+    public void SetBulletStorage(int bullet)
     {
-        _bulletStorage = bulletStorage;
+        _bulletStorage[_currentProjectileIndex] = bullet;
     }
 
     public int GetBullet()
     {
-        return _bullet;
+        return _bullet[_currentProjectileIndex];
     }
 
     public float GetReloadTime()
     {
-        return reloadTime;
-    }
-
-    void SetCurrentProjectile(int index)
-    {
-        if (_currentProjectileIndex != index)
-        {
-            _currentProjectileIndex = index;
-            OnProjectileChange?.Invoke(projectileList[_currentProjectileIndex].gameObject.GetComponent<SpriteRenderer>().sprite);
-        }
+        return _reloadTime[_currentProjectileIndex];
     }
 
     void BulletChange()
     {
-        if (_bullet > 0)
+        if (_bullet[_currentProjectileIndex] > 0)
         {
-            _bullet--;
+            _bullet[_currentProjectileIndex]--;
 
-            if (_bullet == 0)
+            if (_bullet[_currentProjectileIndex] == 0)
             {
                 Reload(true);
-                _reloadTimer = reloadTime;
+                _reloadTimer = _reloadTime[_currentProjectileIndex];
                 _isReload = true;
             }
         }
         else
         {
-            _bullet = _bulletStorage;
+            _bullet[_currentProjectileIndex] = _bulletStorage[_currentProjectileIndex];
         }
         
-        OnBulletChange?.Invoke(_bullet);
+        OnBulletChange?.Invoke(_bullet[_currentProjectileIndex]);
+    }
+
+    void ProjectileChange()
+    {
+        if (_bullet[_currentProjectileIndex] == 0)
+        {
+            Reload(true);
+            _reloadTimer = _reloadTime[_currentProjectileIndex];
+            _isReload = true;
+        }
+        
+        OnBulletChange?.Invoke(_bullet[_currentProjectileIndex]);
+        OnProjectileChange?.Invoke(projectileList[_currentProjectileIndex].gameObject.GetComponent<SpriteRenderer>().sprite);
     }
 
     void ShootAngleChange(bool canFire)

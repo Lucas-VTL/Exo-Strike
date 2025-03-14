@@ -63,6 +63,9 @@ public class MonsterController : MonoBehaviour
     private Color _startHealthSliderColor = new Color(0f / 255f, 255f / 255f, 72f / 255f);
     private Color _endHealthSliderColor = new Color(255f / 255f, 20f / 255f, 0f / 255f);
     
+    private float _freezeTimer;
+    private bool _isFreeze;
+    
     void Start()
     {   
         _player = GameObject.Find("Body");
@@ -86,6 +89,7 @@ public class MonsterController : MonoBehaviour
         _yBoundary = _moveScopeCollider.size.y / 2;
         
         _stuckingTimer = _stuckingTime;
+        _isFreeze = false;
     }
     
     void Update()
@@ -98,6 +102,33 @@ public class MonsterController : MonoBehaviour
         {
             if (!_isDead)
             {
+                if (_animator)
+                {
+                    if (_isFreeze)
+                    {
+                        if (_freezeTimer > 0)
+                        {
+                            _isFreeze = true;
+                            _animator.SetBool("isFreeze", true);
+                            _freezeTimer -= Time.deltaTime;
+                            
+                            var rigidbody = gameObject.GetComponent<Rigidbody2D>();
+                            rigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
+                            rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+                            
+                            return;
+                        }
+                        else
+                        {
+                            _isFreeze = false;
+                            _animator.SetBool("isFreeze", false);
+                            
+                            var rigidbody = gameObject.GetComponent<Rigidbody2D>();
+                            rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+                        }      
+                    }
+                }
+                
                 //Get direction between monster and player
                 var angle = 0f;
                 Vector3 direction = (_player.transform.position - transform.position).normalized;
@@ -189,6 +220,12 @@ public class MonsterController : MonoBehaviour
                     
                     _player.GetComponent<PlayerController>().AddScore(score + _waveScore);
                 }
+            }
+            
+            if (other.gameObject.CompareTag("Freeze Zone"))
+            {
+                _freezeTimer = other.gameObject.GetComponent<ProjectileController>().GetCurrentTime();
+                _isFreeze = true;
             }
         }
     }

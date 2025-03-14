@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: b3aebef17e6902d4a8a11167a0220c8f
+guid: 7e45e6174d11ad64287c91488d1a542f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7376296610400940115
-    second: Demon Projectile_0
+      213: -7374041790247847876
+    second: Demon_Idle_0
+  - first:
+      213: -6479005051907761428
+    second: Demon_Idle_1
+  - first:
+      213: 7745857125776021586
+    second: Demon_Idle_2
+  - first:
+      213: -6241936404474360732
+    second: Demon_Idle_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,12 +55,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
-  spritePivot: {x: 0.8645704, y: 0.5733286}
-  spritePixelsToUnits: 100
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 30
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -152,23 +161,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Demon Projectile_0
+      name: Demon_Idle_0
       rect:
         serializedVersion: 2
-        x: 5
-        y: 4
-        width: 38
-        height: 20
+        x: 0
+        y: 0
+        width: 79
+        height: 69
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: daf422b605122a990800000000000000
-      internalID: -7376296610400940115
+      spriteID: c383465af042aa990800000000000000
+      internalID: -7374041790247847876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Demon_Idle_1
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 0
+        width: 79
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cea93178b33f516a0800000000000000
+      internalID: -6479005051907761428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Demon_Idle_2
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 0
+        width: 79
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 258dece3400de7b60800000000000000
+      internalID: 7745857125776021586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Demon_Idle_3
+      rect:
+        serializedVersion: 2
+        x: 237
+        y: 0
+        width: 79
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46c0abc49ef2069a0800000000000000
+      internalID: -6241936404474360732
       vertices: []
       indices: 
       edges: []
@@ -177,8 +252,8 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    spriteID: db2ec9ecc3583c645bc663d442f85077
+    internalID: 0
     vertices: []
     indices: 
     edges: []
@@ -187,7 +262,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Demon Projectile_0: -7376296610400940115
+      Demon_Idle_0: -7374041790247847876
+      Demon_Idle_1: -6479005051907761428
+      Demon_Idle_2: 7745857125776021586
+      Demon_Idle_3: -6241936404474360732
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

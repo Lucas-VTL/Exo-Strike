@@ -1,10 +1,25 @@
 fileFormatVersion: 2
-guid: b3aebef17e6902d4a8a11167a0220c8f
+guid: 4ca260c8f07ee0c4fb796de8bc3e4694
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7376296610400940115
-    second: Demon Projectile_0
+      213: 2191792380482773810
+    second: Teleporter_Idle_0
+  - first:
+      213: -5203721086191370580
+    second: Teleporter_Idle_1
+  - first:
+      213: -4427934963205148727
+    second: Teleporter_Idle_2
+  - first:
+      213: -3990847879332100866
+    second: Teleporter_Idle_3
+  - first:
+      213: 2086132975210010237
+    second: Teleporter_Idle_4
+  - first:
+      213: -4155588167944447309
+    second: Teleporter_Idle_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,12 +61,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
-  spritePivot: {x: 0.8645704, y: 0.5733286}
-  spritePixelsToUnits: 100
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -152,23 +167,133 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Demon Projectile_0
+      name: Teleporter_Idle_0
       rect:
         serializedVersion: 2
-        x: 5
-        y: 4
-        width: 38
-        height: 20
+        x: 0
+        y: 0
+        width: 231
+        height: 190
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: daf422b605122a990800000000000000
-      internalID: -7376296610400940115
+      spriteID: 2336514be8fca6e10800000000000000
+      internalID: 2191792380482773810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Teleporter_Idle_1
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 0
+        width: 231
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cae7a5b1e3ba8c7b0800000000000000
+      internalID: -5203721086191370580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Teleporter_Idle_2
+      rect:
+        serializedVersion: 2
+        x: 462
+        y: 0
+        width: 231
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9cfef957c90dc82c0800000000000000
+      internalID: -4427934963205148727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Teleporter_Idle_3
+      rect:
+        serializedVersion: 2
+        x: 693
+        y: 0
+        width: 231
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef40ac78ff8ad98c0800000000000000
+      internalID: -3990847879332100866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Teleporter_Idle_4
+      rect:
+        serializedVersion: 2
+        x: 924
+        y: 0
+        width: 231
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d761f9d53ee63fc10800000000000000
+      internalID: 2086132975210010237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Teleporter_Idle_5
+      rect:
+        serializedVersion: 2
+        x: 1155
+        y: 0
+        width: 231
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3badad814926456c0800000000000000
+      internalID: -4155588167944447309
       vertices: []
       indices: 
       edges: []
@@ -177,8 +302,8 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    spriteID: 937b04470f0d6264bbed5380e9bde5c0
+    internalID: 0
     vertices: []
     indices: 
     edges: []
@@ -187,7 +312,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Demon Projectile_0: -7376296610400940115
+      Teleporter_Idle_0: 2191792380482773810
+      Teleporter_Idle_1: -5203721086191370580
+      Teleporter_Idle_2: -4427934963205148727
+      Teleporter_Idle_3: -3990847879332100866
+      Teleporter_Idle_4: 2086132975210010237
+      Teleporter_Idle_5: -4155588167944447309
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

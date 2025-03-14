@@ -1,10 +1,25 @@
 fileFormatVersion: 2
-guid: b3aebef17e6902d4a8a11167a0220c8f
+guid: 59429c12930fbfe478815c45bcee0edd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7376296610400940115
-    second: Demon Projectile_0
+      213: 6136108176805211945
+    second: Archer_Attack_0
+  - first:
+      213: 427712624260918572
+    second: Archer_Attack_1
+  - first:
+      213: 1737314231182387426
+    second: Archer_Attack_2
+  - first:
+      213: -8780558989607345827
+    second: Archer_Attack_3
+  - first:
+      213: -740172404461588457
+    second: Archer_Attack_4
+  - first:
+      213: 6693696585567518053
+    second: Archer_Attack_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +52,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -46,11 +61,11 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
-  spritePivot: {x: 0.8645704, y: 0.5733286}
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -75,7 +90,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -152,23 +167,133 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Demon Projectile_0
+      name: Archer_Attack_0
       rect:
         serializedVersion: 2
-        x: 5
-        y: 4
-        width: 38
-        height: 20
+        x: 40
+        y: 32
+        width: 26
+        height: 43
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: daf422b605122a990800000000000000
-      internalID: -7376296610400940115
+      spriteID: 92f28d550e5d72550800000000000000
+      internalID: 6136108176805211945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archer_Attack_1
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 32
+        width: 27
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2da50b9d5a8fe500800000000000000
+      internalID: 427712624260918572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archer_Attack_2
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 32
+        width: 42
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e86bdca61e2c1810800000000000000
+      internalID: 1737314231182387426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archer_Attack_3
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 32
+        width: 31
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d51671fce10352680800000000000000
+      internalID: -8780558989607345827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archer_Attack_4
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 32
+        width: 35
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7103587ae116ab5f0800000000000000
+      internalID: -740172404461588457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archer_Attack_5
+      rect:
+        serializedVersion: 2
+        x: 535
+        y: 32
+        width: 34
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56d3ff07499c4ec50800000000000000
+      internalID: 6693696585567518053
       vertices: []
       indices: 
       edges: []
@@ -177,8 +302,8 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    spriteID: 
+    internalID: 0
     vertices: []
     indices: 
     edges: []
@@ -186,8 +311,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Demon Projectile_0: -7376296610400940115
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

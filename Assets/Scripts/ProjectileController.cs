@@ -17,12 +17,19 @@ public class ProjectileController : MonoBehaviour
     private float _yParticelOffset = 0f;
     private float _radius;
     private float _angle;
+    private float _currentTime;
     
     void Awake()
     {
         _initialPosition = transform.position;
         _radius = Mathf.Sqrt(_xParticelOffset * _xParticelOffset + _yParticelOffset * _yParticelOffset);
         _angle = transform.rotation.eulerAngles.z * Mathf.Deg2Rad;
+        _currentTime = existTime;
+
+        if (speed == 0)
+        {
+            Destroy(gameObject, existTime);
+        } 
     }
 
     void Update()
@@ -43,7 +50,7 @@ public class ProjectileController : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject, existTime);
+            _currentTime -= Time.deltaTime;
         }
     }
 
@@ -60,7 +67,7 @@ public class ProjectileController : MonoBehaviour
                 Destroy(particle, 0.8f);
                 if (isExplodeOnEnd)
                 {
-                    var effect = Instantiate(effectOnEnd, transform.position, Quaternion.Euler(0, 0, 0));
+                    var effect = Instantiate(effectOnEnd, transform.position, Quaternion.Euler(0, 0, 0)); 
                     effect.gameObject.GetComponent<ProjectileController>().SetDamage(_damage);  
                 }   
             }
@@ -75,5 +82,10 @@ public class ProjectileController : MonoBehaviour
     public int GetDamage()
     {
         return _damage;
+    }
+
+    public float GetCurrentTime()
+    {
+        return _currentTime;
     }
 }
