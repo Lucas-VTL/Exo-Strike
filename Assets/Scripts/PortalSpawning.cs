@@ -39,7 +39,7 @@ public class PortalSpawning : MonoBehaviour
         _waveTimer = _wave * _waveTimeMultiplier;
         waveSlider.maxValue = _waveTimer;
         waveSlider.value = _waveTimer;
-        waveText.text = "Wave " + _wave.ToString();
+        waveText.text = _wave.ToString();
         
         waveSlider.onValueChanged.AddListener(OnSliderChanged);
     }
@@ -69,7 +69,7 @@ public class PortalSpawning : MonoBehaviour
                 _waveTimer = _wave * _waveTimeMultiplier;
                 waveSlider.maxValue = _waveTimer;
                 waveSlider.value = _waveTimer;
-                waveText.text = "Wave " + _wave.ToString();
+                waveText.text = _wave.ToString();
             }   
         }
     }
