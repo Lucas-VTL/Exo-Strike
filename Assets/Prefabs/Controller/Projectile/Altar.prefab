@@ -11,10 +11,11 @@ GameObject:
   - component: {fileID: 3875868479290890186}
   - component: {fileID: 5682656727880446714}
   - component: {fileID: 7399484015426199193}
-  - component: {fileID: -2768328949692815418}
+  - component: {fileID: -3889591623721975182}
+  - component: {fileID: 2395255974995994764}
   m_Layer: 0
   m_Name: Altar
-  m_TagString: Untagged
+  m_TagString: Altar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -125,7 +126,7 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: -0.115338326, y: 0.494833}
   m_Radius: 4.608203
---- !u!114 &-2768328949692815418
+--- !u!114 &-3889591623721975182
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -134,7 +135,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 7029542248271462956}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 792361e8f21fe4b418a8906c425621ac, type: 3}
+  m_Script: {fileID: 11500000, guid: 76c8d06e908968144abc499492bc95fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyTime: 1.5
+  collisionParticle: {fileID: 0}
+  effectOnEnd: {fileID: 0}
+  speed: 0
+  maxDistance: 1
+  isExplodeOnEnd: 0
+  existTime: 1.5
+--- !u!114 &2395255974995994764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7029542248271462956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d140d7020db4be46bbfbb6a42062e51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateSpeed: 30

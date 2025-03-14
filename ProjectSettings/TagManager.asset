@@ -9,6 +9,7 @@ TagManager:
   - Projectile
   - Monster Projectile
   - Freeze Zone
+  - Altar
   layers:
   - Default
   - TransparentFX

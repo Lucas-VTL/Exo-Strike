@@ -227,6 +227,11 @@ public class MonsterController : MonoBehaviour
                 _freezeTimer = other.gameObject.GetComponent<ProjectileController>().GetCurrentTime();
                 _isFreeze = true;
             }
+            
+            if (other.gameObject.CompareTag("Altar") && grave != null)
+            {
+                _isReviveable = true;
+            }
         }
     }
 
@@ -459,19 +464,9 @@ public class MonsterController : MonoBehaviour
         newGrave.gameObject.GetComponent<MonsterController>().monsterID = monsterID;
     }
 
-    public void SetIsReviveable(bool isSurviveable)
-    {
-        _isReviveable = isSurviveable;
-    }
-
     public void SetIsReviveMonster(bool isSurviveMonster)
     {
         _isReviveMonster = isSurviveMonster;
-    }
-
-    public GameObject GetGrave()
-    {
-        return grave;
     }
 
     public void SetWaveScore(int score)

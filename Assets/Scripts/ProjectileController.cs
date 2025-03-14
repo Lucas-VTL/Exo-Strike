@@ -63,8 +63,13 @@ public class ProjectileController : MonoBehaviour
             if (speed > 0)
             {
                 Destroy(gameObject);
-                GameObject particle = Instantiate(collisionParticle, transform.position + new Vector3(_radius * Mathf.Cos(_angle), _radius * Mathf.Sin(_angle), 0), Quaternion.Euler(0,0,0));
-                Destroy(particle, 0.8f);
+                
+                if (collisionParticle)
+                {
+                    GameObject particle = Instantiate(collisionParticle, transform.position + new Vector3(_radius * Mathf.Cos(_angle), _radius * Mathf.Sin(_angle), 0), Quaternion.Euler(0,0,0));
+                    Destroy(particle, 0.8f);
+                }
+                
                 if (isExplodeOnEnd)
                 {
                     var effect = Instantiate(effectOnEnd, transform.position, Quaternion.Euler(0, 0, 0)); 
