@@ -178,7 +178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c8d06e908968144abc499492bc95fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collisionParticle: {fileID: 2059263494901803843, guid: 64fdb76b8cefcb74aa15af38ae3f758b, type: 3}
+  collisionParticle: {fileID: 2124046433967045923, guid: bbf3068426c41034c9194573927942f7, type: 3}
   effectOnEnd: {fileID: 4941271487920102124, guid: 6a1e50b3e12631049954b4ffb718d46f, type: 3}
   speed: 8
   maxDistance: 15
