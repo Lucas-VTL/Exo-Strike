@@ -350,7 +350,16 @@ public class MonsterController : MonoBehaviour
                 if (monsterProjectile.tag == "Monster Projectile")
                 {
                     _currentMonsterProjectile = Instantiate(monsterProjectile, transform.position, Quaternion.Euler(0, 0, angle));
-                    _currentMonsterProjectile.GetComponent<ProjectileController>().SetDamage(projectileDamage);   
+                    _currentMonsterProjectile.GetComponent<ProjectileController>().SetDamage(projectileDamage);
+
+                    if (gameObject.name == "Archer")
+                    {
+                        _currentMonsterProjectile = Instantiate(monsterProjectile, transform.position, Quaternion.Euler(0, 0, angle + 30));
+                        _currentMonsterProjectile.GetComponent<ProjectileController>().SetDamage(projectileDamage);
+                        
+                        _currentMonsterProjectile = Instantiate(monsterProjectile, transform.position, Quaternion.Euler(0, 0, angle - 30));
+                        _currentMonsterProjectile.GetComponent<ProjectileController>().SetDamage(projectileDamage);
+                    }
                 }
                 else
                 {

@@ -289,7 +289,7 @@ MonoBehaviour:
   attackCooldown: 2
   reviveTime: 1.67
   attackWaitingAngleRange: 90
-  monsterProjectile: {fileID: 0}
+  monsterProjectile: {fileID: 3728160735975709661, guid: 3dcd2ad0272911e47ba5ffd6e77d0a17, type: 3}
   grave: {fileID: 5166660891022311424, guid: b99a2f2cfa73f7f419a85f9020bba889, type: 3}
   score: 3
   xBoundaryOffset: 1
