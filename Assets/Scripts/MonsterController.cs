@@ -160,6 +160,7 @@ public class MonsterController : MonoBehaviour
                 if (_reviveTimer > 0)
                 {
                     _reviveTimer -= Time.deltaTime;
+                    DirectionHandling(angle);
                     return;
                 }
                 

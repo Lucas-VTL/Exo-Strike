@@ -1,43 +1,31 @@
 fileFormatVersion: 2
-guid: 856b498aa3e28b748b5fe9736b773d74
+guid: 5df46139f9ac6e845bc876f32cb0346c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7864809691217717564
-    second: Archer_Dead_0
+      213: 7905895564328770366
+    second: Boomerang_Idle_0
   - first:
-      213: 1875934973743375139
-    second: Archer_Dead_1
+      213: 4776359676036344771
+    second: Boomerang_Idle_1
   - first:
-      213: 3265122770630323064
-    second: Archer_Dead_2
+      213: 9059898995448341786
+    second: Boomerang_Idle_2
   - first:
-      213: -10680370287335786
-    second: Archer_Dead_3
+      213: 7471159360356696598
+    second: Boomerang_Idle_3
   - first:
-      213: 6869717897078699475
-    second: Archer_Dead_4
+      213: 5711157791184152486
+    second: Boomerang_Idle_4
   - first:
-      213: -7703381329005285678
-    second: Archer_Dead_5
+      213: -1934026023209161696
+    second: Boomerang_Idle_5
   - first:
-      213: 6875442889728098066
-    second: Archer_Dead_6
+      213: 5937032102652492485
+    second: Boomerang_Idle_6
   - first:
-      213: -2352409106844764566
-    second: Archer_Dead_7
-  - first:
-      213: 5314008257825373398
-    second: Archer_Dead_8
-  - first:
-      213: -2734726419551410224
-    second: Archer_Dead_9
-  - first:
-      213: -5974314369693926048
-    second: Archer_Dead_10
-  - first:
-      213: 6292808690601958461
-    second: Archer_Dead_11
+      213: 6080931254328339758
+    second: Boomerang_Idle_7
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -84,7 +72,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 12
+  spritePixelsToUnits: 14
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -185,13 +173,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Archer_Dead_0
+      name: Boomerang_Idle_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 100
-        height: 100
+        width: 150
+        height: 150
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -200,20 +188,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4c61be061459ad290800000000000000
-      internalID: -7864809691217717564
+      spriteID: e3b1727e02267bd60800000000000000
+      internalID: 7905895564328770366
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Archer_Dead_1
+      name: Boomerang_Idle_1
       rect:
         serializedVersion: 2
-        x: 100
+        x: 150
         y: 0
-        width: 100
-        height: 100
+        width: 150
+        height: 150
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -222,42 +210,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 323a4b36be8a80a10800000000000000
-      internalID: 1875934973743375139
+      spriteID: 3cb65a1b1d9094240800000000000000
+      internalID: 4776359676036344771
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Archer_Dead_2
-      rect:
-        serializedVersion: 2
-        x: 200
-        y: 0
-        width: 100
-        height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 87ba57b4cdb005d20800000000000000
-      internalID: 3265122770630323064
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Archer_Dead_3
+      name: Boomerang_Idle_2
       rect:
         serializedVersion: 2
         x: 300
         y: 0
-        width: 100
-        height: 100
+        width: 150
+        height: 150
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -266,20 +232,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 69624f2824e0adff0800000000000000
-      internalID: -10680370287335786
+      spriteID: a15ed9c822a3bbd70800000000000000
+      internalID: 9059898995448341786
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Archer_Dead_4
+      name: Boomerang_Idle_3
       rect:
         serializedVersion: 2
-        x: 400
+        x: 450
         y: 0
-        width: 100
-        height: 100
+        width: 150
+        height: 150
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -288,42 +254,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3d5f482b704265f50800000000000000
-      internalID: 6869717897078699475
+      spriteID: 6124566bad3eea760800000000000000
+      internalID: 7471159360356696598
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Archer_Dead_5
-      rect:
-        serializedVersion: 2
-        x: 500
-        y: 0
-        width: 100
-        height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2de634bde77181590800000000000000
-      internalID: -7703381329005285678
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Archer_Dead_6
+      name: Boomerang_Idle_4
       rect:
         serializedVersion: 2
         x: 600
         y: 0
-        width: 100
-        height: 100
+        width: 150
+        height: 150
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -332,20 +276,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 21f7abb61ea7a6f50800000000000000
-      internalID: 6875442889728098066
+      spriteID: 6a76cb780cb124f40800000000000000
+      internalID: 5711157791184152486
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Archer_Dead_7
+      name: Boomerang_Idle_5
       rect:
         serializedVersion: 2
-        x: 700
+        x: 750
         y: 0
-        width: 100
-        height: 100
+        width: 150
+        height: 150
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -354,42 +298,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a66bf1481609a5fd0800000000000000
-      internalID: -2352409106844764566
+      spriteID: 02ca14c2495f825e0800000000000000
+      internalID: -1934026023209161696
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Archer_Dead_8
-      rect:
-        serializedVersion: 2
-        x: 800
-        y: 0
-        width: 100
-        height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6dc7c2d0b562fb940800000000000000
-      internalID: 5314008257825373398
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Archer_Dead_9
+      name: Boomerang_Idle_6
       rect:
         serializedVersion: 2
         x: 900
         y: 0
-        width: 100
-        height: 100
+        width: 150
+        height: 150
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -398,8 +320,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0d723c48fcc4c0ad0800000000000000
-      internalID: -2734726419551410224
+      spriteID: 5ca31badd33946250800000000000000
+      internalID: 5937032102652492485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boomerang_Idle_7
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 0
+        width: 150
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2dafc5f1cec36450800000000000000
+      internalID: 6080931254328339758
       vertices: []
       indices: 
       edges: []
@@ -408,7 +352,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: c69249bebfe936440b01c32f7d3df5cc
+    spriteID: d05b06e872ec5d7419320269af6981ae
     internalID: 0
     vertices: []
     indices: 
@@ -418,16 +362,14 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Archer_Dead_0: -7864809691217717564
-      Archer_Dead_1: 1875934973743375139
-      Archer_Dead_2: 3265122770630323064
-      Archer_Dead_3: -10680370287335786
-      Archer_Dead_4: 6869717897078699475
-      Archer_Dead_5: -7703381329005285678
-      Archer_Dead_6: 6875442889728098066
-      Archer_Dead_7: -2352409106844764566
-      Archer_Dead_8: 5314008257825373398
-      Archer_Dead_9: -2734726419551410224
+      Boomerang_Idle_0: 7905895564328770366
+      Boomerang_Idle_1: 4776359676036344771
+      Boomerang_Idle_2: 9059898995448341786
+      Boomerang_Idle_3: 7471159360356696598
+      Boomerang_Idle_4: 5711157791184152486
+      Boomerang_Idle_5: -1934026023209161696
+      Boomerang_Idle_6: 5937032102652492485
+      Boomerang_Idle_7: 6080931254328339758
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

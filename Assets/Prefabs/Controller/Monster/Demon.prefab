@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 4064126593459048328}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.17, y: -0.21, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -299,7 +299,7 @@ MonoBehaviour:
   projectileDamage: 2
   isMelee: 0
   attackCooldown: 5
-  reviveTime: 1.8
+  reviveTime: 1.5
   attackWaitingAngleRange: 100
   monsterProjectile: {fileID: 7129921034561286974, guid: 44488a9c10afd9949a93388429351533, type: 3}
   grave: {fileID: 5166660891022311424, guid: b99a2f2cfa73f7f419a85f9020bba889, type: 3}
@@ -307,7 +307,7 @@ MonoBehaviour:
   xBoundaryOffset: 1.5
   yTopBoundaryOffset: 3
   yBottomBoundaryOffset: 1.25
-  attackingTime: 0.4
+  attackingTime: 0.67
 --- !u!1001 &7824545845304434532
 PrefabInstance:
   m_ObjectHideFlags: 0

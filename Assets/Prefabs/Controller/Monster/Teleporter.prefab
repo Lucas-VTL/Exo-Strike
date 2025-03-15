@@ -311,7 +311,7 @@ MonoBehaviour:
   projectileDamage: 0
   isMelee: 0
   attackCooldown: 12
-  reviveTime: 1.4
+  reviveTime: 1.167
   attackWaitingAngleRange: 110
   monsterProjectile: {fileID: 8192933395210401746, guid: 81b9a54d8f0e2e3419fbff2c14001300, type: 3}
   grave: {fileID: 5166660891022311424, guid: b99a2f2cfa73f7f419a85f9020bba889, type: 3}
@@ -319,7 +319,7 @@ MonoBehaviour:
   xBoundaryOffset: 1.5
   yTopBoundaryOffset: 1
   yBottomBoundaryOffset: 1.5
-  attackingTime: 0.8
+  attackingTime: 0.67
 --- !u!1001 &1813347757301519549
 PrefabInstance:
   m_ObjectHideFlags: 0
