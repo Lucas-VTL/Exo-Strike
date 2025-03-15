@@ -11,6 +11,8 @@ public class ProjectileController : MonoBehaviour
     public bool isExplodeOnEnd;
     public float existTime;
     
+    private GameObject _returnTarget;
+    private bool _isReturning;
     private int _damage;
     private Vector3 _initialPosition;
     private float _xParticelOffset = 0.75f;
@@ -25,6 +27,7 @@ public class ProjectileController : MonoBehaviour
         _radius = Mathf.Sqrt(_xParticelOffset * _xParticelOffset + _yParticelOffset * _yParticelOffset);
         _angle = transform.rotation.eulerAngles.z * Mathf.Deg2Rad;
         _currentTime = existTime;
+        _isReturning = false;
 
         if (speed == 0)
         {
@@ -34,6 +37,21 @@ public class ProjectileController : MonoBehaviour
 
     void Update()
     {
+        if (_isReturning)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+            
+            var direction = (_returnTarget.transform.position - transform.position).normalized;
+            transform.Translate(direction * (speed *  Time.deltaTime));
+
+            if (Vector3.Distance(transform.position, _returnTarget.transform.position) < 0.1f)
+            {
+                Destroy(gameObject);
+            }
+            
+            return;
+        }
+        
         if (speed > 0)
         {
             transform.Translate(Vector3.right * (speed *  Time.deltaTime));
@@ -45,7 +63,15 @@ public class ProjectileController : MonoBehaviour
                     var effect = Instantiate(effectOnEnd, transform.position, Quaternion.Euler(0, 0, 0));
                     effect.gameObject.GetComponent<ProjectileController>().SetDamage(_damage);
                 }
-                Destroy(gameObject);
+
+                if (_returnTarget)
+                {
+                    _isReturning = true;
+                }
+                else
+                {
+                    Destroy(gameObject);
+                }
             }   
         }
         else
@@ -92,5 +118,10 @@ public class ProjectileController : MonoBehaviour
     public float GetCurrentTime()
     {
         return _currentTime;
+    }
+
+    public void SetReturnTarget(GameObject target)
+    {
+        _returnTarget = target;
     }
 }

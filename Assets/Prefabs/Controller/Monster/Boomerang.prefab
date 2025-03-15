@@ -217,7 +217,7 @@ MonoBehaviour:
     m_TrimEdge: 0.03
     m_FlipX: 0
     m_FlipY: 0
-    m_InitialTrim: 0.5
+    m_InitialTrim: 0
   m_CastingOption: 1
   m_PreviousTrimEdge: 0.03
   m_PreviousEdgeProcessing: 1
@@ -281,16 +281,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsterID: 7
-  speed: 4
-  attackRange: 9
-  health: 2
+  speed: 5
+  attackRange: 10
+  health: 3
   hitDamage: 1
-  projectileDamage: 2
+  projectileDamage: 1
   isMelee: 0
   attackCooldown: 3
   reviveTime: 1.5
   attackWaitingAngleRange: 70
-  monsterProjectile: {fileID: 0}
+  monsterProjectile: {fileID: 3574919510834088337, guid: 0d938b4d50c40c346b43c51a8c2564f3, type: 3}
   grave: {fileID: 5166660891022311424, guid: b99a2f2cfa73f7f419a85f9020bba889, type: 3}
   score: 3
   xBoundaryOffset: 1.5

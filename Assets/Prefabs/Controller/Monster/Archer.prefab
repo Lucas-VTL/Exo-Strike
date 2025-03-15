@@ -295,7 +295,7 @@ MonoBehaviour:
   xBoundaryOffset: 1
   yTopBoundaryOffset: 0.75
   yBottomBoundaryOffset: 1.5
-  attackingTime: 1.25
+  attackingTime: 0.9167
 --- !u!1001 &4167217866570622150
 PrefabInstance:
   m_ObjectHideFlags: 0
