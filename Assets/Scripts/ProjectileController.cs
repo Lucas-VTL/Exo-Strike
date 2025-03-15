@@ -69,7 +69,7 @@ public class ProjectileController : MonoBehaviour
                     effect.gameObject.GetComponent<ProjectileController>().SetDamage(_damage);
                 }
 
-                if (_returnTarget)
+                if (_returnTarget || _returnPosition != null)
                 {
                     _isReturning = true;
                     transform.rotation = Quaternion.Euler(0, 0, 0);

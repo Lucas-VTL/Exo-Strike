@@ -13,7 +13,7 @@ public class PortalController : MonoBehaviour
     
     private float _totalDownScaleTime;
     private float _elapseDownScaleTime = 0f;
-
+    
     private int _wave;
     
     void Start()

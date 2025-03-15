@@ -24,6 +24,7 @@ public class PortalSpawning : MonoBehaviour
     private int _wave;
     private float _waveTimer;
     private float _waveTimeMultiplier = 10f;
+    private float _portalInitialTime = 3.5f;
     
     private Color _startSliderColor = new Color(0f / 255f, 255f / 255f, 72f / 255f);
     private Color _endSliderColor = new Color(255f / 255f, 20f / 255f, 0f / 255f);
@@ -61,6 +62,21 @@ public class PortalSpawning : MonoBehaviour
             {
                 _waveTimer -= Time.deltaTime;
                 waveSlider.value = _waveTimer;
+
+                if (_waveTimer < _wave * _waveTimeMultiplier - _portalInitialTime)
+                {
+                    GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
+                    if (monsters.Length == 0)
+                    {
+                        _isAlreadySpawned = false;
+                        _wave += 1;
+                        _waveTimer = _wave * _waveTimeMultiplier;
+                        waveSlider.maxValue = _waveTimer;
+                        waveSlider.value = _waveTimer;
+                        waveText.text = _wave.ToString();
+                        return;
+                    }
+                }
             } 
             else
             {
