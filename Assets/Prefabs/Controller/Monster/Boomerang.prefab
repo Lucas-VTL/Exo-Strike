@@ -281,11 +281,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsterID: 7
-  speed: 5
+  speed: 6
   attackRange: 10
   health: 3
   hitDamage: 1
-  projectileDamage: 1
+  projectileDamage: 2
   isMelee: 0
   attackCooldown: 3
   reviveTime: 1.5

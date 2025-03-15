@@ -352,7 +352,7 @@ public class MonsterController : MonoBehaviour
                     _currentMonsterProjectile = Instantiate(monsterProjectile, transform.position, Quaternion.Euler(0, 0, angle));
                     _currentMonsterProjectile.GetComponent<ProjectileController>().SetDamage(projectileDamage);
 
-                    if (gameObject.name == "Archer")
+                    if (gameObject.name == "Archer(Clone)")
                     {
                         _currentMonsterProjectile = Instantiate(monsterProjectile, transform.position, Quaternion.Euler(0, 0, angle + 30));
                         _currentMonsterProjectile.GetComponent<ProjectileController>().SetDamage(projectileDamage);
@@ -361,7 +361,7 @@ public class MonsterController : MonoBehaviour
                         _currentMonsterProjectile.GetComponent<ProjectileController>().SetDamage(projectileDamage);
                     }
 
-                    if (gameObject.name == "Boomerang")
+                    if (gameObject.name == "Boomerang(Clone)")
                     {
                         _currentMonsterProjectile.GetComponent<ProjectileController>().SetReturnTarget(gameObject);
                     }

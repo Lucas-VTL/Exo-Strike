@@ -49,10 +49,9 @@ public class PlayerController : MonoBehaviour
     private Transform _invulnerableShield;
 
     private bool _canFire;
-    private int[] _bulletStorage = {30, 10};
-    private int[] _bullet = {30, 10};
-    
-    private float[] _reloadTime = {2f, 2.5f};
+    private int[] _bulletStorage = {30, 10, 1};
+    private int[] _bullet = {30, 10, 1};
+    private float[] _reloadTime = {2f, 2.5f, 1f};
     private float _reloadTimer;
     private bool _isReload;
     

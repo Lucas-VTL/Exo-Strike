@@ -282,7 +282,7 @@ MonoBehaviour:
   monsterID: 6
   speed: 3
   attackRange: 15
-  health: 2
+  health: 3
   hitDamage: 1
   projectileDamage: 1
   isMelee: 0

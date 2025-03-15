@@ -13,6 +13,8 @@ public class ProjectileController : MonoBehaviour
     
     private GameObject _returnTarget;
     private bool _isReturning;
+    private Vector3 _returnPosition;
+    
     private int _damage;
     private Vector3 _initialPosition;
     private float _xParticelOffset = 0.75f;
@@ -39,12 +41,15 @@ public class ProjectileController : MonoBehaviour
     {
         if (_isReturning)
         {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
+            if (_returnTarget)
+            {
+                _returnPosition = _returnTarget.transform.position;
+            }
             
-            var direction = (_returnTarget.transform.position - transform.position).normalized;
+            var direction = (_returnPosition - transform.position).normalized;
             transform.Translate(direction * (speed *  Time.deltaTime));
-
-            if (Vector3.Distance(transform.position, _returnTarget.transform.position) < 0.1f)
+            
+            if (Vector3.Distance(transform.position, _returnPosition) < 0.1f)
             {
                 Destroy(gameObject);
             }
@@ -67,6 +72,7 @@ public class ProjectileController : MonoBehaviour
                 if (_returnTarget)
                 {
                     _isReturning = true;
+                    transform.rotation = Quaternion.Euler(0, 0, 0);
                 }
                 else
                 {
@@ -123,5 +129,6 @@ public class ProjectileController : MonoBehaviour
     public void SetReturnTarget(GameObject target)
     {
         _returnTarget = target;
+        _returnPosition = _returnTarget.transform.position;
     }
 }
