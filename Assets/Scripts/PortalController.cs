@@ -5,7 +5,7 @@ public class PortalController : MonoBehaviour
 {
     public List<GameObject> monsters;
     
-    private float _maxSpeed = 360f;
+    private float _maxSpeed = 240f;
     private float _totalInitialTime = 3.5f;
     private float _elapseInitialTime = 0f;
     
@@ -27,7 +27,7 @@ public class PortalController : MonoBehaviour
     {
         _elapseInitialTime += Time.deltaTime;
         var spinSpeed = Mathf.Lerp(0f, _maxSpeed, _elapseInitialTime / _totalInitialTime);
-        transform.Rotate(Vector3.forward, spinSpeed * Time.deltaTime);
+        transform.Rotate(Vector3.back, spinSpeed * Time.deltaTime);
         
         if (_elapseInitialTime >= _totalInitialTime)
         {
