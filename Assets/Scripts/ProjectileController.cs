@@ -14,6 +14,7 @@ public class ProjectileController : MonoBehaviour
     private GameObject _returnTarget;
     private bool _isReturning;
     private Vector3 _returnPosition;
+    private bool _isReturnable;
     
     private int _damage;
     private Vector3 _initialPosition;
@@ -30,7 +31,7 @@ public class ProjectileController : MonoBehaviour
         _angle = transform.rotation.eulerAngles.z * Mathf.Deg2Rad;
         _currentTime = existTime;
         _isReturning = false;
-
+        
         if (speed == 0)
         {
             Destroy(gameObject, existTime);
@@ -63,13 +64,19 @@ public class ProjectileController : MonoBehaviour
             var distance = Vector3.Distance(_initialPosition, transform.position);
             if (distance >= maxDistance)
             {
+                if (collisionParticle)
+                {
+                    GameObject particle = Instantiate(collisionParticle, transform.position + new Vector3(_radius * Mathf.Cos(_angle), _radius * Mathf.Sin(_angle), 0), Quaternion.Euler(0,0,0));
+                    Destroy(particle, 0.8f);
+                }
+                
                 if (isExplodeOnEnd)
                 {
-                    var effect = Instantiate(effectOnEnd, transform.position, Quaternion.Euler(0, 0, 0));
-                    effect.gameObject.GetComponent<ProjectileController>().SetDamage(_damage);
+                    var effect = Instantiate(effectOnEnd, transform.position, Quaternion.Euler(0, 0, 0)); 
+                    effect.gameObject.GetComponent<ProjectileController>().SetDamage(_damage);  
                 }
 
-                if (_returnTarget || _returnPosition != null)
+                if (_isReturnable)
                 {
                     _isReturning = true;
                     transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -94,8 +101,6 @@ public class ProjectileController : MonoBehaviour
         {
             if (speed > 0)
             {
-                Destroy(gameObject);
-                
                 if (collisionParticle)
                 {
                     GameObject particle = Instantiate(collisionParticle, transform.position + new Vector3(_radius * Mathf.Cos(_angle), _radius * Mathf.Sin(_angle), 0), Quaternion.Euler(0,0,0));
@@ -106,7 +111,9 @@ public class ProjectileController : MonoBehaviour
                 {
                     var effect = Instantiate(effectOnEnd, transform.position, Quaternion.Euler(0, 0, 0)); 
                     effect.gameObject.GetComponent<ProjectileController>().SetDamage(_damage);  
-                }   
+                }
+                
+                Destroy(gameObject);
             }
         }
     }
@@ -130,5 +137,6 @@ public class ProjectileController : MonoBehaviour
     {
         _returnTarget = target;
         _returnPosition = _returnTarget.transform.position;
+        _isReturnable = true;
     }
 }
