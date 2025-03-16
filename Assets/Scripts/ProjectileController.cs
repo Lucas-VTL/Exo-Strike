@@ -40,56 +40,59 @@ public class ProjectileController : MonoBehaviour
 
     void Update()
     {
-        if (_isReturning)
+        if (Time.timeScale != 0)
         {
-            if (_returnTarget)
-            {
-                _returnPosition = _returnTarget.transform.position;
-            }
-            
-            var direction = (_returnPosition - transform.position).normalized;
-            transform.Translate(direction * (speed *  Time.deltaTime));
-            
-            if (Vector3.Distance(transform.position, _returnPosition) < 0.1f)
-            {
-                Destroy(gameObject);
-            }
-            
-            return;
-        }
-        
-        if (speed > 0)
-        {
-            transform.Translate(Vector3.right * (speed *  Time.deltaTime));
-            var distance = Vector3.Distance(_initialPosition, transform.position);
-            if (distance >= maxDistance)
-            {
-                if (collisionParticle)
-                {
-                    GameObject particle = Instantiate(collisionParticle, transform.position + new Vector3(_radius * Mathf.Cos(_angle), _radius * Mathf.Sin(_angle), 0), Quaternion.Euler(0,0,0));
-                    Destroy(particle, 0.8f);
-                }
-                
-                if (isExplodeOnEnd)
-                {
-                    var effect = Instantiate(effectOnEnd, transform.position, Quaternion.Euler(0, 0, 0)); 
-                    effect.gameObject.GetComponent<ProjectileController>().SetDamage(_damage);  
-                }
-
-                if (_isReturnable)
-                {
-                    _isReturning = true;
-                    transform.rotation = Quaternion.Euler(0, 0, 0);
-                }
-                else
-                {
-                    Destroy(gameObject);
-                }
-            }   
-        }
-        else
-        {
-            _currentTime -= Time.deltaTime;
+         if (_isReturning)
+                 {
+                     if (_returnTarget)
+                     {
+                         _returnPosition = _returnTarget.transform.position;
+                     }
+                     
+                     var direction = (_returnPosition - transform.position).normalized;
+                     transform.Translate(direction * (speed *  Time.deltaTime));
+                     
+                     if (Vector3.Distance(transform.position, _returnPosition) < 0.1f)
+                     {
+                         Destroy(gameObject);
+                     }
+                     
+                     return;
+                 }
+                 
+                 if (speed > 0)
+                 {
+                     transform.Translate(Vector3.right * (speed *  Time.deltaTime));
+                     var distance = Vector3.Distance(_initialPosition, transform.position);
+                     if (distance >= maxDistance)
+                     {
+                         if (collisionParticle)
+                         {
+                             GameObject particle = Instantiate(collisionParticle, transform.position + new Vector3(_radius * Mathf.Cos(_angle), _radius * Mathf.Sin(_angle), 0), Quaternion.Euler(0,0,0));
+                             Destroy(particle, 0.8f);
+                         }
+                         
+                         if (isExplodeOnEnd)
+                         {
+                             var effect = Instantiate(effectOnEnd, transform.position, Quaternion.Euler(0, 0, 0)); 
+                             effect.gameObject.GetComponent<ProjectileController>().SetDamage(_damage);  
+                         }
+         
+                         if (_isReturnable)
+                         {
+                             _isReturning = true;
+                             transform.rotation = Quaternion.Euler(0, 0, 0);
+                         }
+                         else
+                         {
+                             Destroy(gameObject);
+                         }
+                     }   
+                 }
+                 else
+                 {
+                     _currentTime -= Time.deltaTime;
+                 }   
         }
     }
 

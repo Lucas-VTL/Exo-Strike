@@ -100,7 +100,7 @@ public class MonsterController : MonoBehaviour
         }
         else
         {
-            if (!_isDead)
+            if (!_isDead || Time.timeScale != 0)
             {
                 if (_animator)
                 {

@@ -6,6 +6,9 @@ public class RotateController : MonoBehaviour
 
     void Update()
     {
-        transform.Rotate(Vector3.forward, rotateSpeed * Time.deltaTime);
+        if (Time.timeScale != 0)
+        {
+            transform.Rotate(Vector3.forward, rotateSpeed * Time.deltaTime);   
+        }
     }
 }

@@ -36,7 +36,7 @@ public class SystemController : MonoBehaviour
         {
             if (Application.isEditor)
             {
-                //EditorApplication.isPlaying = false;  
+                //  EditorApplication.isPlaying = false;  
             }
             else
             {

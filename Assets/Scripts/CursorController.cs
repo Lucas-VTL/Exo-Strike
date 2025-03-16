@@ -79,23 +79,32 @@ public class CursorController : MonoBehaviour
 
     private void Update()
     {
-        if (_isReloading)
+        if (Time.timeScale != 0)
         {
-            if (_reloadTimer > 0)
+            if (_isReloading)
             {
-                _reloadTimer -= Time.deltaTime;
-                reloadCursor.value = _reloadTimer;
+                if (_reloadTimer > 0)
+                {
+                    _reloadTimer -= Time.deltaTime;
+                    reloadCursor.value = _reloadTimer;
                 
-                Vector2 mousePosition = Input.mousePosition;
-                Vector2 localPoint;
-                RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                    _sliderRectTransform.parent.GetComponent<RectTransform>(), 
-                    mousePosition, 
-                    null, 
-                    out localPoint
-                );
-                _sliderRectTransform.localPosition = localPoint; 
-            }
+                    Vector2 mousePosition = Input.mousePosition;
+                    Vector2 localPoint;
+                    RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                        _sliderRectTransform.parent.GetComponent<RectTransform>(), 
+                        mousePosition, 
+                        null, 
+                        out localPoint
+                    );
+                    _sliderRectTransform.localPosition = localPoint; 
+                }
+            }   
+        }
+        else
+        {
+            reloadCursor.gameObject.SetActive(false);
+            Cursor.visible = true;
+            Cursor.SetCursor(fireCursorTexture, _cursorHotSpot, _cursorMode);
         }
     }
     

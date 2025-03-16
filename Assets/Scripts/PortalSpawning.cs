@@ -11,6 +11,7 @@ public class PortalSpawning : MonoBehaviour
     public GameObject portal;
     public Slider waveSlider;
     public TextMeshProUGUI waveText;
+    public GameObject cardHUD;
     
     private BoxCollider2D _moveScopeCollider;
     private PolygonCollider2D[] _waterScopeCollider;
@@ -24,10 +25,12 @@ public class PortalSpawning : MonoBehaviour
     private int _wave;
     private float _waveTimer;
     private float _waveTimeMultiplier = 10f;
-    private float _portalInitialTime = 3.5f;
+    private float _portalInitialTime = 4f;
     
     private Color _startSliderColor = new Color(0f / 255f, 255f / 255f, 72f / 255f);
     private Color _endSliderColor = new Color(255f / 255f, 20f / 255f, 0f / 255f);
+
+    private Transform _cardPanel;
     
     void Start()
     {
@@ -43,11 +46,13 @@ public class PortalSpawning : MonoBehaviour
         waveText.text = _wave.ToString();
         
         waveSlider.onValueChanged.AddListener(OnSliderChanged);
+        _cardPanel = cardHUD.transform.GetChild(0);
+        _cardPanel.gameObject.GetComponent<Animator>().updateMode = AnimatorUpdateMode.UnscaledTime;
     }
 
     void Update()
     {
-        if (player.activeSelf)
+        if (player.activeSelf && Time.timeScale != 0)
         {
             if (_waveTimer > 0 && !_isAlreadySpawned)
             {
@@ -67,7 +72,9 @@ public class PortalSpawning : MonoBehaviour
                 {
                     GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
                     if (monsters.Length == 0)
-                    {
+                    {   
+                        Time.timeScale = 0f;
+                        cardHUD.gameObject.SetActive(true);
                         _isAlreadySpawned = false;
                         _wave += 1;
                         _waveTimer = _wave * _waveTimeMultiplier;
@@ -80,6 +87,8 @@ public class PortalSpawning : MonoBehaviour
             } 
             else
             {
+                Time.timeScale = 0f;
+                cardHUD.gameObject.SetActive(true);
                 _isAlreadySpawned = false;
                 _wave += 1;
                 _waveTimer = _wave * _waveTimeMultiplier;
@@ -87,6 +96,11 @@ public class PortalSpawning : MonoBehaviour
                 waveSlider.value = _waveTimer;
                 waveText.text = _wave.ToString();
             }   
+        }
+
+        if (Time.timeScale == 0)
+        {
+            _cardPanel.gameObject.GetComponent<Animator>().speed = 1f;
         }
     }
     

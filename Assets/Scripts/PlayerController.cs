@@ -13,7 +13,8 @@ public class PlayerController : MonoBehaviour
     
     private Animator _animator;
 
-    private int _playerSpeed;
+    private int _playerWalkSpeed = 4;
+    private int _playerRunSpeed = 7;
     private BoxCollider2D _moveScopeCollider;
 
     private float _xBoundary;
@@ -40,7 +41,7 @@ public class PlayerController : MonoBehaviour
     private int[] _projectileDamage;
 
     private int _health = 10;
-    private float _staminaMax = 3f;
+    private float _staminaMax = 5f;
     private float _currentStamina;
     private float _staminaCooldown = 1f;
     
@@ -100,70 +101,36 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (_invulnerableTimer > 0)
+        if (Time.timeScale != 0)
         {
-            healthSlider.fillRect.GetComponent<Image>().color = Color.gray;
-            _invulnerableTimer -= Time.deltaTime;
-            
-            _invulnerableShield.gameObject.SetActive(true);
-        }
-        else
-        {
-            healthSlider.fillRect.GetComponent<Image>().color = new Color(197f / 255f, 17f / 255f, 0f, 1f);
-            _invulnerableShield.gameObject.SetActive(false);
-        }
-        
-        //Handle player not go out map boundaries
-        var playerPos = transform.position;
-        playerPos.x = Mathf.Clamp(playerPos.x, -_xBoundary + _xBoundaryOffset, _xBoundary - _xBoundaryOffset);
-        playerPos.y = Mathf.Clamp(playerPos.y, -_yBoundary + _yBottomBoundaryOffset, _yBoundary + _yTopBoundaryOffset);
-        transform.position = playerPos;
-
-        //Handle player movement and animation
-        var horizontalMove = Input.GetAxisRaw("Horizontal");
-        var verticalMove = Input.GetAxisRaw("Vertical");
-
-        if (horizontalMove == 0 && verticalMove == 0)
-        {
-            _animator.SetBool("isWalking", false);
-            _animator.SetBool("isRunning", false);
-            _playerSpeed = 0;
-            
-            _staminaCooldown -= Time.deltaTime;
-            
-            if (_staminaCooldown <= 0)
+         if (_invulnerableTimer > 0)
             {
-                _currentStamina = Mathf.Clamp(_currentStamina + Time.deltaTime, 0, _staminaMax);
-                staminaSlider.value = _currentStamina;
-            }
-        }
-        else
-        {
-            if (transform.localScale.x * horizontalMove > 0)
-            {
-                _animator.SetBool("isStepBack", false);
+                healthSlider.fillRect.GetComponent<Image>().color = Color.gray;
+                _invulnerableTimer -= Time.deltaTime;
+                
+                _invulnerableShield.gameObject.SetActive(true);
             }
             else
             {
-                _animator.SetBool("isStepBack", true);
+                healthSlider.fillRect.GetComponent<Image>().color = new Color(197f / 255f, 17f / 255f, 0f, 1f);
+                _invulnerableShield.gameObject.SetActive(false);
             }
-
-            if (Input.GetKey(KeyCode.Space) && _currentStamina > 0)
+            
+            //Handle player not go out map boundaries
+            var playerPos = transform.position;
+            playerPos.x = Mathf.Clamp(playerPos.x, -_xBoundary + _xBoundaryOffset, _xBoundary - _xBoundaryOffset);
+            playerPos.y = Mathf.Clamp(playerPos.y, -_yBoundary + _yBottomBoundaryOffset, _yBoundary + _yTopBoundaryOffset);
+            transform.position = playerPos;
+            
+            //Handle player movement and animation
+            var horizontalMove = Input.GetAxisRaw("Horizontal");
+            var verticalMove = Input.GetAxisRaw("Vertical");
+            
+            if (horizontalMove == 0 && verticalMove == 0)
             {
-                _animator.SetBool("isRunning", true);
                 _animator.SetBool("isWalking", false);
-                _playerSpeed = 7;
-
-                _currentStamina -= Time.deltaTime;
-                _staminaCooldown = 1f;
-                staminaSlider.value = _currentStamina;
-            }
-            else
-            {
                 _animator.SetBool("isRunning", false);
-                _animator.SetBool("isWalking", true);
-                _playerSpeed = 4;
-
+                
                 _staminaCooldown -= Time.deltaTime;
                 
                 if (_staminaCooldown <= 0)
@@ -172,188 +139,225 @@ public class PlayerController : MonoBehaviour
                     staminaSlider.value = _currentStamina;
                 }
             }
-
-            var move = new Vector3(horizontalMove, verticalMove, 0).normalized;
-            transform.Translate(move * (_playerSpeed * Time.deltaTime));
-        }
-
-        //Get mouse position and angleByDeg between mouse and main axis
-        var mousePos = Input.mousePosition;
-        mousePos = _mainCamera.ScreenToWorldPoint(mousePos);
-        mousePos.z = 0;
-
-        Vector3 direction = (mousePos - playerArm.transform.position).normalized;
-        var angleByRad = Mathf.Atan2(direction.y, direction.x);
-        var angleByDeg = angleByRad * Mathf.Rad2Deg;
-        angleByDeg = Mathf.Repeat(angleByDeg, 360f);
-
-        var gunRadius = Mathf.Sqrt(_xGunOffset * _xGunOffset + _yGunOffset * _yGunOffset);
-        var headGunRadius = Mathf.Sqrt(_xHeadGunOffset * _xHeadGunOffset + _yHeadGunOffset * _yHeadGunOffset);
-
-        //Handle player rotation from mouse position
-        if (angleByDeg <= 60 || angleByDeg >= 300)
-        {
-            transform.localScale = new Vector3(1, 1, 1);
-            playerArm.transform.localScale = new Vector3(1, 1, 1);
-            gun.transform.localScale = new Vector3(1, 1, 1);
-
-            playerArm.transform.rotation = Quaternion.Euler(0, 0, angleByDeg);
-            gun.transform.rotation = Quaternion.Euler(0, 0, angleByDeg);
-        }
-        else if (angleByDeg >= 120 && angleByDeg <= 240)
-        {
-            transform.localScale = new Vector3(-1, 1, 1);
-            playerArm.transform.localScale = new Vector3(-1, 1, 1);
-            gun.transform.localScale = new Vector3(-1, 1, 1);
-
-            playerArm.transform.rotation = Quaternion.Euler(0, 0, angleByDeg + 180);
-            gun.transform.rotation = Quaternion.Euler(0, 0, angleByDeg + 180);
-        }
-
-        //Handle player arm position
-        playerArm.transform.position = transform.position + new Vector3(_xArmOffset, _yArmOffset, 0);
-
-        //Handle gun position
-        if ((angleByDeg <= 60 || angleByDeg >= 300) || (angleByDeg >= 120 && angleByDeg <= 240))
-        {
-            gun.transform.position = playerArm.transform.position +
-                                     new Vector3(gunRadius * Mathf.Cos(angleByRad), gunRadius * Mathf.Sin(angleByRad),
-                                         0);
-        }
-        else
-        {
-            if (angleByDeg >= 60 && angleByDeg <= 120)
-            {
-                if (transform.localScale.x == 1)
-                {
-                    gun.transform.position = playerArm.transform.position +
-                                             new Vector3(gunRadius * Mathf.Cos(60 * Mathf.Deg2Rad),
-                                                 gunRadius * Mathf.Sin(60 * Mathf.Deg2Rad), 0);
-                }
-                else
-                {
-                    gun.transform.position = playerArm.transform.position +
-                                             new Vector3(gunRadius * Mathf.Cos(120 * Mathf.Deg2Rad),
-                                                 gunRadius * Mathf.Sin(120 * Mathf.Deg2Rad), 0);
-                }
-            }
-            else if (angleByDeg >= 240 && angleByDeg <= 300)
-            {
-                if (transform.localScale.x == 1)
-                {
-                    gun.transform.position = playerArm.transform.position +
-                                             new Vector3(gunRadius * Mathf.Cos(300 * Mathf.Deg2Rad),
-                                                 gunRadius * Mathf.Sin(300 * Mathf.Deg2Rad), 0);
-                }
-                else
-                {
-                    gun.transform.position = playerArm.transform.position +
-                                             new Vector3(gunRadius * Mathf.Cos(240 * Mathf.Deg2Rad),
-                                                 gunRadius * Mathf.Sin(240 * Mathf.Deg2Rad), 0);
-                }
-            }
-        }
-        
-        //Handle player's projectile type
-        float mouseScroll = Input.GetAxis("Mouse ScrollWheel");
-
-        if (mouseScroll != 0 && !_isScrolling)
-        {
-            if (mouseScroll > 0)
-            {
-                _currentProjectileIndex++;
-            }
-            else if (mouseScroll < 0)
-            {
-                _currentProjectileIndex--;
-            }
-            
-            _currentProjectileIndex = (int)Mathf.Repeat(_currentProjectileIndex, projectileList.Length);
-            
-            Reload(false);
-            _isReload = false;
-            _reloadTimer = 0;
-            
-            OnBulletChange?.Invoke(_bullet[_currentProjectileIndex]);
-            
-            ProjectileChange();
-            _isScrolling = true;
-            _scrollingTimer = 0.25f;
-        }
-
-        if (mouseScroll == 0)
-        {
-            _scrollingTimer -= Time.deltaTime;
-        }
-
-        if (_scrollingTimer <= 0)
-        {
-            _isScrolling = false;
-        }
-        
-        //Handle player shooting
-        if (_reloadTimer > 0)
-        {
-            _reloadTimer -= Time.deltaTime;
-            return;
-        }
-        else
-        {
-            if (_isReload)
-            {
-                Reload(false);
-                OnBulletChange?.Invoke(_bulletStorage[_currentProjectileIndex]);
-                _isReload = false;
-                _bullet[_currentProjectileIndex] = _bulletStorage[_currentProjectileIndex];
-            }
-            
-            if ((angleByDeg <= 60 || angleByDeg >= 300) || (angleByDeg >= 120 && angleByDeg <= 240))
-            {
-                OnShootAngleChange(true);
-                _canFire = true;
-            
-                if (Input.GetMouseButtonDown(0))
-                {
-                    var projectile = Instantiate(projectileList[_currentProjectileIndex], gun.transform.position, Quaternion.Euler(0, 0, angleByDeg));
-                    projectile.gameObject.GetComponent<ProjectileController>().SetDamage(_projectileDamage[_currentProjectileIndex]);
-                    
-                    GameObject headLight = null;
-                    if (angleByDeg <= 60 || angleByDeg >= 300)
-                    {
-                        headLight = Instantiate(projectileHeadLight,
-                            playerArm.transform.position + new Vector3(headGunRadius * Mathf.Cos(angleByRad),
-                                headGunRadius * Mathf.Sin(angleByRad), 0), Quaternion.Euler(0, 0, 0));
-                        BulletChange();
-                    }
-                    else if (angleByDeg >= 120 && angleByDeg <= 240)
-                    {
-                        headLight = Instantiate(projectileHeadLight,
-                            playerArm.transform.position + new Vector3(headGunRadius * Mathf.Cos(angleByRad),
-                                headGunRadius * Mathf.Sin(angleByRad), 0), Quaternion.Euler(0, 0, 180));
-                        BulletChange();
-                    }
-                    StartCoroutine(FollowHeadGun(headLight, headGunRadius));
-                }
-            } 
             else
             {
-                OnShootAngleChange(false);
-                _canFire = false;
-            }   
-        }
-        
-        //Handle player manual reloading
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            if (_bullet[_currentProjectileIndex] < _bulletStorage[_currentProjectileIndex])
-            {
-                Reload(true);
-                _reloadTimer = _reloadTime[_currentProjectileIndex];
-                _isReload = true;   
+                if (transform.localScale.x * horizontalMove > 0)
+                {
+                    _animator.SetBool("isStepBack", false);
+                }
+                else
+                {
+                    _animator.SetBool("isStepBack", true);
+                }
+            
+                if (Input.GetKey(KeyCode.Space) && _currentStamina > 0)
+                {
+                    _animator.SetBool("isRunning", true);
+                    _animator.SetBool("isWalking", false);
+            
+                    _currentStamina -= Time.deltaTime;
+                    _staminaCooldown = 1f;
+                    staminaSlider.value = _currentStamina;
+                    
+                    var move = new Vector3(horizontalMove, verticalMove, 0).normalized;
+                    transform.Translate(move * (_playerRunSpeed * Time.deltaTime));
+                }
+                else
+                {
+                    _animator.SetBool("isRunning", false);
+                    _animator.SetBool("isWalking", true);
+            
+                    _staminaCooldown -= Time.deltaTime;
+                    
+                    if (_staminaCooldown <= 0)
+                    {
+                        _currentStamina = Mathf.Clamp(_currentStamina + Time.deltaTime, 0, _staminaMax);
+                        staminaSlider.value = _currentStamina;
+                    }
+                    
+                    var move = new Vector3(horizontalMove, verticalMove, 0).normalized;
+                    transform.Translate(move * (_playerWalkSpeed * Time.deltaTime));
+                }
             }
+            
+            //Get mouse position and angleByDeg between mouse and main axis
+            var mousePos = Input.mousePosition;
+            mousePos = _mainCamera.ScreenToWorldPoint(mousePos);
+            mousePos.z = 0;
+            
+            Vector3 direction = (mousePos - playerArm.transform.position).normalized;
+            var angleByRad = Mathf.Atan2(direction.y, direction.x);
+            var angleByDeg = angleByRad * Mathf.Rad2Deg;
+            angleByDeg = Mathf.Repeat(angleByDeg, 360f);
+            
+            var gunRadius = Mathf.Sqrt(_xGunOffset * _xGunOffset + _yGunOffset * _yGunOffset);
+            var headGunRadius = Mathf.Sqrt(_xHeadGunOffset * _xHeadGunOffset + _yHeadGunOffset * _yHeadGunOffset);
+            
+            //Handle player rotation from mouse position
+            if (angleByDeg <= 60 || angleByDeg >= 300)
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+                playerArm.transform.localScale = new Vector3(1, 1, 1);
+                gun.transform.localScale = new Vector3(1, 1, 1);
+            
+                playerArm.transform.rotation = Quaternion.Euler(0, 0, angleByDeg);
+                gun.transform.rotation = Quaternion.Euler(0, 0, angleByDeg);
+            }
+            else if (angleByDeg >= 120 && angleByDeg <= 240)
+            {
+                transform.localScale = new Vector3(-1, 1, 1);
+                playerArm.transform.localScale = new Vector3(-1, 1, 1);
+                gun.transform.localScale = new Vector3(-1, 1, 1);
+            
+                playerArm.transform.rotation = Quaternion.Euler(0, 0, angleByDeg + 180);
+                gun.transform.rotation = Quaternion.Euler(0, 0, angleByDeg + 180);
+            }
+            
+            //Handle player arm position
+            playerArm.transform.position = transform.position + new Vector3(_xArmOffset, _yArmOffset, 0);
+            
+            //Handle gun position
+            if ((angleByDeg <= 60 || angleByDeg >= 300) || (angleByDeg >= 120 && angleByDeg <= 240))
+            {
+                gun.transform.position = playerArm.transform.position +
+                                         new Vector3(gunRadius * Mathf.Cos(angleByRad), gunRadius * Mathf.Sin(angleByRad),
+                                             0);
+            }
+            else
+            {
+                if (angleByDeg >= 60 && angleByDeg <= 120)
+                {
+                    if (transform.localScale.x == 1)
+                    {
+                        gun.transform.position = playerArm.transform.position +
+                                                 new Vector3(gunRadius * Mathf.Cos(60 * Mathf.Deg2Rad),
+                                                     gunRadius * Mathf.Sin(60 * Mathf.Deg2Rad), 0);
+                    }
+                    else
+                    {
+                        gun.transform.position = playerArm.transform.position +
+                                                 new Vector3(gunRadius * Mathf.Cos(120 * Mathf.Deg2Rad),
+                                                     gunRadius * Mathf.Sin(120 * Mathf.Deg2Rad), 0);
+                    }
+                }
+                else if (angleByDeg >= 240 && angleByDeg <= 300)
+                {
+                    if (transform.localScale.x == 1)
+                    {
+                        gun.transform.position = playerArm.transform.position +
+                                                 new Vector3(gunRadius * Mathf.Cos(300 * Mathf.Deg2Rad),
+                                                     gunRadius * Mathf.Sin(300 * Mathf.Deg2Rad), 0);
+                    }
+                    else
+                    {
+                        gun.transform.position = playerArm.transform.position +
+                                                 new Vector3(gunRadius * Mathf.Cos(240 * Mathf.Deg2Rad),
+                                                     gunRadius * Mathf.Sin(240 * Mathf.Deg2Rad), 0);
+                    }
+                }
+            }
+            
+            //Handle player's projectile type
+            float mouseScroll = Input.GetAxis("Mouse ScrollWheel");
+            
+            if (mouseScroll != 0 && !_isScrolling)
+            {
+                if (mouseScroll > 0)
+                {
+                    _currentProjectileIndex++;
+                }
+                else if (mouseScroll < 0)
+                {
+                    _currentProjectileIndex--;
+                }
+                
+                _currentProjectileIndex = (int)Mathf.Repeat(_currentProjectileIndex, projectileList.Length);
+                
+                Reload(false);
+                _isReload = false;
+                _reloadTimer = 0;
+                
+                OnBulletChange?.Invoke(_bullet[_currentProjectileIndex]);
+                
+                ProjectileChange();
+                _isScrolling = true;
+                _scrollingTimer = 0.25f;
+            }
+            
+            if (mouseScroll == 0)
+            {
+                _scrollingTimer -= Time.deltaTime;
+            }
+            
+            if (_scrollingTimer <= 0)
+            {
+                _isScrolling = false;
+            }
+            
+            //Handle player shooting
+            if (_reloadTimer > 0)
+            {
+                _reloadTimer -= Time.deltaTime;
+                return;
+            }
+            else
+            {
+                if (_isReload)
+                {
+                    Reload(false);
+                    OnBulletChange?.Invoke(_bulletStorage[_currentProjectileIndex]);
+                    _isReload = false;
+                    _bullet[_currentProjectileIndex] = _bulletStorage[_currentProjectileIndex];
+                }
+                
+                if ((angleByDeg <= 60 || angleByDeg >= 300) || (angleByDeg >= 120 && angleByDeg <= 240))
+                {
+                    OnShootAngleChange(true);
+                    _canFire = true;
+                
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        var projectile = Instantiate(projectileList[_currentProjectileIndex], gun.transform.position, Quaternion.Euler(0, 0, angleByDeg));
+                        projectile.gameObject.GetComponent<ProjectileController>().SetDamage(_projectileDamage[_currentProjectileIndex]);
+                        
+                        GameObject headLight = null;
+                        if (angleByDeg <= 60 || angleByDeg >= 300)
+                        {
+                            headLight = Instantiate(projectileHeadLight,
+                                playerArm.transform.position + new Vector3(headGunRadius * Mathf.Cos(angleByRad),
+                                    headGunRadius * Mathf.Sin(angleByRad), 0), Quaternion.Euler(0, 0, 0));
+                            BulletChange();
+                        }
+                        else if (angleByDeg >= 120 && angleByDeg <= 240)
+                        {
+                            headLight = Instantiate(projectileHeadLight,
+                                playerArm.transform.position + new Vector3(headGunRadius * Mathf.Cos(angleByRad),
+                                    headGunRadius * Mathf.Sin(angleByRad), 0), Quaternion.Euler(0, 0, 180));
+                            BulletChange();
+                        }
+                        StartCoroutine(FollowHeadGun(headLight, headGunRadius));
+                    }
+                } 
+                else
+                {
+                    OnShootAngleChange(false);
+                    _canFire = false;
+                }   
+            }
+            
+            //Handle player manual reloading
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                if (_bullet[_currentProjectileIndex] < _bulletStorage[_currentProjectileIndex])
+                {
+                    Reload(true);
+                    _reloadTimer = _reloadTime[_currentProjectileIndex];
+                    _isReload = true;   
+                }
+            }
+            
+            healthSlider.value = _health;   
         }
-        
-        healthSlider.value = _health;
     }
     
     IEnumerator FollowHeadGun(GameObject origin, float radius)
