@@ -39,13 +39,14 @@ public class PlayerController : MonoBehaviour
     private float _yHeadGunOffset = 0.05f;
     private int _currentProjectileIndex;
     private int[] _projectileDamage;
-
-    private int _health = 10;
-    private float _staminaMax = 5f;
+    
+    private int _healthMax = 10;
+    private int _currentHealth;
+    private float _staminaMax = 3f;
     private float _currentStamina;
     private float _staminaCooldown = 1f;
     
-    private float _invulnerableTime = 2f;
+    private float _invulnerableTime = 0.5f;
     private float _invulnerableTimer = 0f;
     private Transform _invulnerableShield;
 
@@ -76,8 +77,9 @@ public class PlayerController : MonoBehaviour
         _xBoundary = _moveScopeCollider.size.x / 2;
         _yBoundary = _moveScopeCollider.size.y / 2;
         
-        healthSlider.maxValue = _health;
-        healthSlider.value = _health;
+        healthSlider.maxValue = _healthMax;
+        healthSlider.value = _healthMax;
+        _currentHealth = _healthMax;
         
         staminaSlider.maxValue = _staminaMax;
         staminaSlider.value = _staminaMax;
@@ -356,7 +358,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
             
-            healthSlider.value = _health;   
+            healthSlider.value = _currentHealth;   
         }
     }
     
@@ -432,10 +434,10 @@ public class PlayerController : MonoBehaviour
                 {
                     var damage = other.gameObject.GetComponent<MonsterController>().hitDamage;
         
-                    _health -= damage;
+                    _currentHealth -= damage;
                     _invulnerableTimer = _invulnerableTime;
 
-                    if (_health <= 0)
+                    if (_currentHealth <= 0)
                     {
                         EndGameEvent();
                     } 
@@ -453,10 +455,10 @@ public class PlayerController : MonoBehaviour
             {
                 var damage = other.gameObject.GetComponent<ProjectileController>().GetDamage();
                 
-                _health -= damage;
+                _currentHealth -= damage;
                 _invulnerableTimer = _invulnerableTime;
 
-                if (_health <= 0)
+                if (_currentHealth <= 0)
                 {
                     EndGameEvent();
                 }   
@@ -473,10 +475,10 @@ public class PlayerController : MonoBehaviour
             {
                 var damage = other.gameObject.GetComponent<ProjectileController>().GetDamage();
                 
-                _health -= damage;
+                _currentHealth -= damage;
                 _invulnerableTimer = _invulnerableTime;
 
-                if (_health <= 0)
+                if (_currentHealth <= 0)
                 {
                     EndGameEvent();
                 }   
@@ -486,12 +488,12 @@ public class PlayerController : MonoBehaviour
 
     public void SetHealth(int health)
     {
-        _health = health;
+        _currentHealth = health;
     }
 
     public int GetHealth()
     {
-        return _health;
+        return _currentHealth;
     }
 
     public void EndGameEvent()
@@ -593,5 +595,21 @@ public class PlayerController : MonoBehaviour
     public GameObject GetCurrentProjectile()
     {
         return projectileList[_currentProjectileIndex];
+    }
+
+    public void AddHealth(int health)
+    {
+        _currentHealth = Mathf.Min(_currentHealth + health, _healthMax);
+    }
+
+    public void IncreaseHealth(int health)
+    {
+        _healthMax += health;
+        healthSlider.maxValue = _healthMax;
+    }
+
+    public void AddInvulenerableTime(float time)
+    {
+        _invulnerableTime += time;
     }
 }

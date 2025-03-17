@@ -8,7 +8,7 @@ public class RotateController : MonoBehaviour
     {
         if (Time.timeScale != 0)
         {
-            transform.Rotate(Vector3.forward, rotateSpeed * Time.deltaTime);   
+            transform.Rotate(Vector3.forward, rotateSpeed * Time.deltaTime);    
         }
     }
 }
