@@ -8,28 +8,14 @@ using Random = UnityEngine.Random;
 
 public class MonsterController : MonoBehaviour
 {
-    public int monsterID;
-    public int speed;
-    public float attackRange;
-    public int health;
-    public int hitDamage;
-    public int projectileDamage;
-    public bool isMelee;
-    public float attackCooldown;
-    public float reviveTime;
-    public float attackWaitingAngleRange;
-    public GameObject monsterProjectile;
-    public GameObject grave;
-    public int score;
+    public MonsterParameter monsterParameter;
+    private MonsterParameter _monsterParameterClone;
     
     private bool _isReviveable = false;
     private bool _isReviveMonster = false;
     private BoxCollider2D _moveScopeCollider;
     private float _xBoundary;
     private float _yBoundary;
-    public float xBoundaryOffset;
-    public float yTopBoundaryOffset;
-    public float yBottomBoundaryOffset;
     
     private GameObject _player;
     private Animator _animator;
@@ -51,7 +37,6 @@ public class MonsterController : MonoBehaviour
     private float _totalReturnTime;
     private bool _isDead = false;
     
-    public float attackingTime;
     private float _attackingTimer = 0f;
     private bool _isFinishAttacking = true;
     private float _attackCooldownTimer = 0f;
@@ -65,7 +50,12 @@ public class MonsterController : MonoBehaviour
     
     private float _freezeTimer;
     private bool _isFreeze;
-    
+
+    private void Awake()
+    {
+        _monsterParameterClone = Instantiate(monsterParameter);
+    }
+
     void Start()
     {   
         _player = GameObject.Find("Body");
@@ -80,8 +70,8 @@ public class MonsterController : MonoBehaviour
         _healthSlider.onValueChanged.AddListener(OnHealthSliderChanged);
         
         _oldPosition = transform.position;
-        _healthSlider.maxValue = health;
-        _healthSlider.value = health;
+        _healthSlider.maxValue = _monsterParameterClone.health;
+        _healthSlider.value = _monsterParameterClone.health;
         
         var moveScope = GameObject.Find("Move Boundary");
         _moveScopeCollider = moveScope.GetComponent<BoxCollider2D>();
@@ -149,7 +139,7 @@ public class MonsterController : MonoBehaviour
                     {
                         _animator.SetBool("isRevive", true);
                         _isReviveMonster = false;
-                        _reviveTimer = reviveTime;
+                        _reviveTimer = _monsterParameterClone.reviveTime;
                     }
                     else
                     {
@@ -193,10 +183,10 @@ public class MonsterController : MonoBehaviour
             {
                 var damage = other.gameObject.GetComponent<ProjectileController>().GetDamage();
         
-                health -= damage;
-                _healthSlider.value = health;
+                _monsterParameterClone.health -= damage;
+                _healthSlider.value = _monsterParameterClone.health;
         
-                if (health <= 0)
+                if (_monsterParameterClone.health <= 0)
                 {
                     if (_animator)
                     {
@@ -219,7 +209,7 @@ public class MonsterController : MonoBehaviour
                         }
                     }
                     
-                    _player.GetComponent<PlayerController>().AddScore(score + _waveScore);
+                    _player.GetComponent<PlayerController>().AddScore(_monsterParameterClone.score + _waveScore);
                 }
             }
             
@@ -229,7 +219,7 @@ public class MonsterController : MonoBehaviour
                 _isFreeze = true;
             }
             
-            if (other.gameObject.CompareTag("Altar") && grave != null)
+            if (other.gameObject.CompareTag("Altar") && _monsterParameterClone.grave != null)
             {
                 _isReviveable = true;
             }
@@ -241,7 +231,7 @@ public class MonsterController : MonoBehaviour
     {
         if (!_isReturn)
         {
-            transform.Translate(direction * (speed * Time.deltaTime));   
+            transform.Translate(direction * (_monsterParameterClone.speed * Time.deltaTime));   
         }
         else
         {
@@ -275,7 +265,7 @@ public class MonsterController : MonoBehaviour
             Vector3 currentPosition = transform.position;
             float transition = Vector3.Distance(currentPosition, _oldPosition);
                         
-            if (transition < speed)
+            if (transition < _monsterParameterClone.speed)
             {
                 //Stucking case
                 var returnAngle = Random.Range(_minReturnAngle, _maxReturnAngle);
@@ -327,7 +317,7 @@ public class MonsterController : MonoBehaviour
         else
         {
             //Returning direction to escape stucking for _returnTimer seconds
-            transform.Translate(_returnDirection * (speed * Time.deltaTime));
+            transform.Translate(_returnDirection * (_monsterParameterClone.speed * Time.deltaTime));
             _totalReturnTime -= Time.deltaTime;
             
             KeepMonsterOnMap();
@@ -345,20 +335,20 @@ public class MonsterController : MonoBehaviour
         }
         else
         {
-            if (!isMelee && !_isFinishAttacking)
+            if (!_monsterParameterClone.isMelee && !_isFinishAttacking)
             {
-                if (monsterProjectile.tag == "Monster Projectile")
+                if (_monsterParameterClone.monsterProjectile.tag == "Monster Projectile")
                 {
-                    _currentMonsterProjectile = Instantiate(monsterProjectile, transform.position, Quaternion.Euler(0, 0, angle));
-                    _currentMonsterProjectile.GetComponent<ProjectileController>().SetDamage(projectileDamage);
+                    _currentMonsterProjectile = Instantiate(_monsterParameterClone.monsterProjectile, transform.position, Quaternion.Euler(0, 0, angle));
+                    _currentMonsterProjectile.GetComponent<ProjectileController>().SetDamage(_monsterParameterClone.projectileDamage);
 
                     if (gameObject.name == "Archer(Clone)")
                     {
-                        _currentMonsterProjectile = Instantiate(monsterProjectile, transform.position, Quaternion.Euler(0, 0, angle + 30));
-                        _currentMonsterProjectile.GetComponent<ProjectileController>().SetDamage(projectileDamage);
+                        _currentMonsterProjectile = Instantiate(_monsterParameterClone.monsterProjectile, transform.position, Quaternion.Euler(0, 0, angle + 30));
+                        _currentMonsterProjectile.GetComponent<ProjectileController>().SetDamage(_monsterParameterClone.projectileDamage);
                         
-                        _currentMonsterProjectile = Instantiate(monsterProjectile, transform.position, Quaternion.Euler(0, 0, angle - 30));
-                        _currentMonsterProjectile.GetComponent<ProjectileController>().SetDamage(projectileDamage);
+                        _currentMonsterProjectile = Instantiate(_monsterParameterClone.monsterProjectile, transform.position, Quaternion.Euler(0, 0, angle - 30));
+                        _currentMonsterProjectile.GetComponent<ProjectileController>().SetDamage(_monsterParameterClone.projectileDamage);
                     }
 
                     if (gameObject.name == "Boomerang(Clone)")
@@ -368,15 +358,15 @@ public class MonsterController : MonoBehaviour
                 }
                 else
                 {
-                    Instantiate(monsterProjectile, transform.position, Quaternion.Euler(0, 0, angle));
+                    Instantiate(_monsterParameterClone.monsterProjectile, transform.position, Quaternion.Euler(0, 0, angle));
                 }
 
-                _attackCooldownTimer = attackCooldown;
+                _attackCooldownTimer = _monsterParameterClone.attackCooldown;
             }
 
-            if (isMelee && !_isFinishAttacking)
+            if (_monsterParameterClone.isMelee && !_isFinishAttacking)
             {
-                _attackCooldownTimer = attackCooldown;                
+                _attackCooldownTimer = _monsterParameterClone.attackCooldown;                
             }
 
             _isFinishAttacking = true;
@@ -387,7 +377,7 @@ public class MonsterController : MonoBehaviour
         {
             if (!_isAttackWaitingAngleExist)
             {
-                _attackWaitingAngle = Random.Range(0, 2) == 0 ? attackWaitingAngleRange : -attackWaitingAngleRange;
+                _attackWaitingAngle = Random.Range(0, 2) == 0 ? _monsterParameterClone.attackWaitingAngleRange : -_monsterParameterClone.attackWaitingAngleRange;
                 _attackWaitingAngle *= Mathf.Deg2Rad;
                 _isAttackWaitingAngleExist = true;
             }
@@ -407,7 +397,7 @@ public class MonsterController : MonoBehaviour
                 KeepMonsterOnMap();
             
                 _animator.SetBool("isAttackable", false);
-                transform.Translate(moveDirection * (speed * Time.deltaTime));
+                transform.Translate(moveDirection * (_monsterParameterClone.speed * Time.deltaTime));
                 
                 var moveAngle =  Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;;
                 DirectionHandling(moveAngle);
@@ -437,11 +427,11 @@ public class MonsterController : MonoBehaviour
         if (_animator)
         {
             var distance = Vector3.Distance(_player.transform.position, transform.position);
-            if ((distance <= attackRange) && (_attackCooldownTimer <= 0) && (_attackingTimer <= 0))
+            if ((distance <= _monsterParameterClone.attackRange) && (_attackCooldownTimer <= 0) && (_attackingTimer <= 0))
             {
                 _animator.SetBool("isAttackable", true);
                 _stuckingTimer = _stuckingTime;
-                _attackingTimer = attackingTime;
+                _attackingTimer = _monsterParameterClone.attackingTime;
                 _isFinishAttacking = false;
             } 
             else
@@ -463,8 +453,8 @@ public class MonsterController : MonoBehaviour
     void KeepMonsterOnMap()
     {
         var monsterPos = transform.position;
-        monsterPos.x = Mathf.Clamp(monsterPos.x, -_xBoundary + xBoundaryOffset, _xBoundary - xBoundaryOffset);
-        monsterPos.y = Mathf.Clamp(monsterPos.y, -_yBoundary + yBottomBoundaryOffset, _yBoundary + yTopBoundaryOffset);
+        monsterPos.x = Mathf.Clamp(monsterPos.x, -_xBoundary + _monsterParameterClone.xBoundaryOffset, _xBoundary - _monsterParameterClone.xBoundaryOffset);
+        monsterPos.y = Mathf.Clamp(monsterPos.y, -_yBoundary + _monsterParameterClone.yBottomBoundaryOffset, _yBoundary + _monsterParameterClone.yTopBoundaryOffset);
         transform.position = monsterPos;
     }
 
@@ -472,11 +462,11 @@ public class MonsterController : MonoBehaviour
     {
         _healthSlider.onValueChanged.RemoveAllListeners();
     }
-
+        
     void CreateGrave()
     {
-        var newGrave = Instantiate(grave, transform.position, Quaternion.Euler(0, 0, 0));
-        newGrave.gameObject.GetComponent<MonsterController>().monsterID = monsterID;
+        var newGrave = Instantiate(_monsterParameterClone.grave, transform.position, Quaternion.Euler(0, 0, 0));
+        newGrave.gameObject.GetComponent<MonsterController>().GetMonsterParameter().monsterID = _monsterParameterClone.monsterID;
     }
 
     public void SetIsReviveMonster(bool isSurviveMonster)
@@ -487,5 +477,10 @@ public class MonsterController : MonoBehaviour
     public void SetWaveScore(int score)
     {
         _waveScore = score;
+    }
+
+    public MonsterParameter GetMonsterParameter()
+    {
+        return _monsterParameterClone;
     }
 }

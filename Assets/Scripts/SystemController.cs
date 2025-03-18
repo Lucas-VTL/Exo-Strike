@@ -8,6 +8,7 @@ public class SystemController : MonoBehaviour
 {
     public Animator transition;
     private float _transitionTime = 1f;
+    public MonsterParameter[] monsterParameters;
     
     public void PlayGame()
     {
@@ -30,7 +31,11 @@ public class SystemController : MonoBehaviour
         yield return new WaitForSeconds(_transitionTime);
         if (sceneName.Length > 0)
         {
-            SceneManager.LoadScene(sceneName);   
+            SceneManager.LoadScene(sceneName);
+            foreach (var parameter in monsterParameters)
+            {
+                parameter.ResetData();
+            }
         }
         else
         {

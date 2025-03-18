@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e53b230c3851fc2468310a2bda3de33e, type: 3}
+  m_Name: TeleporterParameter
+  m_EditorClassIdentifier: 
+  monsterID: 2
+  speed: 4
+  attackRange: 10
+  health: 2
+  hitDamage: 1
+  projectileDamage: 0
+  isMelee: 0
+  attackCooldown: 12
+  reviveTime: 1.167
+  attackWaitingAngleRange: 110
+  monsterProjectile: {fileID: 8192933395210401746, guid: 81b9a54d8f0e2e3419fbff2c14001300, type: 3}
+  grave: {fileID: 5166660891022311424, guid: b99a2f2cfa73f7f419a85f9020bba889, type: 3}
+  score: 3
+  xBoundaryOffset: 1.5
+  yTopBoundaryOffset: 1
+  yBottomBoundaryOffset: 1.5
+  attackingTime: 0.67

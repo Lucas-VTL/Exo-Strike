@@ -44,7 +44,8 @@ public class PlayerController : MonoBehaviour
     private int _currentHealth;
     private float _staminaMax = 3f;
     private float _currentStamina;
-    private float _staminaCooldown = 1f;
+    private float _staminaCooldownMax = 2f;
+    private float _staminaCooldown;
     
     private float _invulnerableTime = 0.5f;
     private float _invulnerableTimer = 0f;
@@ -105,7 +106,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Time.timeScale != 0)
         {
-         if (_invulnerableTimer > 0)
+            if (_invulnerableTimer > 0)
             {
                 healthSlider.fillRect.GetComponent<Image>().color = Color.gray;
                 _invulnerableTimer -= Time.deltaTime;
@@ -158,7 +159,7 @@ public class PlayerController : MonoBehaviour
                     _animator.SetBool("isWalking", false);
             
                     _currentStamina -= Time.deltaTime;
-                    _staminaCooldown = 1f;
+                    _staminaCooldown = _staminaCooldownMax;
                     staminaSlider.value = _currentStamina;
                     
                     var move = new Vector3(horizontalMove, verticalMove, 0).normalized;
@@ -360,6 +361,13 @@ public class PlayerController : MonoBehaviour
             
             healthSlider.value = _currentHealth;   
         }
+        else
+        {
+            Reload(false);
+            _isReload = false;
+            _reloadTimer = 0;
+            OnBulletChange?.Invoke(_bullet[_currentProjectileIndex]);
+        }
     }
     
     IEnumerator FollowHeadGun(GameObject origin, float radius)
@@ -430,9 +438,9 @@ public class PlayerController : MonoBehaviour
         {
             if (other.gameObject.CompareTag("Monster") && _invulnerableTimer <= 0)
             {
-                if (other.gameObject.GetComponent<MonsterController>().health > 0 && other.gameObject.GetComponent<MonsterController>().hitDamage > 0)
+                if (other.gameObject.GetComponent<MonsterController>().GetMonsterParameter().health > 0 && other.gameObject.GetComponent<MonsterController>().GetMonsterParameter().hitDamage > 0)
                 {
-                    var damage = other.gameObject.GetComponent<MonsterController>().hitDamage;
+                    var damage = other.gameObject.GetComponent<MonsterController>().GetMonsterParameter().hitDamage;
         
                     _currentHealth -= damage;
                     _invulnerableTimer = _invulnerableTime;
@@ -611,5 +619,22 @@ public class PlayerController : MonoBehaviour
     public void AddInvulenerableTime(float time)
     {
         _invulnerableTime += time;
+    }
+    
+    public void IncreaseStamina(int stamina)
+    {
+        _staminaMax += stamina;
+        staminaSlider.maxValue = _staminaMax;
+        staminaSlider.value = _staminaMax;
+    }
+
+    public void DecreaseStaminaCooldownMax(float percentage)
+    {
+        _staminaCooldownMax *= 1 - percentage;
+    }
+
+    public float GetStaminaCooldownMax()
+    {
+        return _staminaCooldownMax;
     }
 }

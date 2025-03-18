@@ -24,7 +24,7 @@ public class PortalSpawning : MonoBehaviour
     private bool _isAlreadySpawned = false;
     private int _wave;
     private float _waveTimer;
-    private float _waveTimeMultiplier = 7f;
+    private float _waveTimeMultiplier = 10f;
     private float _portalInitialTime = 4f;
     
     private Color _startSliderColor = new Color(0f / 255f, 255f / 255f, 72f / 255f);

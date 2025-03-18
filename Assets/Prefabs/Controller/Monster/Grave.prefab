@@ -652,22 +652,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6daaca6630d08f142b0ffa79cf7384ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterID: -1
-  speed: 0
-  attackRange: 0
-  health: 2
-  hitDamage: 0
-  projectileDamage: 0
-  isMelee: 1
-  attackCooldown: 0
-  reviveTime: 0
-  attackWaitingAngleRange: 0
-  monsterProjectile: {fileID: 0}
-  grave: {fileID: 0}
-  xBoundaryOffset: 0
-  yTopBoundaryOffset: 0
-  yBottomBoundaryOffset: 0
-  attackingTime: 0
+  monsterParameter: {fileID: 11400000, guid: 775b2b600d06d034e8a86f6f96062331, type: 2}
 --- !u!114 &554741995789140146
 MonoBehaviour:
   m_ObjectHideFlags: 0

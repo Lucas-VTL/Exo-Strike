@@ -40,9 +40,9 @@ public class ArmAndGunController : MonoBehaviour
             if (other.gameObject.CompareTag("Monster") &&
                 _player.gameObject.GetComponent<PlayerController>().GetInvulnerableTimer() <= 0)
             {
-                if (other.gameObject.GetComponent<MonsterController>().health > 0 && other.gameObject.GetComponent<MonsterController>().hitDamage > 0)
+                if (other.gameObject.GetComponent<MonsterController>().GetMonsterParameter().health > 0 && other.gameObject.GetComponent<MonsterController>().GetMonsterParameter().hitDamage > 0)
                 {
-                    var damage = other.gameObject.GetComponent<MonsterController>().hitDamage;
+                    var damage = other.gameObject.GetComponent<MonsterController>().GetMonsterParameter().hitDamage;
         
                     var health = _player.gameObject.GetComponent<PlayerController>().GetHealth();
                     health -= damage;

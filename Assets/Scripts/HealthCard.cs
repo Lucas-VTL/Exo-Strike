@@ -38,7 +38,13 @@ public class HealthCard : Card
             }
             else
             {
-                
+                if (Target.tag == "Monster")
+                {
+                    if (Type == "Increase")
+                    {
+                        Target.gameObject.GetComponent<MonsterController>().monsterParameter.health += (int)_buffParameter;
+                    }
+                }
             }
         }
     }

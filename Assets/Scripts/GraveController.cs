@@ -4,8 +4,8 @@ using UnityEngine.UI;
 public class GraveController : MonoBehaviour
 {
     public GameObject portal;
-    public float maxProgressTime;
     
+    private float _maxProgressTime;
     private Slider _progressSlider;
     private Color _startSliderColor = new Color(0f / 255f, 255f / 255f, 72f / 255f);
     private Color _endSliderColor = new Color(255f / 255f, 20f / 255f, 0f / 255f);
@@ -17,9 +17,10 @@ public class GraveController : MonoBehaviour
         {
             _progressSlider = sliders[sliders.Length - 1];
         }
-        
+
+        _maxProgressTime = gameObject.GetComponent<MonsterController>().GetMonsterParameter().attackCooldown;
         _progressSlider.onValueChanged.AddListener(OnSliderChanged);
-        _progressSlider.maxValue = maxProgressTime;
+        _progressSlider.maxValue = _maxProgressTime;
         _progressSlider.value = 0;
     }
     
@@ -29,9 +30,9 @@ public class GraveController : MonoBehaviour
         {
             _progressSlider.value += Time.deltaTime;
 
-            if (_progressSlider.value >= maxProgressTime)   
+            if (_progressSlider.value >= _maxProgressTime)   
             {
-                var id = gameObject.GetComponent<MonsterController>().monsterID;
+                var id = gameObject.GetComponent<MonsterController>().GetMonsterParameter().monsterID;
                 var monster = Instantiate(portal.gameObject.GetComponent<PortalController>().monsters[id], transform.position, Quaternion.Euler(0f, 0f, 0f));
                 monster.gameObject.GetComponent<MonsterController>().SetIsReviveMonster(true);
 
