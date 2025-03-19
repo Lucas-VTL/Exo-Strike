@@ -24,6 +24,9 @@ public class CardManageController : MonoBehaviour
     public Sprite increaseEnergyCardImage;
     public Sprite cooldownEnergyCardImage;
 
+    public Sprite increaseWalkSpeedImage;
+    public Sprite increaseRunSpeedImage;
+
     public Sprite playerImage;
     public Sprite archerImage;
     public Sprite dinosaurImage;
@@ -54,7 +57,7 @@ public class CardManageController : MonoBehaviour
 
     void InitialPlayerCards()
     {
-        _playerCards.Add(new HealthCard(2, player, 1, "Player instantly recovers 2 health points", "Heal", healCardImage, playerImage));
+        /*_playerCards.Add(new HealthCard(2, player, 1, "Player instantly recovers 2 health points", "Heal", healCardImage, playerImage));
         _playerCards.Add(new HealthCard(3, player, 2, "Player instantly recovers 3 health points", "Heal", healCardImage, playerImage));
         _playerCards.Add(new HealthCard(4, player, 3, "Player instantly recovers 4 health points", "Heal", healCardImage, playerImage));
 
@@ -72,12 +75,20 @@ public class CardManageController : MonoBehaviour
         
         _playerCards.Add(new EnergyCard(0.1f, player, 1, "Player's stamina recovery time is reduced by 10%", "Cooldown", cooldownEnergyCardImage, playerImage));
         _playerCards.Add(new EnergyCard(0.2f, player, 2, "Player's stamina recovery time is reduced by 20%", "Cooldown", cooldownEnergyCardImage, playerImage));
-        _playerCards.Add(new EnergyCard(0.3f, player, 3, "Player's stamina recovery time is reduced by 30%", "Cooldown", cooldownEnergyCardImage, playerImage));
+        _playerCards.Add(new EnergyCard(0.3f, player, 3, "Player's stamina recovery time is reduced by 30%", "Cooldown", cooldownEnergyCardImage, playerImage));*/
+        
+        _playerCards.Add(new SpeedCard(0.2f, player, 1, "Player's walk speed increases by 0.25", "Walk", increaseWalkSpeedImage, playerImage));
+        _playerCards.Add(new SpeedCard(0.5f, player, 2, "Player's walk speed increases by 0.5", "Walk", increaseWalkSpeedImage, playerImage));
+        _playerCards.Add(new SpeedCard(0.75f, player, 3, "Player's walk speed increases by 0.75", "Walk", increaseWalkSpeedImage, playerImage));
+        
+        _playerCards.Add(new SpeedCard(0.1f, player, 1, "Player's run speed increases by 1", "Run", increaseRunSpeedImage, playerImage));
+        _playerCards.Add(new SpeedCard(1.25f, player, 2, "Player's run speed increases by 1.25", "Run", increaseRunSpeedImage, playerImage));
+        _playerCards.Add(new SpeedCard(1.5f, player, 3, "Player's run speed increases by 1.5", "Run", increaseRunSpeedImage, playerImage));
     }
 
     void InitialMonsterCards()
     {
-        _monsterCards.Add(new HealthCard(1, archer, 1, "Archer's maximum health increases by 1", "Increase", increaseHealthCardImage, archerImage));
+        /*_monsterCards.Add(new HealthCard(1, archer, 1, "Archer's maximum health increases by 1", "Increase", increaseHealthCardImage, archerImage));
         _monsterCards.Add(new HealthCard(2, archer, 2, "Archer's maximum health increases by 2", "Increase", increaseHealthCardImage, archerImage));
         _monsterCards.Add(new HealthCard(3, archer, 3, "Archer's maximum health increases by 3", "Increase", increaseHealthCardImage, archerImage));
         
@@ -143,7 +154,39 @@ public class CardManageController : MonoBehaviour
         
         _monsterCards.Add(new EnergyCard(0.1f, wizard, 1, "Wizard's attack cooldown time is reduced by 10%", "Cooldown", cooldownEnergyCardImage, wizardImage));
         _monsterCards.Add(new EnergyCard(0.2f, wizard, 2, "Wizard's attack cooldown time is reduced by 20%", "Cooldown", cooldownEnergyCardImage, wizardImage));
-        _monsterCards.Add(new EnergyCard(0.3f, wizard, 3, "Wizard's attack cooldown time is reduced by 30%", "Cooldown", cooldownEnergyCardImage, wizardImage));
+        _monsterCards.Add(new EnergyCard(0.3f, wizard, 3, "Wizard's attack cooldown time is reduced by 30%", "Cooldown", cooldownEnergyCardImage, wizardImage));*/
+        
+        _monsterCards.Add(new SpeedCard(0.5f, archer, 1, "Archer's walk speed increases by 0.5", "Walk", increaseWalkSpeedImage, archerImage));
+        _monsterCards.Add(new SpeedCard(0.75f, archer, 2, "Archer's walk speed increases by 0.75", "Walk", increaseWalkSpeedImage, archerImage));
+        _monsterCards.Add(new SpeedCard(1f, archer, 3, "Archer's walk speed increases by 1", "Walk", increaseWalkSpeedImage, archerImage));
+        
+        _monsterCards.Add(new SpeedCard(0.75f, dinosaur, 1, "Dinosaur's walk speed increases by 0.75", "Walk", increaseWalkSpeedImage, dinosaurImage));
+        _monsterCards.Add(new SpeedCard(1f, dinosaur, 2, "Dinosaur's walk speed increases by 1", "Walk", increaseWalkSpeedImage, dinosaurImage));
+        _monsterCards.Add(new SpeedCard(1.25f, dinosaur, 3, "Dinosaur's walk speed increases by 1.25", "Walk", increaseWalkSpeedImage, dinosaurImage));
+        
+        _monsterCards.Add(new SpeedCard(0.5f, boomerang, 1, "Boomerang thrower's walk speed increases by 0.5", "Walk", increaseWalkSpeedImage, boomerangImage));
+        _monsterCards.Add(new SpeedCard(0.75f, boomerang, 2, "Boomerang thrower's walk speed increases by 0.75", "Walk", increaseWalkSpeedImage, boomerangImage));
+        _monsterCards.Add(new SpeedCard(1f, boomerang, 3, "Boomerang thrower's walk speed increases by 1", "Walk", increaseWalkSpeedImage, boomerangImage));
+        
+        _monsterCards.Add(new SpeedCard(1f, butcher, 1, "Butcher's walk speed increases by 1", "Walk", increaseWalkSpeedImage, butcherImage));
+        _monsterCards.Add(new SpeedCard(1.25f, butcher, 2, "Butcher's walk speed increases by 1.25", "Walk", increaseWalkSpeedImage, butcherImage));
+        _monsterCards.Add(new SpeedCard(1.5f, butcher, 3, "Butcher's walk speed increases by 1.5", "Walk", increaseWalkSpeedImage, butcherImage));
+        
+        _monsterCards.Add(new SpeedCard(0.5f, demon, 1, "Demon's walk speed increases by 0.5", "Walk", increaseWalkSpeedImage, demonImage));
+        _monsterCards.Add(new SpeedCard(0.75f, demon, 2, "Demon's walk speed increases by 0.75", "Walk", increaseWalkSpeedImage, demonImage));
+        _monsterCards.Add(new SpeedCard(1f, demon, 3, "Demon's walk speed increases by 1", "Walk", increaseWalkSpeedImage, demonImage));
+        
+        _monsterCards.Add(new SpeedCard(0.5f, resurrector, 1, "Resurrector's walk speed increases by 0.5", "Walk", increaseWalkSpeedImage, resurrectorImage));
+        _monsterCards.Add(new SpeedCard(0.75f, resurrector, 2, "Resurrector's walk speed increases by 0.75", "Walk", increaseWalkSpeedImage, resurrectorImage));
+        _monsterCards.Add(new SpeedCard(1f, resurrector, 3, "Resurrector's walk speed increases by 1", "Walk", increaseWalkSpeedImage, resurrectorImage));
+        
+        _monsterCards.Add(new SpeedCard(0.5f, teleporter, 1, "Teleporter's walk speed increases by 0.5", "Walk", increaseWalkSpeedImage, teleporterImage));
+        _monsterCards.Add(new SpeedCard(0.75f, teleporter, 2, "Teleporter's walk speed increases by 0.75", "Walk", increaseWalkSpeedImage, teleporterImage));
+        _monsterCards.Add(new SpeedCard(1f, teleporter, 3, "Teleporter's walk speed increases by 1", "Walk", increaseWalkSpeedImage, teleporterImage));
+        
+        _monsterCards.Add(new SpeedCard(0.5f, wizard, 1, "Wizard's walk speed increases by 0.5", "Walk", increaseWalkSpeedImage, wizardImage));
+        _monsterCards.Add(new SpeedCard(0.75f, wizard, 2, "Wizard's walk speed increases by 0.75", "Walk", increaseWalkSpeedImage, wizardImage));
+        _monsterCards.Add(new SpeedCard(1f, wizard, 3, "Wizard's walk speed increases by 1", "Walk", increaseWalkSpeedImage, wizardImage));
     }
     
     Card GetRandomPlayerCard()

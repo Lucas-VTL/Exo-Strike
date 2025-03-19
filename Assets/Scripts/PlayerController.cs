@@ -13,8 +13,8 @@ public class PlayerController : MonoBehaviour
     
     private Animator _animator;
 
-    private int _playerWalkSpeed = 4;
-    private int _playerRunSpeed = 7;
+    private float _playerWalkSpeed = 4;
+    private float _playerRunSpeed = 7;
     private BoxCollider2D _moveScopeCollider;
 
     private float _xBoundary;
@@ -636,5 +636,15 @@ public class PlayerController : MonoBehaviour
     public float GetStaminaCooldownMax()
     {
         return _staminaCooldownMax;
+    }
+
+    public void AddWalkSpeed(float speed)
+    {
+        _playerWalkSpeed += speed;
+    }
+
+    public void AddRunSpeed(float speed)
+    {
+        _playerRunSpeed += speed;
     }
 }

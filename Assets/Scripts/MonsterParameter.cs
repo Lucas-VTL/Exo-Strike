@@ -5,7 +5,7 @@ using UnityEngine;
 public class MonsterParameter : ScriptableObject
 {
     public int monsterID;
-    public int speed;
+    public float speed;
     public float attackRange;
     public int health;
     public int hitDamage;
@@ -25,7 +25,7 @@ public class MonsterParameter : ScriptableObject
     [NonSerialized]
     private int _monsterID;
     [NonSerialized]
-    private int _speed;
+    private float _speed;
     [NonSerialized]
     private float _attackRange;
     [NonSerialized]
