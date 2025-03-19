@@ -15,7 +15,8 @@ public class CardManageController : MonoBehaviour
     public GameObject grave;
     public GameObject resurrector;
     public GameObject teleporter;
-    public GameObject wizard;    
+    public GameObject wizard;
+    public GameObject cinemachineCamera;
     
     public Sprite healCardImage;
     public Sprite increaseHealthCardImage;
@@ -27,6 +28,8 @@ public class CardManageController : MonoBehaviour
     public Sprite increaseWalkSpeedImage;
     public Sprite increaseRunSpeedImage;
 
+    public Sprite increaseSightImage;
+
     public Sprite playerImage;
     public Sprite archerImage;
     public Sprite dinosaurImage;
@@ -37,7 +40,6 @@ public class CardManageController : MonoBehaviour
     public Sprite resurrectorImage;
     public Sprite teleporterImage;
     public Sprite wizardImage;
-    
     
     public Sprite star1Image;
     public Sprite star2Image;
@@ -77,13 +79,17 @@ public class CardManageController : MonoBehaviour
         _playerCards.Add(new EnergyCard(0.2f, player, 2, "Player's stamina recovery time is reduced by 20%", "Cooldown", cooldownEnergyCardImage, playerImage));
         _playerCards.Add(new EnergyCard(0.3f, player, 3, "Player's stamina recovery time is reduced by 30%", "Cooldown", cooldownEnergyCardImage, playerImage));*/
         
-        _playerCards.Add(new SpeedCard(0.2f, player, 1, "Player's walk speed increases by 0.25", "Walk", increaseWalkSpeedImage, playerImage));
+        /*_playerCards.Add(new SpeedCard(0.25f, player, 1, "Player's walk speed increases by 0.25", "Walk", increaseWalkSpeedImage, playerImage));
         _playerCards.Add(new SpeedCard(0.5f, player, 2, "Player's walk speed increases by 0.5", "Walk", increaseWalkSpeedImage, playerImage));
         _playerCards.Add(new SpeedCard(0.75f, player, 3, "Player's walk speed increases by 0.75", "Walk", increaseWalkSpeedImage, playerImage));
         
         _playerCards.Add(new SpeedCard(0.1f, player, 1, "Player's run speed increases by 1", "Run", increaseRunSpeedImage, playerImage));
         _playerCards.Add(new SpeedCard(1.25f, player, 2, "Player's run speed increases by 1.25", "Run", increaseRunSpeedImage, playerImage));
-        _playerCards.Add(new SpeedCard(1.5f, player, 3, "Player's run speed increases by 1.5", "Run", increaseRunSpeedImage, playerImage));
+        _playerCards.Add(new SpeedCard(1.5f, player, 3, "Player's run speed increases by 1.5", "Run", increaseRunSpeedImage, playerImage));*/
+        
+        _playerCards.Add(new SightCard(0.25f, cinemachineCamera, 1, "Player's maximum vision range increases by 0.25", "Increase", increaseSightImage, playerImage));
+        _playerCards.Add(new SightCard(0.5f, cinemachineCamera, 2, "Player's maximum vision range increases by 0.5", "Increase", increaseSightImage, playerImage));
+        _playerCards.Add(new SightCard(0.75f, cinemachineCamera, 3, "Player's maximum vision range increases by 0.75", "Increase", increaseSightImage, playerImage));
     }
 
     void InitialMonsterCards()
