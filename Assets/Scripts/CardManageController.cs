@@ -17,8 +17,12 @@ public class CardManageController : MonoBehaviour
     public GameObject teleporter;
     public GameObject wizard;    
     
-    public Sprite healthCardImage;
-    public Sprite energyCardImage;
+    public Sprite healCardImage;
+    public Sprite increaseHealthCardImage;
+    public Sprite invulnerableCardImage;
+    
+    public Sprite increaseEnergyCardImage;
+    public Sprite cooldownEnergyCardImage;
 
     public Sprite playerImage;
     public Sprite archerImage;
@@ -50,96 +54,96 @@ public class CardManageController : MonoBehaviour
 
     void InitialPlayerCards()
     {
-        _playerCards.Add(new HealthCard(2, player, 1, "Player instantly recovers 2 health points", "Heal", healthCardImage, playerImage));
-        _playerCards.Add(new HealthCard(3, player, 2, "Player instantly recovers 3 health points", "Heal", healthCardImage, playerImage));
-        _playerCards.Add(new HealthCard(4, player, 3, "Player instantly recovers 4 health points", "Heal", healthCardImage, playerImage));
+        _playerCards.Add(new HealthCard(2, player, 1, "Player instantly recovers 2 health points", "Heal", healCardImage, playerImage));
+        _playerCards.Add(new HealthCard(3, player, 2, "Player instantly recovers 3 health points", "Heal", healCardImage, playerImage));
+        _playerCards.Add(new HealthCard(4, player, 3, "Player instantly recovers 4 health points", "Heal", healCardImage, playerImage));
 
-        _playerCards.Add(new HealthCard(1, player, 1, "Player's maximum health increases by 1", "Increase", healthCardImage, playerImage));
-        _playerCards.Add(new HealthCard(2, player, 2, "Player's maximum health increases by 2", "Increase", healthCardImage, playerImage));
-        _playerCards.Add(new HealthCard(3, player, 3, "Player's maximum health increases by 3", "Increase", healthCardImage, playerImage));
+        _playerCards.Add(new HealthCard(1, player, 1, "Player's maximum health increases by 1", "Increase", increaseHealthCardImage, playerImage));
+        _playerCards.Add(new HealthCard(2, player, 2, "Player's maximum health increases by 2", "Increase", increaseHealthCardImage, playerImage));
+        _playerCards.Add(new HealthCard(3, player, 3, "Player's maximum health increases by 3", "Increase", increaseHealthCardImage, playerImage));
 
-        _playerCards.Add(new HealthCard(0.25f, player, 1, "Player's invulnerable time increases by 0.25", "Invulnerable", healthCardImage, playerImage));
-        _playerCards.Add(new HealthCard(0.5f, player, 2, "Player's invulnerable time increases by 0.5", "Invulnerable", healthCardImage, playerImage));
-        _playerCards.Add(new HealthCard(0.75f, player, 3, "Player's invulnerable time increases by 0.75", "Invulnerable", healthCardImage, playerImage));
+        _playerCards.Add(new HealthCard(0.25f, player, 1, "Player's invulnerable time increases by 0.25", "Invulnerable", invulnerableCardImage, playerImage));
+        _playerCards.Add(new HealthCard(0.5f, player, 2, "Player's invulnerable time increases by 0.5", "Invulnerable", invulnerableCardImage, playerImage));
+        _playerCards.Add(new HealthCard(0.75f, player, 3, "Player's invulnerable time increases by 0.75", "Invulnerable", invulnerableCardImage, playerImage));
         
-        _playerCards.Add(new EnergyCard(0.5f, player, 1, "Player's maximum stamina increases by 0.5 and recovery all stamina immediately", "Increase", energyCardImage, playerImage));
-        _playerCards.Add(new EnergyCard(1f, player, 2, "Player's maximum stamina increases by 1 and recovery all stamina immediately", "Increase", energyCardImage, playerImage));
-        _playerCards.Add(new EnergyCard(1.5f, player, 3, "Player's maximum stamina increases by 1.5 and recovery all stamina immediately", "Increase", energyCardImage, playerImage));
+        _playerCards.Add(new EnergyCard(0.5f, player, 1, "Player's maximum stamina increases by 0.5 and recovery all stamina immediately", "Increase", increaseEnergyCardImage, playerImage));
+        _playerCards.Add(new EnergyCard(1f, player, 2, "Player's maximum stamina increases by 1 and recovery all stamina immediately", "Increase", increaseEnergyCardImage, playerImage));
+        _playerCards.Add(new EnergyCard(1.5f, player, 3, "Player's maximum stamina increases by 1.5 and recovery all stamina immediately", "Increase", increaseEnergyCardImage, playerImage));
         
-        _playerCards.Add(new EnergyCard(0.1f, player, 1, "Player's stamina recovery time is reduced by 10%", "Cooldown", energyCardImage, playerImage));
-        _playerCards.Add(new EnergyCard(0.2f, player, 2, "Player's stamina recovery time is reduced by 20%", "Cooldown", energyCardImage, playerImage));
-        _playerCards.Add(new EnergyCard(0.3f, player, 3, "Player's stamina recovery time is reduced by 30%", "Cooldown", energyCardImage, playerImage));
+        _playerCards.Add(new EnergyCard(0.1f, player, 1, "Player's stamina recovery time is reduced by 10%", "Cooldown", cooldownEnergyCardImage, playerImage));
+        _playerCards.Add(new EnergyCard(0.2f, player, 2, "Player's stamina recovery time is reduced by 20%", "Cooldown", cooldownEnergyCardImage, playerImage));
+        _playerCards.Add(new EnergyCard(0.3f, player, 3, "Player's stamina recovery time is reduced by 30%", "Cooldown", cooldownEnergyCardImage, playerImage));
     }
 
     void InitialMonsterCards()
     {
-        _monsterCards.Add(new HealthCard(1, archer, 1, "Archer's maximum health increases by 1", "Increase", healthCardImage, archerImage));
-        _monsterCards.Add(new HealthCard(2, archer, 2, "Archer's maximum health increases by 2", "Increase", healthCardImage, archerImage));
-        _monsterCards.Add(new HealthCard(3, archer, 3, "Archer's maximum health increases by 3", "Increase", healthCardImage, archerImage));
+        _monsterCards.Add(new HealthCard(1, archer, 1, "Archer's maximum health increases by 1", "Increase", increaseHealthCardImage, archerImage));
+        _monsterCards.Add(new HealthCard(2, archer, 2, "Archer's maximum health increases by 2", "Increase", increaseHealthCardImage, archerImage));
+        _monsterCards.Add(new HealthCard(3, archer, 3, "Archer's maximum health increases by 3", "Increase", increaseHealthCardImage, archerImage));
         
-        _monsterCards.Add(new HealthCard(2, dinosaur, 1, "Dinosaur's maximum health increases by 2", "Increase", healthCardImage, dinosaurImage));
-        _monsterCards.Add(new HealthCard(3, dinosaur, 2, "Dinosaur's maximum health increases by 3", "Increase", healthCardImage, dinosaurImage));
-        _monsterCards.Add(new HealthCard(4, dinosaur, 3, "Dinosaur's maximum health increases by 4", "Increase", healthCardImage, dinosaurImage));
+        _monsterCards.Add(new HealthCard(2, dinosaur, 1, "Dinosaur's maximum health increases by 2", "Increase", increaseHealthCardImage, dinosaurImage));
+        _monsterCards.Add(new HealthCard(3, dinosaur, 2, "Dinosaur's maximum health increases by 3", "Increase", increaseHealthCardImage, dinosaurImage));
+        _monsterCards.Add(new HealthCard(4, dinosaur, 3, "Dinosaur's maximum health increases by 4", "Increase", increaseHealthCardImage, dinosaurImage));
         
-        _monsterCards.Add(new HealthCard(1, boomerang, 1, "Boomerang thrower's maximum health increases by 1", "Increase", healthCardImage, boomerangImage));
-        _monsterCards.Add(new HealthCard(2, boomerang, 2, "Boomerang thrower's maximum health increases by 2", "Increase", healthCardImage, boomerangImage));
-        _monsterCards.Add(new HealthCard(3, boomerang, 3, "Boomerang thrower's maximum health increases by 3", "Increase", healthCardImage, boomerangImage));
+        _monsterCards.Add(new HealthCard(1, boomerang, 1, "Boomerang thrower's maximum health increases by 1", "Increase", increaseHealthCardImage, boomerangImage));
+        _monsterCards.Add(new HealthCard(2, boomerang, 2, "Boomerang thrower's maximum health increases by 2", "Increase", increaseHealthCardImage, boomerangImage));
+        _monsterCards.Add(new HealthCard(3, boomerang, 3, "Boomerang thrower's maximum health increases by 3", "Increase", increaseHealthCardImage, boomerangImage));
         
-        _monsterCards.Add(new HealthCard(1, butcher, 1, "Butcher's maximum health increases by 1", "Increase", healthCardImage, butcherImage));
-        _monsterCards.Add(new HealthCard(2, butcher, 2, "Butcher's maximum health increases by 2", "Increase", healthCardImage, butcherImage));
-        _monsterCards.Add(new HealthCard(3, butcher, 3, "Butcher's maximum health increases by 3", "Increase", healthCardImage, butcherImage));
+        _monsterCards.Add(new HealthCard(1, butcher, 1, "Butcher's maximum health increases by 1", "Increase", increaseHealthCardImage, butcherImage));
+        _monsterCards.Add(new HealthCard(2, butcher, 2, "Butcher's maximum health increases by 2", "Increase", increaseHealthCardImage, butcherImage));
+        _monsterCards.Add(new HealthCard(3, butcher, 3, "Butcher's maximum health increases by 3", "Increase", increaseHealthCardImage, butcherImage));
         
-        _monsterCards.Add(new HealthCard(1, demon, 1, "Demon's maximum health increases by 1", "Increase", healthCardImage, demonImage));
-        _monsterCards.Add(new HealthCard(2, demon, 2, "Demon's maximum health increases by 2", "Increase", healthCardImage, demonImage));
-        _monsterCards.Add(new HealthCard(3, demon, 3, "Demon's maximum health increases by 3", "Increase", healthCardImage, demonImage));
+        _monsterCards.Add(new HealthCard(1, demon, 1, "Demon's maximum health increases by 1", "Increase", increaseHealthCardImage, demonImage));
+        _monsterCards.Add(new HealthCard(2, demon, 2, "Demon's maximum health increases by 2", "Increase", increaseHealthCardImage, demonImage));
+        _monsterCards.Add(new HealthCard(3, demon, 3, "Demon's maximum health increases by 3", "Increase", increaseHealthCardImage, demonImage));
         
-        _monsterCards.Add(new HealthCard(1, grave, 1, "Grave's maximum health increases by 1", "Increase", healthCardImage, graveImage));
-        _monsterCards.Add(new HealthCard(2, grave, 2, "Grave's maximum health increases by 2", "Increase", healthCardImage, graveImage));
-        _monsterCards.Add(new HealthCard(3, grave, 3, "Grave's maximum health increases by 3", "Increase", healthCardImage, graveImage));
+        _monsterCards.Add(new HealthCard(1, grave, 1, "Grave's maximum health increases by 1", "Increase", increaseHealthCardImage, graveImage));
+        _monsterCards.Add(new HealthCard(2, grave, 2, "Grave's maximum health increases by 2", "Increase", increaseHealthCardImage, graveImage));
+        _monsterCards.Add(new HealthCard(3, grave, 3, "Grave's maximum health increases by 3", "Increase", increaseHealthCardImage, graveImage));
         
-        _monsterCards.Add(new HealthCard(1, resurrector, 1, "Resurrector's maximum health increases by 1", "Increase", healthCardImage, resurrectorImage));
-        _monsterCards.Add(new HealthCard(2, resurrector, 2, "Resurrector's maximum health increases by 2", "Increase", healthCardImage, resurrectorImage));
-        _monsterCards.Add(new HealthCard(3, resurrector, 3, "Resurrector's maximum health increases by 3", "Increase", healthCardImage, resurrectorImage));
+        _monsterCards.Add(new HealthCard(1, resurrector, 1, "Resurrector's maximum health increases by 1", "Increase", increaseHealthCardImage, resurrectorImage));
+        _monsterCards.Add(new HealthCard(2, resurrector, 2, "Resurrector's maximum health increases by 2", "Increase", increaseHealthCardImage, resurrectorImage));
+        _monsterCards.Add(new HealthCard(3, resurrector, 3, "Resurrector's maximum health increases by 3", "Increase", increaseHealthCardImage, resurrectorImage));
         
-        _monsterCards.Add(new HealthCard(1, teleporter, 1, "Teleporter's maximum health increases by 1", "Increase", healthCardImage, teleporterImage));
-        _monsterCards.Add(new HealthCard(2, teleporter, 2, "Teleporter's maximum health increases by 2", "Increase", healthCardImage, teleporterImage));
-        _monsterCards.Add(new HealthCard(3, teleporter, 3, "Teleporter's maximum health increases by 3", "Increase", healthCardImage, teleporterImage));
+        _monsterCards.Add(new HealthCard(1, teleporter, 1, "Teleporter's maximum health increases by 1", "Increase", increaseHealthCardImage, teleporterImage));
+        _monsterCards.Add(new HealthCard(2, teleporter, 2, "Teleporter's maximum health increases by 2", "Increase", increaseHealthCardImage, teleporterImage));
+        _monsterCards.Add(new HealthCard(3, teleporter, 3, "Teleporter's maximum health increases by 3", "Increase", increaseHealthCardImage, teleporterImage));
         
-        _monsterCards.Add(new HealthCard(1, wizard, 1, "Wizard's maximum health increases by 1", "Increase", healthCardImage, wizardImage));
-        _monsterCards.Add(new HealthCard(2, wizard, 2, "Wizard's maximum health increases by 2", "Increase", healthCardImage, wizardImage));
-        _monsterCards.Add(new HealthCard(3, wizard, 3, "Wizard's maximum health increases by 3", "Increase", healthCardImage, wizardImage));
+        _monsterCards.Add(new HealthCard(1, wizard, 1, "Wizard's maximum health increases by 1", "Increase", increaseHealthCardImage, wizardImage));
+        _monsterCards.Add(new HealthCard(2, wizard, 2, "Wizard's maximum health increases by 2", "Increase", increaseHealthCardImage, wizardImage));
+        _monsterCards.Add(new HealthCard(3, wizard, 3, "Wizard's maximum health increases by 3", "Increase", increaseHealthCardImage, wizardImage));
         
-        _monsterCards.Add(new EnergyCard(0.1f, archer, 1, "Archer's attack cooldown time is reduced by 10%", "Cooldown", energyCardImage, archerImage));
-        _monsterCards.Add(new EnergyCard(0.2f, archer, 2, "Archer's attack cooldown time is reduced by 20%", "Cooldown", energyCardImage, archerImage));
-        _monsterCards.Add(new EnergyCard(0.3f, archer, 3, "Archer's attack cooldown time is reduced by 30%", "Cooldown", energyCardImage, archerImage));
+        _monsterCards.Add(new EnergyCard(0.1f, archer, 1, "Archer's attack cooldown time is reduced by 10%", "Cooldown", cooldownEnergyCardImage, archerImage));
+        _monsterCards.Add(new EnergyCard(0.2f, archer, 2, "Archer's attack cooldown time is reduced by 20%", "Cooldown", cooldownEnergyCardImage, archerImage));
+        _monsterCards.Add(new EnergyCard(0.3f, archer, 3, "Archer's attack cooldown time is reduced by 30%", "Cooldown", cooldownEnergyCardImage, archerImage));
                               
-        _monsterCards.Add(new EnergyCard(0.1f, boomerang, 1, "Boomerang thrower's attack cooldown time is reduced by 10%", "Cooldown", energyCardImage, boomerangImage));
-        _monsterCards.Add(new EnergyCard(0.2f, boomerang, 2, "Boomerang thrower's attack cooldown time is reduced by 20%", "Cooldown", energyCardImage, boomerangImage));
-        _monsterCards.Add(new EnergyCard(0.3f, boomerang, 3, "Boomerang thrower's attack cooldown time is reduced by 30%", "Cooldown", energyCardImage, boomerangImage));
+        _monsterCards.Add(new EnergyCard(0.1f, boomerang, 1, "Boomerang thrower's attack cooldown time is reduced by 10%", "Cooldown", cooldownEnergyCardImage, boomerangImage));
+        _monsterCards.Add(new EnergyCard(0.2f, boomerang, 2, "Boomerang thrower's attack cooldown time is reduced by 20%", "Cooldown", cooldownEnergyCardImage, boomerangImage));
+        _monsterCards.Add(new EnergyCard(0.3f, boomerang, 3, "Boomerang thrower's attack cooldown time is reduced by 30%", "Cooldown", cooldownEnergyCardImage, boomerangImage));
         
-        _monsterCards.Add(new EnergyCard(0.1f, butcher, 1, "Butcher's attack cooldown time is reduced by 10%", "Cooldown", energyCardImage, butcherImage));
-        _monsterCards.Add(new EnergyCard(0.2f, butcher, 2, "Butcher's attack cooldown time is reduced by 20%", "Cooldown", energyCardImage, butcherImage));
-        _monsterCards.Add(new EnergyCard(0.3f, butcher, 3, "Butcher's attack cooldown time is reduced by 30%", "Cooldown", energyCardImage, butcherImage));
+        _monsterCards.Add(new EnergyCard(0.1f, butcher, 1, "Butcher's attack cooldown time is reduced by 10%", "Cooldown", cooldownEnergyCardImage, butcherImage));
+        _monsterCards.Add(new EnergyCard(0.2f, butcher, 2, "Butcher's attack cooldown time is reduced by 20%", "Cooldown", cooldownEnergyCardImage, butcherImage));
+        _monsterCards.Add(new EnergyCard(0.3f, butcher, 3, "Butcher's attack cooldown time is reduced by 30%", "Cooldown", cooldownEnergyCardImage, butcherImage));
         
-        _monsterCards.Add(new EnergyCard(0.1f, demon, 1, "Demon's attack cooldown time is reduced by 10%", "Cooldown", energyCardImage, demonImage));
-        _monsterCards.Add(new EnergyCard(0.2f, demon, 2, "Demon's attack cooldown time is reduced by 20%", "Cooldown", energyCardImage, demonImage));
-        _monsterCards.Add(new EnergyCard(0.3f, demon, 3, "Demon's attack cooldown time is reduced by 30%", "Cooldown", energyCardImage, demonImage));
+        _monsterCards.Add(new EnergyCard(0.1f, demon, 1, "Demon's attack cooldown time is reduced by 10%", "Cooldown", cooldownEnergyCardImage, demonImage));
+        _monsterCards.Add(new EnergyCard(0.2f, demon, 2, "Demon's attack cooldown time is reduced by 20%", "Cooldown", cooldownEnergyCardImage, demonImage));
+        _monsterCards.Add(new EnergyCard(0.3f, demon, 3, "Demon's attack cooldown time is reduced by 30%", "Cooldown", cooldownEnergyCardImage, demonImage));
         
-        _monsterCards.Add(new EnergyCard(0.1f, grave, 1, "Grave's resurrection time is reduced by 10%", "Cooldown", energyCardImage, graveImage));
-        _monsterCards.Add(new EnergyCard(0.2f, grave, 2, "Grave's resurrection time is reduced by 20%", "Cooldown", energyCardImage, graveImage));
-        _monsterCards.Add(new EnergyCard(0.3f, grave, 3, "Grave's resurrection time is reduced by 30%", "Cooldown", energyCardImage, graveImage));
+        _monsterCards.Add(new EnergyCard(0.1f, grave, 1, "Grave's resurrection time is reduced by 10%", "Cooldown", cooldownEnergyCardImage, graveImage));
+        _monsterCards.Add(new EnergyCard(0.2f, grave, 2, "Grave's resurrection time is reduced by 20%", "Cooldown", cooldownEnergyCardImage, graveImage));
+        _monsterCards.Add(new EnergyCard(0.3f, grave, 3, "Grave's resurrection time is reduced by 30%", "Cooldown", cooldownEnergyCardImage, graveImage));
         
-        _monsterCards.Add(new EnergyCard(0.1f, resurrector, 1, "Resurrector's attack cooldown time is reduced by 10%", "Cooldown", energyCardImage, resurrectorImage));
-        _monsterCards.Add(new EnergyCard(0.2f, resurrector, 2, "Resurrector's attack cooldown time is reduced by 20%", "Cooldown", energyCardImage, resurrectorImage));
-        _monsterCards.Add(new EnergyCard(0.3f, resurrector, 3, "Resurrector's attack cooldown time is reduced by 30%", "Cooldown", energyCardImage, resurrectorImage));
+        _monsterCards.Add(new EnergyCard(0.1f, resurrector, 1, "Resurrector's attack cooldown time is reduced by 10%", "Cooldown", cooldownEnergyCardImage, resurrectorImage));
+        _monsterCards.Add(new EnergyCard(0.2f, resurrector, 2, "Resurrector's attack cooldown time is reduced by 20%", "Cooldown", cooldownEnergyCardImage, resurrectorImage));
+        _monsterCards.Add(new EnergyCard(0.3f, resurrector, 3, "Resurrector's attack cooldown time is reduced by 30%", "Cooldown", cooldownEnergyCardImage, resurrectorImage));
         
-        _monsterCards.Add(new EnergyCard(0.1f, teleporter, 1, "Teleporter's attack cooldown time is reduced by 10%", "Cooldown", energyCardImage, teleporterImage));
-        _monsterCards.Add(new EnergyCard(0.2f, teleporter, 2, "Teleporter's attack cooldown time is reduced by 20%", "Cooldown", energyCardImage, teleporterImage));
-        _monsterCards.Add(new EnergyCard(0.3f, teleporter, 3, "Teleporter's attack cooldown time is reduced by 30%", "Cooldown", energyCardImage, teleporterImage));
+        _monsterCards.Add(new EnergyCard(0.1f, teleporter, 1, "Teleporter's attack cooldown time is reduced by 10%", "Cooldown", cooldownEnergyCardImage, teleporterImage));
+        _monsterCards.Add(new EnergyCard(0.2f, teleporter, 2, "Teleporter's attack cooldown time is reduced by 20%", "Cooldown", cooldownEnergyCardImage, teleporterImage));
+        _monsterCards.Add(new EnergyCard(0.3f, teleporter, 3, "Teleporter's attack cooldown time is reduced by 30%", "Cooldown", cooldownEnergyCardImage, teleporterImage));
         
-        _monsterCards.Add(new EnergyCard(0.1f, wizard, 1, "Wizard's attack cooldown time is reduced by 10%", "Cooldown", energyCardImage, wizardImage));
-        _monsterCards.Add(new EnergyCard(0.2f, wizard, 2, "Wizard's attack cooldown time is reduced by 20%", "Cooldown", energyCardImage, wizardImage));
-        _monsterCards.Add(new EnergyCard(0.3f, wizard, 3, "Wizard's attack cooldown time is reduced by 30%", "Cooldown", energyCardImage, wizardImage));
+        _monsterCards.Add(new EnergyCard(0.1f, wizard, 1, "Wizard's attack cooldown time is reduced by 10%", "Cooldown", cooldownEnergyCardImage, wizardImage));
+        _monsterCards.Add(new EnergyCard(0.2f, wizard, 2, "Wizard's attack cooldown time is reduced by 20%", "Cooldown", cooldownEnergyCardImage, wizardImage));
+        _monsterCards.Add(new EnergyCard(0.3f, wizard, 3, "Wizard's attack cooldown time is reduced by 30%", "Cooldown", cooldownEnergyCardImage, wizardImage));
     }
     
     Card GetRandomPlayerCard()

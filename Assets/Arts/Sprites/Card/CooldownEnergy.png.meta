@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 16834fa77c8bc4b4491e9c9a4bbcd770
+guid: 2999759e11fd4bc4289d29a760f75203
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4606908045521496030
-    second: Heart_0
+      213: -3518654874489309576
+    second: CooldownEnergy_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -152,13 +152,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Heart_0
+      name: CooldownEnergy_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 174
-        height: 174
+        width: 396
+        height: 393
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -167,8 +167,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ed7a23e75760fef30800000000000000
-      internalID: 4606908045521496030
+      spriteID: 8763ed6c80a3b2fc0800000000000000
+      internalID: -3518654874489309576
       vertices: []
       indices: 
       edges: []
@@ -187,7 +187,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Heart_0: 4606908045521496030
+      CooldownEnergy_0: -3518654874489309576
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
