@@ -173,12 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c8d06e908968144abc499492bc95fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collisionParticle: {fileID: 358637981425055526, guid: 8eb503696b886e04faff8fc0f480d473, type: 3}
-  effectOnEnd: {fileID: 748133300577193343, guid: c49ccd5fd21cfc0428f3d2f131459572, type: 3}
-  speed: 25
-  maxDistance: 15
-  isExplodeOnEnd: 1
-  existTime: 0
+  projectileParameter: {fileID: 11400000, guid: d3f2098fdd1b8ee479993f8e549a2883, type: 2}
 --- !u!50 &4207835956346028756
 Rigidbody2D:
   serializedVersion: 5

@@ -137,9 +137,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c8d06e908968144abc499492bc95fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collisionParticle: {fileID: 0}
-  effectOnEnd: {fileID: 0}
-  speed: 0
-  maxDistance: 1
-  isExplodeOnEnd: 0
-  existTime: 0.1
+  projectileParameter: {fileID: 11400000, guid: 92efea2be064ccd408444c822898e800, type: 2}

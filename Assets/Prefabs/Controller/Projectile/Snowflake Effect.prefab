@@ -236,12 +236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c8d06e908968144abc499492bc95fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collisionParticle: {fileID: 0}
-  effectOnEnd: {fileID: 0}
-  speed: 0
-  maxDistance: 1
-  isExplodeOnEnd: 0
-  existTime: 3
+  projectileParameter: {fileID: 11400000, guid: b7ab596ea6330d7408f50d5524bc56ec, type: 2}
 --- !u!58 &979423405793525317
 CircleCollider2D:
   m_ObjectHideFlags: 0

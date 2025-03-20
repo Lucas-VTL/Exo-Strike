@@ -4,12 +4,7 @@ using UnityEngine;
 
 public class ProjectileController : MonoBehaviour
 {
-    public GameObject collisionParticle;
-    public GameObject effectOnEnd;
-    public int speed;
-    public int maxDistance;
-    public bool isExplodeOnEnd;
-    public float existTime;
+    public ProjectileParameter projectileParameter;
     
     private GameObject _returnTarget;
     private bool _isReturning;
@@ -29,12 +24,12 @@ public class ProjectileController : MonoBehaviour
         _initialPosition = transform.position;
         _radius = Mathf.Sqrt(_xParticelOffset * _xParticelOffset + _yParticelOffset * _yParticelOffset);
         _angle = transform.rotation.eulerAngles.z * Mathf.Deg2Rad;
-        _currentTime = existTime;
+        _currentTime = projectileParameter.existTime;
         _isReturning = false;
         
-        if (speed == 0)
+        if (projectileParameter.speed == 0)
         {
-            Destroy(gameObject, existTime);
+            Destroy(gameObject, projectileParameter.existTime);
         } 
     }
 
@@ -50,7 +45,7 @@ public class ProjectileController : MonoBehaviour
                      }
                      
                      var direction = (_returnPosition - transform.position).normalized;
-                     transform.Translate(direction * (speed *  Time.deltaTime));
+                     transform.Translate(direction * (projectileParameter.speed *  Time.deltaTime));
                      
                      if (Vector3.Distance(transform.position, _returnPosition) < 0.1f)
                      {
@@ -60,21 +55,21 @@ public class ProjectileController : MonoBehaviour
                      return;
                  }
                  
-                 if (speed > 0)
+                 if (projectileParameter.speed > 0)
                  {
-                     transform.Translate(Vector3.right * (speed *  Time.deltaTime));
+                     transform.Translate(Vector3.right * (projectileParameter.speed *  Time.deltaTime));
                      var distance = Vector3.Distance(_initialPosition, transform.position);
-                     if (distance >= maxDistance)
+                     if (distance >= projectileParameter.maxDistance)
                      {
-                         if (collisionParticle)
+                         if (projectileParameter.collisionParticle)
                          {
-                             GameObject particle = Instantiate(collisionParticle, transform.position + new Vector3(_radius * Mathf.Cos(_angle), _radius * Mathf.Sin(_angle), 0), Quaternion.Euler(0,0,0));
+                             GameObject particle = Instantiate(projectileParameter.collisionParticle, transform.position + new Vector3(_radius * Mathf.Cos(_angle), _radius * Mathf.Sin(_angle), 0), Quaternion.Euler(0,0,0));
                              Destroy(particle, 0.8f);
                          }
                          
-                         if (isExplodeOnEnd)
+                         if (projectileParameter.isExplodeOnEnd)
                          {
-                             var effect = Instantiate(effectOnEnd, transform.position, Quaternion.Euler(0, 0, 0)); 
+                             var effect = Instantiate(projectileParameter.effectOnEnd, transform.position, Quaternion.Euler(0, 0, 0)); 
                              effect.gameObject.GetComponent<ProjectileController>().SetDamage(_damage);  
                          }
          
@@ -102,17 +97,17 @@ public class ProjectileController : MonoBehaviour
             (gameObject.CompareTag("Projectile") && other.CompareTag("Monster")) ||
             (gameObject.CompareTag("Monster Projectile") && other.CompareTag("Player")))
         {
-            if (speed > 0)
+            if (projectileParameter.speed > 0)
             {
-                if (collisionParticle)
+                if (projectileParameter.collisionParticle)
                 {
-                    GameObject particle = Instantiate(collisionParticle, transform.position + new Vector3(_radius * Mathf.Cos(_angle), _radius * Mathf.Sin(_angle), 0), Quaternion.Euler(0,0,0));
+                    GameObject particle = Instantiate(projectileParameter.collisionParticle, transform.position + new Vector3(_radius * Mathf.Cos(_angle), _radius * Mathf.Sin(_angle), 0), Quaternion.Euler(0,0,0));
                     Destroy(particle, 0.8f);
                 }
                 
-                if (isExplodeOnEnd)
+                if (projectileParameter.isExplodeOnEnd)
                 {
-                    var effect = Instantiate(effectOnEnd, transform.position, Quaternion.Euler(0, 0, 0)); 
+                    var effect = Instantiate(projectileParameter.effectOnEnd, transform.position, Quaternion.Euler(0, 0, 0)); 
                     effect.gameObject.GetComponent<ProjectileController>().SetDamage(_damage);  
                 }
                 

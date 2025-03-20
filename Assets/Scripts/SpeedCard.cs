@@ -40,4 +40,9 @@ public class SpeedCard : Card
             }
         }
     }
+    
+    public float GetBuffParameter()
+    {
+        return _buffParameter;
+    }
 }

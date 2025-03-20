@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewMonsterParamenter", menuName = "Monster/Parameter")]
+[CreateAssetMenu(fileName = "NewMonsterParamenter", menuName = "Monster Parameter")]
 public class MonsterParameter : ScriptableObject
 {
     public int monsterID;

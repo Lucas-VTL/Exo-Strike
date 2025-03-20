@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdb21e5f3d0cb514ea216cb1346611f4, type: 3}
+  m_Name: Freeze Projectile Parameter
+  m_EditorClassIdentifier: 
+  collisionParticle: {fileID: 2124046433967045923, guid: bbf3068426c41034c9194573927942f7, type: 3}
+  effectOnEnd: {fileID: 4941271487920102124, guid: 6a1e50b3e12631049954b4ffb718d46f, type: 3}
+  speed: 10
+  maxDistance: 15
+  isExplodeOnEnd: 1
+  existTime: 0

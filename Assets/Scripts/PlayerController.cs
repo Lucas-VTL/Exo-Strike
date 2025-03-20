@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     private Animator _animator;
 
     private float _playerWalkSpeed = 4;
-    private float _playerRunSpeed = 7;
+    private float _playerRunSpeed = 8;
     private BoxCollider2D _moveScopeCollider;
 
     private float _xBoundary;
@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
     private bool _canFire;
     private int[] _bulletStorage = {30, 10, 1};
     private int[] _bullet = {30, 10, 1};
-    private float[] _reloadTime = {2f, 2.5f, 1f};
+    private float[] _reloadTime = {3f, 4f, 2f};
     private float _reloadTimer;
     private bool _isReload;
     
@@ -67,6 +67,8 @@ public class PlayerController : MonoBehaviour
     private int _score;
     private bool _isScrolling;
     private float _scrollingTimer;
+
+    private bool _checkBulletAfterTimeScale;
 
     private void Start()
     {
@@ -98,14 +100,24 @@ public class PlayerController : MonoBehaviour
         }
         
         _isScrolling = false;
+        _checkBulletAfterTimeScale = false;
         
         OnBulletChange?.Invoke(_bullet[_currentProjectileIndex]);
+        OnProjectileChange?.Invoke(projectileList[_currentProjectileIndex].gameObject.GetComponent<SpriteRenderer>().sprite);
     }
 
     private void Update()
     {
         if (Time.timeScale != 0)
         {
+            if (_bullet[_currentProjectileIndex] == 0 && _checkBulletAfterTimeScale)
+            {
+                Reload(true);
+                _reloadTimer = _reloadTime[_currentProjectileIndex];
+                _isReload = true;
+                _checkBulletAfterTimeScale = false;
+            }
+            
             if (_invulnerableTimer > 0)
             {
                 healthSlider.fillRect.GetComponent<Image>().color = Color.gray;
@@ -366,6 +378,7 @@ public class PlayerController : MonoBehaviour
             Reload(false);
             _isReload = false;
             _reloadTimer = 0;
+            _checkBulletAfterTimeScale = true;
             OnBulletChange?.Invoke(_bullet[_currentProjectileIndex]);
         }
     }
@@ -533,16 +546,6 @@ public class PlayerController : MonoBehaviour
         return _invulnerableTime;
     }
 
-    public void SetBulletStorage(int bullet)
-    {
-        _bulletStorage[_currentProjectileIndex] = bullet;
-    }
-
-    public int GetBullet()
-    {
-        return _bullet[_currentProjectileIndex];
-    }
-
     public float GetReloadTime()
     {
         return _reloadTime[_currentProjectileIndex];
@@ -600,11 +603,6 @@ public class PlayerController : MonoBehaviour
         _score += score;
     }
 
-    public GameObject GetCurrentProjectile()
-    {
-        return projectileList[_currentProjectileIndex];
-    }
-
     public void AddHealth(int health)
     {
         _currentHealth = Mathf.Min(_currentHealth + health, _healthMax);
@@ -613,7 +611,9 @@ public class PlayerController : MonoBehaviour
     public void IncreaseHealth(int health)
     {
         _healthMax += health;
+        _currentHealth += health;
         healthSlider.maxValue = _healthMax;
+        healthSlider.value = _currentHealth;
     }
 
     public void AddInvulenerableTime(float time)
@@ -646,5 +646,56 @@ public class PlayerController : MonoBehaviour
     public void AddRunSpeed(float speed)
     {
         _playerRunSpeed += speed;
+    }
+
+    public void AddBulletSpeed(int index, float speed)
+    {
+        projectileList[index].gameObject.GetComponent<ProjectileController>().projectileParameter.speed += speed;
+    }
+
+    public void AddBulletDistance(int index, int distance)
+    {
+        projectileList[index].gameObject.GetComponent<ProjectileController>().projectileParameter.maxDistance += distance;
+    }
+
+    public void AddBulletStorage(int index, int bullet)
+    {
+        _bulletStorage[index] += bullet;
+    }
+
+    public void DecreaseBulletReloadTime(int index, float percentage)
+    {
+        _reloadTime[index] *= 1 - percentage;
+    }
+
+    public float GetReloadTime(int index)
+    {
+        return _reloadTime[index];
+    }
+
+    public int GetCurrentProjectileDamage()
+    {
+        return _projectileDamage[_currentProjectileIndex];
+    }
+
+    public void IncreaseBulletDamage(int index, int damage)
+    {
+        _projectileDamage[index] += damage;
+        OnProjectileChange?.Invoke(projectileList[_currentProjectileIndex].gameObject.GetComponent<SpriteRenderer>().sprite);
+    }
+
+    public int GetProjectileDamage(int index)
+    {
+        return _projectileDamage[index];
+    }
+
+    public float GetWalkSpeed()
+    {
+        return _playerWalkSpeed;
+    }
+
+    public float GetRunSpeed()
+    {
+        return _playerRunSpeed;
     }
 }
