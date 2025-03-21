@@ -104,6 +104,12 @@ public class PlayerController : MonoBehaviour
         
         OnBulletChange?.Invoke(_bullet[_currentProjectileIndex]);
         OnProjectileChange?.Invoke(projectileList[_currentProjectileIndex].gameObject.GetComponent<SpriteRenderer>().sprite);
+        
+        projectileList[1].gameObject.GetComponent<ProjectileController>().projectileParameter.effectOnEnd.transform.localScale = new Vector3(1, 1, 1);
+        projectileList[1].gameObject.GetComponent<ProjectileController>().projectileParameter.effectOnEnd.transform.GetChild(0).localScale = new Vector3(1, 0.75f, 0.75f);
+        projectileList[2].gameObject.GetComponent<ProjectileController>().projectileParameter.effectOnEnd.transform.localScale = new Vector3(6, 6, 1);
+        projectileList[2].gameObject.GetComponent<ProjectileController>().projectileParameter.collisionParticle.transform.localScale = new Vector3(1, 1, 1);
+        projectileList[1].gameObject.GetComponent<ProjectileController>().projectileParameter.effectOnEnd.gameObject.GetComponent<ProjectileController>().projectileParameter.existTime = 2;
     }
 
     private void Update()
@@ -697,5 +703,25 @@ public class PlayerController : MonoBehaviour
     public float GetRunSpeed()
     {
         return _playerRunSpeed;
+    }
+
+    public void IncreaseBulletEffect(int index, float percentage)
+    {
+        projectileList[index].gameObject.GetComponent<ProjectileController>().projectileParameter.effectOnEnd.transform.localScale *= 1 + percentage;
+        
+        if (index == 1)
+        {
+            projectileList[index].gameObject.GetComponent<ProjectileController>().projectileParameter.effectOnEnd.transform.GetChild(0).localScale *= 1 + percentage;
+        }
+
+        if (index == 2)
+        {
+            projectileList[index].gameObject.GetComponent<ProjectileController>().projectileParameter.collisionParticle.transform.localScale *= 1 + percentage;
+        }
+    }
+
+    public void IncreaseBulletEffectTime(int seconds)
+    {
+        projectileList[1].gameObject.GetComponent<ProjectileController>().projectileParameter.effectOnEnd.gameObject.GetComponent<ProjectileController>().projectileParameter.existTime += seconds;
     }
 }

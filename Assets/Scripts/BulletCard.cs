@@ -46,6 +46,11 @@ public class BulletCard : Card
                 {
                     Target.gameObject.GetComponent<PlayerController>().IncreaseBulletDamage(_indexBullet, (int)_buffParameter);
                 }
+
+                if (Type == "Effect")
+                {
+                    Target.gameObject.GetComponent<PlayerController>().IncreaseBulletEffect(_indexBullet, _buffParameter);
+                }
             }
             else
             {
@@ -64,6 +69,11 @@ public class BulletCard : Card
                     if (Type == "Damage")
                     {
                         Target.gameObject.GetComponent<MonsterController>().monsterParameter.projectileDamage += (int)_buffParameter;
+                    }
+
+                    if (Type == "Effect")
+                    {
+                        Target.gameObject.GetComponent<MonsterController>().monsterParameter.monsterProjectile.gameObject.GetComponent<ProjectileController>().projectileParameter.effectOnEnd.transform.localScale *= 1 + _buffParameter;
                     }
                 }
             }

@@ -13,6 +13,8 @@ public class SystemController : MonoBehaviour
     public MonsterParameter[] monsterParameters;
     public ProjectileParameter[] projectileParameters;
     public GameObject cinemachineCamera;
+    public GameObject demonProjectileEffect;
+    public GameObject altarEffect;
     
     public void PlayGame()
     {
@@ -49,6 +51,9 @@ public class SystemController : MonoBehaviour
             
             cinemachineCamera.gameObject.GetComponent<CinemachineCamera>().Lens.OrthographicSize = 9;
             cinemachineCamera.gameObject.GetComponent<CinemachineConfiner2D>().InvalidateLensCache();
+            
+            demonProjectileEffect.transform.localScale = new Vector3(1, 1, 1);
+            altarEffect.transform.localScale = new Vector3(1, 1, 1);
         }
         else
         {

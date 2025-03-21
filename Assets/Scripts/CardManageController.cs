@@ -118,7 +118,7 @@ public class CardManageController : MonoBehaviour
     }
     void InitialPlayerBulletCard()
     {
-        _playerCards.Add(new BulletCard(1f, player, 1, "Player's normal bullet speed increases by 1",  "Speed", increaseBulletSpeedImage, normalProjectileImage));
+        /*_playerCards.Add(new BulletCard(1f, player, 1, "Player's normal bullet speed increases by 1",  "Speed", increaseBulletSpeedImage, normalProjectileImage));
         _playerCards.Add(new BulletCard(2f, player, 2, "Player's normal bullet speed increases by 2",  "Speed", increaseBulletSpeedImage, normalProjectileImage));
         _playerCards.Add(new BulletCard(3f, player, 3, "Player's normal bullet speed increases by 3",  "Speed", increaseBulletSpeedImage, normalProjectileImage));
         
@@ -176,14 +176,22 @@ public class CardManageController : MonoBehaviour
         
         _playerCards.Add(new BulletCard(1f, player, 1, "Player's missle bullet damage increases by 1",  "Damage", increaseBulletDamageImage, missleProjectileImage));
         _playerCards.Add(new BulletCard(2f, player, 2, "Player's missle bullet damage increases by 2",  "Damage", increaseBulletDamageImage, missleProjectileImage));
-        _playerCards.Add(new BulletCard(3f, player, 3, "Player's missle bullet damage increases by 3",  "Damage", increaseBulletDamageImage, missleProjectileImage));
+        _playerCards.Add(new BulletCard(3f, player, 3, "Player's missle bullet damage increases by 3",  "Damage", increaseBulletDamageImage, missleProjectileImage));*/
+        
+        _playerCards.Add(new BulletCard(0.1f, player, 1, "Player's freeze bullet effect zone increases by 10%",  "Effect", increaseBulletEffectImage, freezeProjectileImage));
+        _playerCards.Add(new BulletCard(0.2f, player, 2, "Player's freeze bullet effect zone increases by 20%",  "Effect", increaseBulletEffectImage, freezeProjectileImage));
+        _playerCards.Add(new BulletCard(0.3f, player, 3, "Player's freeze bullet effect zone increases by 30%",  "Effect", increaseBulletEffectImage, freezeProjectileImage));
+        
+        _playerCards.Add(new BulletCard(0.1f, player, 1, "Player's missle bullet effect zone increases by 10%",  "Effect", increaseBulletEffectImage, missleProjectileImage));
+        _playerCards.Add(new BulletCard(0.2f, player, 2, "Player's missle bullet effect zone increases by 20%",  "Effect", increaseBulletEffectImage, missleProjectileImage));
+        _playerCards.Add(new BulletCard(0.3f, player, 3, "Player's missle bullet effect zone increases by 30%",  "Effect", increaseBulletEffectImage, missleProjectileImage));
     }
     void InitialPlayerCards()
     {
-        InitialPlayerHealthCard();
-        InitialPlayerEnergyCard();
-        InitialPlayerSpeedCard();
-        InitialPlayerSightCard();
+        //InitialPlayerHealthCard();
+        //InitialPlayerEnergyCard();
+        //InitialPlayerSpeedCard();
+        //InitialPlayerSightCard();
         InitialPlayerBulletCard();
     }
 
@@ -295,7 +303,7 @@ public class CardManageController : MonoBehaviour
     }
     void InitialMonsterBulletCard()
     {
-        _monsterCards.Add(new BulletCard(0.5f, archer, 1, "Archer's projectile speed increases by 0.5", "Speed", increaseBulletSpeedImage, arrowProjectileImage));
+        /*_monsterCards.Add(new BulletCard(0.5f, archer, 1, "Archer's projectile speed increases by 0.5", "Speed", increaseBulletSpeedImage, arrowProjectileImage));
         _monsterCards.Add(new BulletCard(1f, archer, 2, "Archer's projectile speed increases by 1", "Speed", increaseBulletSpeedImage, arrowProjectileImage));
         _monsterCards.Add(new BulletCard(1.5f, archer, 3, "Archer's projectile speed increases by 1.5", "Speed", increaseBulletSpeedImage, arrowProjectileImage));
         
@@ -341,13 +349,21 @@ public class CardManageController : MonoBehaviour
         
         _monsterCards.Add(new BulletCard(1f, wizard, 1, "Wizard's projectile damage increases by 1", "Damage", increaseBulletDamageImage, monsterProjectileImage));
         _monsterCards.Add(new BulletCard(2f, wizard, 2, "Wizard's projectile damage increases by 2", "Damage", increaseBulletDamageImage, monsterProjectileImage));
-        _monsterCards.Add(new BulletCard(3f, wizard, 3, "Wizard's projectile damage increases by 3", "Damage", increaseBulletDamageImage, monsterProjectileImage));
+        _monsterCards.Add(new BulletCard(3f, wizard, 3, "Wizard's projectile damage increases by 3", "Damage", increaseBulletDamageImage, monsterProjectileImage));*/
+        
+        _monsterCards.Add(new BulletCard(0.1f, demon, 1, "Demon's projectile effect zone increases by 10%", "Effect", increaseBulletEffectImage, demonProjectileImage));
+        _monsterCards.Add(new BulletCard(0.2f, demon, 2, "Demon's projectile effect zone increases by 20%", "Effect", increaseBulletEffectImage, demonProjectileImage));
+        _monsterCards.Add(new BulletCard(0.3f, demon, 3, "Demon's projectile effect zone increases by 30%", "Effect", increaseBulletEffectImage, demonProjectileImage));
+        
+        _monsterCards.Add(new BulletCard(0.1f, resurrector, 1, "Altar's effect zone increases by 10%", "Effect", increaseBulletEffectImage, resurrectorImage));
+        _monsterCards.Add(new BulletCard(0.2f, resurrector, 2, "Altar's effect zone increases by 20%", "Effect", increaseBulletEffectImage, resurrectorImage));
+        _monsterCards.Add(new BulletCard(0.3f, resurrector, 3, "Altar's effect zone increases by 30%", "Effect", increaseBulletEffectImage, resurrectorImage));
     }
     void InitialMonsterCards()
     {
-        InitialMonsterHealthCard();
-        InitialMonsterEnergyCard();
-        InitialMonsterSpeedCard();
+        //InitialMonsterHealthCard();
+        //InitialMonsterEnergyCard();
+        //InitialMonsterSpeedCard();
         InitialMonsterBulletCard();
     }
     
@@ -552,7 +568,6 @@ public class CardManageController : MonoBehaviour
             }
         }
 
-
         if (cardsByLevel.Count == 0)
         {
             InitialMonsterCards();
@@ -590,8 +605,8 @@ public class CardManageController : MonoBehaviour
                 var newValue = currentValue * (1 - energyCard.GetBuffParameter());
                 if (newValue >= 0.5)
                 {
-                    cardsByLevel.RemoveAt(index);
                     _monsterCards.AddRange(cardsByLevel);
+                    RemoveSameOriginCard(cardsByLevel[index], _monsterCards);
                     return energyCard;
                 }
                 else
@@ -607,18 +622,26 @@ public class CardManageController : MonoBehaviour
             }
                 
             var returnCard = cardsByLevel[index];
-            cardsByLevel.RemoveAt(index);
             _monsterCards.AddRange(cardsByLevel);
+            RemoveSameOriginCard(returnCard, _monsterCards);
             return returnCard;
         }
         else
         {
             var returnCard = cardsByLevel[index];
-            cardsByLevel.RemoveAt(index);
             _monsterCards.AddRange(cardsByLevel);
+            RemoveSameOriginCard(returnCard, _monsterCards);
             return returnCard;   
         }
     }
+
+    void RemoveSameOriginCard(Card card, List<Card> cards)
+    {
+        var type = card.GetType();
+        var target = card.TargetImage;
+        cards.RemoveAll(tempCard => (tempCard.GetType() == type && tempCard.TargetImage == target));
+    }
+    
     void OnEnable()
     {
         for (int i = 1; i <= 3; i++)
