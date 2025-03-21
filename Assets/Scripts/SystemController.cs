@@ -35,25 +35,26 @@ public class SystemController : MonoBehaviour
     {
         transition.SetTrigger("isStartLoading");
         yield return new WaitForSeconds(_transitionTime);
+        
+        foreach (var parameter in monsterParameters)
+        {
+            parameter.ResetData();
+        }
+
+        foreach (var parameter in projectileParameters)
+        {
+            parameter.ResetData();
+        }
+            
+        cinemachineCamera.gameObject.GetComponent<CinemachineCamera>().Lens.OrthographicSize = 9;
+        cinemachineCamera.gameObject.GetComponent<CinemachineConfiner2D>().InvalidateLensCache();
+            
+        demonProjectileEffect.transform.localScale = new Vector3(1, 1, 1);
+        altarEffect.transform.localScale = new Vector3(1, 1, 1);
+        
         if (sceneName.Length > 0)
         {
             SceneManager.LoadScene(sceneName);
-            
-            foreach (var parameter in monsterParameters)
-            {
-                parameter.ResetData();
-            }
-
-            foreach (var parameter in projectileParameters)
-            {
-                parameter.ResetData();
-            }
-            
-            cinemachineCamera.gameObject.GetComponent<CinemachineCamera>().Lens.OrthographicSize = 9;
-            cinemachineCamera.gameObject.GetComponent<CinemachineConfiner2D>().InvalidateLensCache();
-            
-            demonProjectileEffect.transform.localScale = new Vector3(1, 1, 1);
-            altarEffect.transform.localScale = new Vector3(1, 1, 1);
         }
         else
         {

@@ -51,6 +51,11 @@ public class BulletCard : Card
                 {
                     Target.gameObject.GetComponent<PlayerController>().IncreaseBulletEffect(_indexBullet, _buffParameter);
                 }
+
+                if (Type == "Time")
+                {
+                    Target.gameObject.GetComponent<PlayerController>().IncreaseBulletEffectTime((int)_buffParameter);
+                }
             }
             else
             {
@@ -73,7 +78,26 @@ public class BulletCard : Card
 
                     if (Type == "Effect")
                     {
-                        Target.gameObject.GetComponent<MonsterController>().monsterParameter.monsterProjectile.gameObject.GetComponent<ProjectileController>().projectileParameter.effectOnEnd.transform.localScale *= 1 + _buffParameter;
+                        if (Target.gameObject.GetComponent<MonsterController>().monsterParameter.monsterProjectile.gameObject.GetComponent<ProjectileController>().projectileParameter.effectOnEnd != null)
+                        {
+                            Target.gameObject.GetComponent<MonsterController>().monsterParameter.monsterProjectile.gameObject.GetComponent<ProjectileController>().projectileParameter.effectOnEnd.transform.localScale *= 1 + _buffParameter;   
+                        }
+                        else
+                        {
+                            Target.gameObject.GetComponent<MonsterController>().monsterParameter.monsterProjectile.gameObject.GetComponent<ProjectileController>().transform.localScale *= 1 + _buffParameter;
+                        }
+                    }
+
+                    if (Type == "Time")
+                    {
+                        if (Target.gameObject.GetComponent<MonsterController>().monsterParameter.monsterProjectile.gameObject.GetComponent<ProjectileController>().projectileParameter.effectOnEnd != null)
+                        {
+                            Target.gameObject.GetComponent<MonsterController>().monsterParameter.monsterProjectile.gameObject.GetComponent<ProjectileController>().projectileParameter.effectOnEnd.gameObject.GetComponent<ProjectileController>().projectileParameter.existTime += _buffParameter;   
+                        }
+                        else
+                        {
+                            Target.gameObject.GetComponent<MonsterController>().monsterParameter.monsterProjectile.gameObject.GetComponent<ProjectileController>().projectileParameter.existTime += _buffParameter;
+                        }
                     }
                 }
             }

@@ -178,13 +178,17 @@ public class CardManageController : MonoBehaviour
         _playerCards.Add(new BulletCard(2f, player, 2, "Player's missle bullet damage increases by 2",  "Damage", increaseBulletDamageImage, missleProjectileImage));
         _playerCards.Add(new BulletCard(3f, player, 3, "Player's missle bullet damage increases by 3",  "Damage", increaseBulletDamageImage, missleProjectileImage));*/
         
-        _playerCards.Add(new BulletCard(0.1f, player, 1, "Player's freeze bullet effect zone increases by 10%",  "Effect", increaseBulletEffectImage, freezeProjectileImage));
+        /*_playerCards.Add(new BulletCard(0.1f, player, 1, "Player's freeze bullet effect zone increases by 10%",  "Effect", increaseBulletEffectImage, freezeProjectileImage));
         _playerCards.Add(new BulletCard(0.2f, player, 2, "Player's freeze bullet effect zone increases by 20%",  "Effect", increaseBulletEffectImage, freezeProjectileImage));
         _playerCards.Add(new BulletCard(0.3f, player, 3, "Player's freeze bullet effect zone increases by 30%",  "Effect", increaseBulletEffectImage, freezeProjectileImage));
         
         _playerCards.Add(new BulletCard(0.1f, player, 1, "Player's missle bullet effect zone increases by 10%",  "Effect", increaseBulletEffectImage, missleProjectileImage));
         _playerCards.Add(new BulletCard(0.2f, player, 2, "Player's missle bullet effect zone increases by 20%",  "Effect", increaseBulletEffectImage, missleProjectileImage));
-        _playerCards.Add(new BulletCard(0.3f, player, 3, "Player's missle bullet effect zone increases by 30%",  "Effect", increaseBulletEffectImage, missleProjectileImage));
+        _playerCards.Add(new BulletCard(0.3f, player, 3, "Player's missle bullet effect zone increases by 30%",  "Effect", increaseBulletEffectImage, missleProjectileImage));*/
+        
+        _playerCards.Add(new BulletCard(1f, player, 1, "Player's freeze bullet effect zone exist time increases by 1s",  "Time", increaseBulletEffectImage, freezeProjectileImage));
+        _playerCards.Add(new BulletCard(2f, player, 2, "Player's freeze bullet effect zone exist time increases by 2s",  "Time", increaseBulletEffectImage, freezeProjectileImage));
+        _playerCards.Add(new BulletCard(3f, player, 3, "Player's freeze bullet effect zone exist time increases by 3s",  "Time", increaseBulletEffectImage, freezeProjectileImage));
     }
     void InitialPlayerCards()
     {
@@ -349,15 +353,23 @@ public class CardManageController : MonoBehaviour
         
         _monsterCards.Add(new BulletCard(1f, wizard, 1, "Wizard's projectile damage increases by 1", "Damage", increaseBulletDamageImage, monsterProjectileImage));
         _monsterCards.Add(new BulletCard(2f, wizard, 2, "Wizard's projectile damage increases by 2", "Damage", increaseBulletDamageImage, monsterProjectileImage));
-        _monsterCards.Add(new BulletCard(3f, wizard, 3, "Wizard's projectile damage increases by 3", "Damage", increaseBulletDamageImage, monsterProjectileImage));*/
+        _monsterCards.Add(new BulletCard(3f, wizard, 3, "Wizard's projectile damage increases by 3", "Damage", increaseBulletDamageImage, monsterProjectileImage));
         
         _monsterCards.Add(new BulletCard(0.1f, demon, 1, "Demon's projectile effect zone increases by 10%", "Effect", increaseBulletEffectImage, demonProjectileImage));
         _monsterCards.Add(new BulletCard(0.2f, demon, 2, "Demon's projectile effect zone increases by 20%", "Effect", increaseBulletEffectImage, demonProjectileImage));
         _monsterCards.Add(new BulletCard(0.3f, demon, 3, "Demon's projectile effect zone increases by 30%", "Effect", increaseBulletEffectImage, demonProjectileImage));
         
-        _monsterCards.Add(new BulletCard(0.1f, resurrector, 1, "Altar's effect zone increases by 10%", "Effect", increaseBulletEffectImage, resurrectorImage));
-        _monsterCards.Add(new BulletCard(0.2f, resurrector, 2, "Altar's effect zone increases by 20%", "Effect", increaseBulletEffectImage, resurrectorImage));
-        _monsterCards.Add(new BulletCard(0.3f, resurrector, 3, "Altar's effect zone increases by 30%", "Effect", increaseBulletEffectImage, resurrectorImage));
+        _monsterCards.Add(new BulletCard(0.05f, resurrector, 1, "Altar's effect zone increases by 5%", "Effect", increaseBulletEffectImage, resurrectorImage));
+        _monsterCards.Add(new BulletCard(0.1f, resurrector, 2, "Altar's effect zone increases by 10%", "Effect", increaseBulletEffectImage, resurrectorImage));
+        _monsterCards.Add(new BulletCard(0.15f, resurrector, 3, "Altar's effect zone increases by 15%", "Effect", increaseBulletEffectImage, resurrectorImage));*/
+        
+        _monsterCards.Add(new BulletCard(1f, demon, 1, "Demon's projectile effect zone exist time increases by 1s", "Time", increaseBulletEffectImage, demonProjectileImage));
+        _monsterCards.Add(new BulletCard(2f, demon, 2, "Demon's projectile effect zone exist time increases by 2s", "Time", increaseBulletEffectImage, demonProjectileImage));
+        _monsterCards.Add(new BulletCard(3f, demon, 3, "Demon's projectile effect zone exist time increases by 3s", "Time", increaseBulletEffectImage, demonProjectileImage));
+        
+        _monsterCards.Add(new BulletCard(0.5f, resurrector, 1, "Altar's effect zone exist time increases by 0.5s", "Time", increaseBulletEffectImage, resurrectorImage));
+        _monsterCards.Add(new BulletCard(1f, resurrector, 2, "Altar's effect zone exist time increases by 1s", "Time", increaseBulletEffectImage, resurrectorImage));
+        _monsterCards.Add(new BulletCard(1.5f, resurrector, 3, "Altar's effect zone exist time increases by 1.5s", "Time", increaseBulletEffectImage, resurrectorImage));
     }
     void InitialMonsterCards()
     {

@@ -109,7 +109,6 @@ public class PlayerController : MonoBehaviour
         projectileList[1].gameObject.GetComponent<ProjectileController>().projectileParameter.effectOnEnd.transform.GetChild(0).localScale = new Vector3(1, 0.75f, 0.75f);
         projectileList[2].gameObject.GetComponent<ProjectileController>().projectileParameter.effectOnEnd.transform.localScale = new Vector3(6, 6, 1);
         projectileList[2].gameObject.GetComponent<ProjectileController>().projectileParameter.collisionParticle.transform.localScale = new Vector3(1, 1, 1);
-        projectileList[1].gameObject.GetComponent<ProjectileController>().projectileParameter.effectOnEnd.gameObject.GetComponent<ProjectileController>().projectileParameter.existTime = 2;
     }
 
     private void Update()
