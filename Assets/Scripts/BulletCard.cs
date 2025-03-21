@@ -73,7 +73,14 @@ public class BulletCard : Card
 
                     if (Type == "Damage")
                     {
-                        Target.gameObject.GetComponent<MonsterController>().monsterParameter.projectileDamage += (int)_buffParameter;
+                        if (Target.gameObject.GetComponent<MonsterController>().monsterParameter.isMelee)
+                        {
+                            Target.gameObject.GetComponent<MonsterController>().monsterParameter.hitDamage += (int)_buffParameter;
+                        }
+                        else
+                        {
+                            Target.gameObject.GetComponent<MonsterController>().monsterParameter.projectileDamage += (int)_buffParameter;   
+                        }
                     }
 
                     if (Type == "Effect")

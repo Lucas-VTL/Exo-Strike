@@ -45,12 +45,22 @@ public class SystemController : MonoBehaviour
         {
             parameter.ResetData();
         }
-            
-        cinemachineCamera.gameObject.GetComponent<CinemachineCamera>().Lens.OrthographicSize = 9;
-        cinemachineCamera.gameObject.GetComponent<CinemachineConfiner2D>().InvalidateLensCache();
-            
-        demonProjectileEffect.transform.localScale = new Vector3(1, 1, 1);
-        altarEffect.transform.localScale = new Vector3(1, 1, 1);
+
+        if (cinemachineCamera != null)
+        {
+            cinemachineCamera.gameObject.GetComponent<CinemachineCamera>().Lens.OrthographicSize = 9;
+            cinemachineCamera.gameObject.GetComponent<CinemachineConfiner2D>().InvalidateLensCache();   
+        }
+
+        if (demonProjectileEffect != null)
+        {
+            demonProjectileEffect.transform.localScale = new Vector3(1, 1, 1);   
+        }
+
+        if (altarEffect != null)
+        {
+            altarEffect.transform.localScale = new Vector3(1, 1, 1);   
+        }
         
         if (sceneName.Length > 0)
         {
